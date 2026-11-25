@@ -42,7 +42,7 @@ export const ParticleHero = () => (
 
       <p
         className="absolute right-5 top-[47.7%] -translate-y-1/2 select-none whitespace-nowrap text-right font-display font-semibold uppercase leading-[0.85] tracking-[-0.04em] text-neutral-950 md:right-8"
-        style={{ fontSize: "clamp(2.75rem, min(14vw, 24vh), 16rem)" }}
+        style={{ fontSize: "clamp(2.6rem, min(13.3vw, 22.8vh), 15.2rem)" }}
       >
         PORTFOLIO
       </p>
