@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArchiveStudy } from "@/components/home/ArchiveStudy";
+import { ParticleHero } from "@/components/home/ParticleHero";
 import { SectionHeading } from "@/components/home/SectionHeading";
-import { VideoHero } from "@/components/home/VideoHero";
 
 const screenings = [
   { date: "04.26", place: "Berlin / DE", title: "Synthetic Landscapes" },
@@ -53,7 +53,7 @@ const Reveal = ({
 
 const Index = () => (
   <main className="bg-background text-foreground">
-    <VideoHero />
+    <ParticleHero />
 
     <div className="scanline-field h-20 border-b border-border" aria-hidden="true" />
 
