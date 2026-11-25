@@ -10,7 +10,7 @@ const navItems = [
 export const ParticleHero = () => (
   <section
     className="relative h-[100svh] w-full overflow-hidden bg-white text-neutral-950"
-    aria-label="Interactive particle study: a circular cloud of black particles that rotates with the pointer"
+    aria-label="Interactive particle study: an open ring of black particles with an empty centre that rotates with the pointer"
   >
     <ParticleField className="absolute inset-0 h-full w-full cursor-crosshair" />
 

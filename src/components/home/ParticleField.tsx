@@ -10,30 +10,31 @@ type Particle = {
 };
 
 const TAU = Math.PI * 2;
+const HOLE_RADIUS = 0.5;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
 /**
- * A filled circular cloud: most points cluster near the middle, the rim is
- * sparse, and the depth spread reads as a shallow cylinder once rotated.
+ * An open ring: the centre stays empty, points concentrate just outside the
+ * hole and thin outwards, and the depth spread reads as a shallow cylinder
+ * once rotated.
  */
 const createParticles = (count: number): Particle[] => {
   const particles: Particle[] = [];
 
   for (let index = 0; index < count; index += 1) {
-    const isRim = index % 12 === 0;
-    const radius = isRim
-      ? 0.86 + Math.random() * 0.14
-      : Math.pow(Math.random(), 1.85);
+    const radius =
+      HOLE_RADIUS +
+      (1 - HOLE_RADIUS) * Math.pow(Math.random(), 1.55);
     const angle = Math.random() * TAU;
 
     particles.push({
       x: Math.cos(angle) * radius,
       y: Math.sin(angle) * radius,
-      z: (Math.random() * 2 - 1) * 0.72,
-      size: isRim ? 0.5 + Math.random() * 0.6 : 0.65 + Math.random() * 1.05,
-      alpha: isRim ? 0.25 + Math.random() * 0.3 : 0.38 + Math.random() * 0.5,
+      z: (Math.random() * 2 - 1) * 0.55,
+      size: 0.65 + Math.random() * 1.05,
+      alpha: 0.34 + Math.random() * 0.5,
     });
   }
 
