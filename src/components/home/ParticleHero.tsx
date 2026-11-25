@@ -40,6 +40,13 @@ export const ParticleHero = () => (
 
       <div className="flex-1" />
 
+      <p
+        className="absolute left-1/2 top-[47.7%] -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display font-semibold uppercase leading-none tracking-[-0.03em] text-neutral-950"
+        style={{ fontSize: "clamp(1.5rem, min(3.8vw, 5.5vh), 3.2rem)" }}
+      >
+        PORTFOLIO
+      </p>
+
       <div className="flex flex-col gap-6 border-t border-black/20 bg-white pt-5 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">
