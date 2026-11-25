@@ -11,15 +11,15 @@ type Particle = {
 
 const TAU = Math.PI * 2;
 const HOLE_RADIUS = 0.5;
-const DEPTH = 0.62;
+const DEPTH = 2.4;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
 /**
- * A thin, open ring receding to its centre: the dense inner edge sits far
- * from the viewer, the sparse outer edge sits close, and the centre stays
- * empty. The whole form reads as a single sheet rather than a solid volume.
+ * A thin, open ring receding deep into the screen: the dense inner edge sits
+ * far from the viewer, the sparse outer edge sits close, and the centre stays
+ * empty. The whole form reads as a single sheet stretched along its depth.
  */
 const createParticles = (count: number): Particle[] => {
   const particles: Particle[] = [];
@@ -27,15 +27,15 @@ const createParticles = (count: number): Particle[] => {
   for (let index = 0; index < count; index += 1) {
     const radius =
       HOLE_RADIUS +
-      (1 - HOLE_RADIUS) * Math.pow(Math.random(), 1.55);
+      (1 - HOLE_RADIUS) * Math.pow(Math.random(), 1.35);
     const angle = Math.random() * TAU;
     const spread = (radius - HOLE_RADIUS) / (1 - HOLE_RADIUS);
 
     particles.push({
       x: Math.cos(angle) * radius,
       y: Math.sin(angle) * radius,
-      z: -DEPTH + DEPTH * 2 * spread + (Math.random() - 0.5) * 0.045,
-      size: 0.65 + Math.random() * 1.05,
+      z: -DEPTH * (1 - spread) + (Math.random() - 0.5) * 0.06,
+      size: 0.7 + Math.random() * 1.3,
       alpha: 0.34 + Math.random() * 0.5,
     });
   }
@@ -74,8 +74,8 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       context.clearRect(0, 0, width, height);
       if (width === 0 || height === 0) return;
 
-      const focal = 3.4;
-      const scale = Math.min(width * 0.42, height * 0.34);
+      const focal = 4.2;
+      const scale = Math.min(width * 0.38, height * 0.34);
       const centerX = width / 2;
       const centerY = height * 0.47;
       const cosY = Math.cos(pointer.y);
@@ -93,8 +93,8 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
         const perspective = focal / (focal - z2 * 0.9);
 
         context.globalAlpha = clamp(
-          particle.alpha * (0.8 + (perspective - 1) * 0.7),
-          0.16,
+          particle.alpha * (0.92 + (perspective - 1) * 0.55),
+          0.14,
           0.95,
         );
         context.beginPath();
@@ -156,7 +156,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       canvas.style.height = `${height}px`;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = width < 560 ? 850 : width < 1000 ? 1500 : 2100;
+      const count = width < 560 ? 1500 : width < 1000 ? 2600 : 4000;
       if (particles.length !== count) particles = createParticles(count);
 
       draw();
