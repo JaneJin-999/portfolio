@@ -17,9 +17,9 @@ const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
 /**
- * A thin, open ring receding deep into the screen: the dense inner edge sits
- * far from the viewer, the sparse outer edge sits close, and the centre stays
- * empty. The whole form reads as a single sheet stretched along its depth.
+ * An open ring receding deep into the screen: the dense inner edge sits far
+ * from the viewer, the sparse outer edge sits close, and the centre stays
+ * empty. Irregular depth offsets give the sheet a scattered, uneven volume.
  */
 const createParticles = (count: number): Particle[] => {
   const particles: Particle[] = [];
@@ -31,10 +31,21 @@ const createParticles = (count: number): Particle[] => {
     const angle = Math.random() * TAU;
     const spread = (radius - HOLE_RADIUS) / (1 - HOLE_RADIUS);
 
+    // Low-frequency lobes make the sheet's thickness uneven around the ring.
+    const irregularity =
+      Math.sin(angle * 2.3 + 1.1) * 0.5 +
+      Math.sin(angle * 5.9 + radius * 7.7) * 0.3 +
+      Math.sin(angle * 11.7 - radius * 4.3) * 0.2;
+    const thickness = 0.22 + 0.78 * (0.5 + 0.5 * irregularity);
+    const depthJitter = (Math.random() + Math.random() - 1) * thickness;
+
+    // A few particles detach from the sheet and drift deeper into the void.
+    const stray = Math.random() < 0.06 ? -Math.random() * 1.8 : 0;
+
     particles.push({
       x: Math.cos(angle) * radius,
       y: Math.sin(angle) * radius,
-      z: -DEPTH * (1 - spread) + (Math.random() - 0.5) * 0.06,
+      z: -DEPTH * (1 - spread) + depthJitter + stray,
       size: 0.5 + Math.random() * 0.8,
       alpha: 0.45 + Math.random() * 0.5,
     });
