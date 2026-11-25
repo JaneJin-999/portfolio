@@ -10,7 +10,7 @@ type Particle = {
 };
 
 const TAU = Math.PI * 2;
-const HOLE_RADIUS = 0.5;
+const HOLE_RADIUS = 0.68;
 const DEPTH = 2.4;
 
 const clamp = (value: number, min: number, max: number) =>
@@ -35,8 +35,8 @@ const createParticles = (count: number): Particle[] => {
       x: Math.cos(angle) * radius,
       y: Math.sin(angle) * radius,
       z: -DEPTH * (1 - spread) + (Math.random() - 0.5) * 0.06,
-      size: 0.7 + Math.random() * 1.3,
-      alpha: 0.34 + Math.random() * 0.5,
+      size: 0.5 + Math.random() * 0.8,
+      alpha: 0.45 + Math.random() * 0.5,
     });
   }
 
@@ -156,7 +156,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       canvas.style.height = `${height}px`;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = width < 560 ? 1500 : width < 1000 ? 2600 : 4000;
+      const count = width < 560 ? 1800 : width < 1000 ? 3000 : 5000;
       if (particles.length !== count) particles = createParticles(count);
 
       draw();
