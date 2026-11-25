@@ -293,7 +293,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
         1,
       );
 
-      target.y = normalizedX * 0.7;
+      target.y = normalizedX * -0.7;
       target.x = normalizedY * 0.45;
       start();
     };
