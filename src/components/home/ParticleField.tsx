@@ -12,6 +12,7 @@ type Particle = {
 const TAU = Math.PI * 2;
 const HOLE_RADIUS = 0.68;
 const DEPTH = 2.4;
+const FOCAL = 4.2;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -80,30 +81,21 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
     let frame = 0;
     let lastTime = 0;
     let inView = true;
-    let dustLayer: HTMLCanvasElement | null = null;
+    let dustParticles: Particle[] = [];
 
     const getRingScale = () =>
       Math.min(width * 0.44, Math.max(0, height - 170) * 0.48);
 
     /**
-     * Sparse dust that fills the empty panel corners. It is rendered once to
-     * an offscreen layer, kept clear of the ring's dense band and the centre.
+     * Sparse dust that fills the empty panel corners. It lives in the same
+     * 3D space as the ring, so it follows the pointer rotation; positions are
+     * pre-compensated so the corners are covered at rest.
      */
-    const createDustLayer = () => {
-      const layer = document.createElement("canvas");
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      layer.width = Math.round(width * dpr);
-      layer.height = Math.round(height * dpr);
-
-      const layerContext = layer.getContext("2d");
-      if (!layerContext) return null;
-
-      layerContext.setTransform(dpr, 0, 0, dpr, 0, 0);
-      layerContext.fillStyle = "#111111";
-
+    const createDustParticles = (count: number) => {
+      const scale = getRingScale();
       const centerX = width / 2;
       const centerY = height * 0.477;
-      const clearance = getRingScale() * 0.86;
+      const clearance = scale * 0.86;
       const clearanceSq = clearance * clearance;
 
       const topInset = width >= 768 ? 88 : 76;
@@ -114,48 +106,44 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       const left = sideInset;
       const right = Math.max(left + 1, width - sideInset);
 
-      const count = width < 560 ? 450 : width < 1000 ? 1000 : 2200;
+      const dust: Particle[] = [];
       const maxAttempts = count * 10;
 
-      let placed = 0;
       let attempts = 0;
 
-      while (placed < count && attempts < maxAttempts) {
+      while (dust.length < count && attempts < maxAttempts) {
         attempts += 1;
 
-        const x = left + Math.random() * (right - left);
-        const y = top + Math.random() * (bottom - top);
-        const dx = x - centerX;
-        const dy = y - centerY;
+        const screenX = left + Math.random() * (right - left);
+        const screenY = top + Math.random() * (bottom - top);
+        const offsetX = screenX - centerX;
+        const offsetY = screenY - centerY;
 
-        if (dx * dx + dy * dy < clearanceSq) continue;
+        if (offsetX * offsetX + offsetY * offsetY < clearanceSq) continue;
 
+        const z = (Math.random() - 0.7) * 0.9;
+        const restPerspective = FOCAL / (FOCAL - z * 0.9);
         const isLarge = Math.random() < 0.04;
-        layerContext.globalAlpha = isLarge
-          ? 0.26 + Math.random() * 0.22
-          : 0.16 + Math.random() * 0.24;
-        layerContext.beginPath();
-        layerContext.arc(
-          x,
-          y,
-          isLarge ? 1 + Math.random() * 0.6 : 0.32 + Math.random() * 0.62,
-          0,
-          TAU,
-        );
-        layerContext.fill();
-        placed += 1;
+
+        dust.push({
+          x: offsetX / (scale * restPerspective),
+          y: offsetY / (scale * restPerspective),
+          z,
+          size: isLarge ? 1 + Math.random() * 0.6 : 0.32 + Math.random() * 0.62,
+          alpha: isLarge
+            ? 0.26 + Math.random() * 0.22
+            : 0.16 + Math.random() * 0.24,
+        });
       }
 
-      return layer;
+      return dust;
     };
 
     const draw = () => {
       context.clearRect(0, 0, width, height);
       if (width === 0 || height === 0) return;
 
-      if (dustLayer) context.drawImage(dustLayer, 0, 0, width, height);
-
-      const focal = 4.2;
+      const focal = FOCAL;
       const scale = getRingScale();
       const centerX = width / 2;
       const centerY = height * 0.477;
@@ -165,6 +153,29 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       const sinX = Math.sin(pointer.x);
 
       context.fillStyle = "#111111";
+
+      for (const particle of dustParticles) {
+        const x1 = particle.x * cosY + particle.z * sinY;
+        const z1 = particle.z * cosY - particle.x * sinY;
+        const y1 = particle.y * cosX - z1 * sinX;
+        const z2 = z1 * cosX + particle.y * sinX;
+        const perspective = focal / (focal - z2 * 0.9);
+
+        context.globalAlpha = clamp(
+          particle.alpha * (0.9 + (perspective - 1) * 0.4),
+          0.1,
+          0.5,
+        );
+        context.beginPath();
+        context.arc(
+          centerX + x1 * scale * perspective,
+          centerY + y1 * scale * perspective,
+          particle.size * perspective,
+          0,
+          TAU,
+        );
+        context.fill();
+      }
 
       for (const particle of particles) {
         const x1 = particle.x * cosY + particle.z * sinY;
@@ -239,7 +250,9 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
 
       const count = width < 560 ? 2100 : width < 1000 ? 3500 : 5800;
       if (particles.length !== count) particles = createParticles(count);
-      dustLayer = createDustLayer();
+
+      const dustCount = width < 560 ? 450 : width < 1000 ? 1000 : 2200;
+      dustParticles = createDustParticles(dustCount);
 
       draw();
     };
