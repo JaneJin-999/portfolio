@@ -32,7 +32,7 @@ export const ParticleHero = () => <section className="relative h-[100svh] w-full
 
       <div className="flex-1" />
 
-      <p className="absolute right-5 top-[47.7%] -translate-y-1/2 select-none whitespace-nowrap text-right font-display font-semibold uppercase leading-[0.85] tracking-[-0.04em] text-neutral-950 md:right-8" style={{
+      <p className="absolute right-5 top-[47.7%] -translate-y-1/2 select-none whitespace-nowrap text-right font-display font-semibold leading-[0.85] tracking-[-0.04em] text-neutral-950 md:right-8" style={{
       fontSize: "clamp(2rem, min(10.5vw, 20vh), 13rem)"
     }}>
         JIN's PORTFOLIO
