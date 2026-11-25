@@ -75,9 +75,12 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       if (width === 0 || height === 0) return;
 
       const focal = 4.2;
-      const scale = Math.min(width * 0.38, height * 0.34);
+      const scale = Math.min(
+        width * 0.44,
+        Math.max(0, height - 170) * 0.48,
+      );
       const centerX = width / 2;
-      const centerY = height * 0.47;
+      const centerY = height * 0.477;
       const cosY = Math.cos(pointer.y);
       const sinY = Math.sin(pointer.y);
       const cosX = Math.cos(pointer.x);
@@ -156,7 +159,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       canvas.style.height = `${height}px`;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = width < 560 ? 1800 : width < 1000 ? 3000 : 5000;
+      const count = width < 560 ? 2100 : width < 1000 ? 3500 : 5800;
       if (particles.length !== count) particles = createParticles(count);
 
       draw();
