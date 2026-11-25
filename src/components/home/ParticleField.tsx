@@ -11,11 +11,11 @@ type Particle = {
 
 const TAU = Math.PI * 2;
 const HOLE_RADIUS = 0.68;
-const DEPTH = 2.4;
+const DEPTH = 2.8;
 const FOCAL = 4.2;
 // Fixed viewing angle: tips the tunnel so its inner and outer rims meet at
 // the lower-left. The pointer rotation is layered on top of this base view.
-const BASE_VIEW = { x: 0.245, y: 0.245 };
+const BASE_VIEW = { x: 0.235, y: 0.235 };
 const CENTER_SHIFT = 0.055;
 // On wide screens the ring is capped by height, so without compensation its
 // left margin grows with the viewport. Shift it left by this share of the
