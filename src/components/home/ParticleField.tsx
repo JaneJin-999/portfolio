@@ -13,6 +13,9 @@ const TAU = Math.PI * 2;
 const HOLE_RADIUS = 0.68;
 const DEPTH = 2.4;
 const FOCAL = 4.2;
+// Fixed viewing angle: tips the tunnel so its inner and outer rims meet at
+// the lower-left. The pointer rotation is layered on top of this base view.
+const BASE_VIEW = { x: 0.245, y: 0.245 };
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -147,18 +150,23 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       const scale = getRingScale();
       const centerX = width / 2;
       const centerY = height * 0.477;
-      const cosY = Math.cos(pointer.y);
-      const sinY = Math.sin(pointer.y);
-      const cosX = Math.cos(pointer.x);
-      const sinX = Math.sin(pointer.x);
+      const dustCosY = Math.cos(pointer.y);
+      const dustSinY = Math.sin(pointer.y);
+      const dustCosX = Math.cos(pointer.x);
+      const dustSinX = Math.sin(pointer.x);
+
+      const cosY = Math.cos(pointer.y + BASE_VIEW.y);
+      const sinY = Math.sin(pointer.y + BASE_VIEW.y);
+      const cosX = Math.cos(pointer.x + BASE_VIEW.x);
+      const sinX = Math.sin(pointer.x + BASE_VIEW.x);
 
       context.fillStyle = "#111111";
 
       for (const particle of dustParticles) {
-        const x1 = particle.x * cosY + particle.z * sinY;
-        const z1 = particle.z * cosY - particle.x * sinY;
-        const y1 = particle.y * cosX - z1 * sinX;
-        const z2 = z1 * cosX + particle.y * sinX;
+        const x1 = particle.x * dustCosY + particle.z * dustSinY;
+        const z1 = particle.z * dustCosY - particle.x * dustSinY;
+        const y1 = particle.y * dustCosX - z1 * dustSinX;
+        const z2 = z1 * dustCosX + particle.y * dustSinX;
         const perspective = focal / (focal - z2 * 0.9);
 
         context.globalAlpha = clamp(
