@@ -16,6 +16,7 @@ const FOCAL = 4.2;
 // Fixed viewing angle: tips the tunnel so its inner and outer rims meet at
 // the lower-left. The pointer rotation is layered on top of this base view.
 const BASE_VIEW = { x: 0.245, y: 0.245 };
+const CENTER_SHIFT = 0.055;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -96,7 +97,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
      */
     const createDustParticles = (count: number) => {
       const scale = getRingScale();
-      const centerX = width / 2;
+      const centerX = width / 2 - width * CENTER_SHIFT;
       const centerY = height * 0.477;
       const clearance = scale * 0.86;
       const clearanceSq = clearance * clearance;
@@ -148,7 +149,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
 
       const focal = FOCAL;
       const scale = getRingScale();
-      const centerX = width / 2;
+      const centerX = width / 2 - width * CENTER_SHIFT;
       const centerY = height * 0.477;
       const dustCosY = Math.cos(pointer.y);
       const dustSinY = Math.sin(pointer.y);

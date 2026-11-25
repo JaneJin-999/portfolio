@@ -41,8 +41,8 @@ export const ParticleHero = () => (
       <div className="flex-1" />
 
       <p
-        className="absolute left-1/2 top-[47.7%] -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display font-semibold uppercase leading-none tracking-[-0.03em] text-neutral-950"
-        style={{ fontSize: "clamp(2rem, min(5vw, 7.5vh), 4.4rem)" }}
+        className="absolute right-5 top-[47.7%] -translate-y-1/2 select-none whitespace-nowrap text-right font-display font-semibold uppercase leading-[0.85] tracking-[-0.04em] text-neutral-950 md:right-8"
+        style={{ fontSize: "clamp(2.75rem, min(14vw, 24vh), 16rem)" }}
       >
         PORTFOLIO
       </p>
