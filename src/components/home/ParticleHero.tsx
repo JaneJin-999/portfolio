@@ -33,7 +33,7 @@ export const ParticleHero = () => (
             </a>
           ))}
         </div>
-        <span className="hidden font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-500 lg:inline">
+        <span className="hidden font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-500 sm:inline">
           001 / Particle field
         </span>
       </nav>
