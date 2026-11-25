@@ -17,6 +17,10 @@ const FOCAL = 4.2;
 // the lower-left. The pointer rotation is layered on top of this base view.
 const BASE_VIEW = { x: 0.245, y: 0.245 };
 const CENTER_SHIFT = 0.055;
+// On wide screens the ring is capped by height, so without compensation its
+// left margin grows with the viewport. Shift it left by this share of the
+// unused horizontal room to keep its placement consistent across sizes.
+const SLACK_SHIFT = 0.75;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -90,6 +94,12 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
     const getRingScale = () =>
       Math.min(width * 0.44, Math.max(0, height - 170) * 0.48);
 
+    const getRingCenterX = () => {
+      const widthScale = width * 0.44;
+      const horizontalSlack = Math.max(0, widthScale - getRingScale());
+      return width / 2 - width * CENTER_SHIFT - horizontalSlack * SLACK_SHIFT;
+    };
+
     /**
      * Sparse dust that fills the empty panel corners. It lives in the same
      * 3D space as the ring, so it follows the pointer rotation; positions are
@@ -97,7 +107,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
      */
     const createDustParticles = (count: number) => {
       const scale = getRingScale();
-      const centerX = width / 2 - width * CENTER_SHIFT;
+      const centerX = getRingCenterX();
       const centerY = height * 0.477;
       const clearance = scale * 0.86;
       const clearanceSq = clearance * clearance;
@@ -149,7 +159,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
 
       const focal = FOCAL;
       const scale = getRingScale();
-      const centerX = width / 2 - width * CENTER_SHIFT;
+      const centerX = getRingCenterX();
       const centerY = height * 0.477;
       const dustCosY = Math.cos(pointer.y);
       const dustSinY = Math.sin(pointer.y);
