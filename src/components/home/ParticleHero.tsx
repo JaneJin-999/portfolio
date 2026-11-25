@@ -35,7 +35,7 @@ export const ParticleHero = () => <section className="relative h-[100svh] w-full
       <p className="absolute right-5 top-[47.7%] -translate-y-1/2 select-none whitespace-nowrap text-right font-display font-semibold leading-[0.85] tracking-[-0.04em] text-neutral-950 md:right-8" style={{
       fontSize: "clamp(2rem, min(10.5vw, 20vh), 13rem)"
     }}>
-        JIN's PORTFOLIO
+        JIN's<br />PORTFOLIO
       </p>
 
       <div className="flex flex-col gap-6 border-t border-black/20 bg-white pt-5 md:flex-row md:items-end md:justify-between">
