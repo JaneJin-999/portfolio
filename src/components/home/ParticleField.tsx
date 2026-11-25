@@ -80,16 +80,83 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
     let frame = 0;
     let lastTime = 0;
     let inView = true;
+    let dustLayer: HTMLCanvasElement | null = null;
+
+    const getRingScale = () =>
+      Math.min(width * 0.44, Math.max(0, height - 170) * 0.48);
+
+    /**
+     * Sparse dust that fills the empty panel corners. It is rendered once to
+     * an offscreen layer, kept clear of the ring's dense band and the centre.
+     */
+    const createDustLayer = () => {
+      const layer = document.createElement("canvas");
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      layer.width = Math.round(width * dpr);
+      layer.height = Math.round(height * dpr);
+
+      const layerContext = layer.getContext("2d");
+      if (!layerContext) return null;
+
+      layerContext.setTransform(dpr, 0, 0, dpr, 0, 0);
+      layerContext.fillStyle = "#111111";
+
+      const centerX = width / 2;
+      const centerY = height * 0.477;
+      const clearance = getRingScale() * 0.86;
+      const clearanceSq = clearance * clearance;
+
+      const topInset = width >= 768 ? 88 : 76;
+      const bottomInset = width >= 768 ? 130 : 168;
+      const sideInset = Math.max(18, width * 0.022);
+      const top = topInset;
+      const bottom = Math.max(top + 1, height - bottomInset);
+      const left = sideInset;
+      const right = Math.max(left + 1, width - sideInset);
+
+      const count = width < 560 ? 450 : width < 1000 ? 1000 : 2200;
+      const maxAttempts = count * 10;
+
+      let placed = 0;
+      let attempts = 0;
+
+      while (placed < count && attempts < maxAttempts) {
+        attempts += 1;
+
+        const x = left + Math.random() * (right - left);
+        const y = top + Math.random() * (bottom - top);
+        const dx = x - centerX;
+        const dy = y - centerY;
+
+        if (dx * dx + dy * dy < clearanceSq) continue;
+
+        const isLarge = Math.random() < 0.04;
+        layerContext.globalAlpha = isLarge
+          ? 0.26 + Math.random() * 0.22
+          : 0.16 + Math.random() * 0.24;
+        layerContext.beginPath();
+        layerContext.arc(
+          x,
+          y,
+          isLarge ? 1 + Math.random() * 0.6 : 0.32 + Math.random() * 0.62,
+          0,
+          TAU,
+        );
+        layerContext.fill();
+        placed += 1;
+      }
+
+      return layer;
+    };
 
     const draw = () => {
       context.clearRect(0, 0, width, height);
       if (width === 0 || height === 0) return;
 
+      if (dustLayer) context.drawImage(dustLayer, 0, 0, width, height);
+
       const focal = 4.2;
-      const scale = Math.min(
-        width * 0.44,
-        Math.max(0, height - 170) * 0.48,
-      );
+      const scale = getRingScale();
       const centerX = width / 2;
       const centerY = height * 0.477;
       const cosY = Math.cos(pointer.y);
@@ -172,6 +239,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
 
       const count = width < 560 ? 2100 : width < 1000 ? 3500 : 5800;
       if (particles.length !== count) particles = createParticles(count);
+      dustLayer = createDustLayer();
 
       draw();
     };
