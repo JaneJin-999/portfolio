@@ -20,7 +20,7 @@ export const ParticleHero = () => (
           href="#manifesto"
           className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white"
         >
-          A/FORM
+          JINJIN
         </a>
         <div className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.16em] sm:gap-7 sm:text-xs">
           {navItems.map((item) => (
