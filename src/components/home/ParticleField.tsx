@@ -11,14 +11,15 @@ type Particle = {
 
 const TAU = Math.PI * 2;
 const HOLE_RADIUS = 0.5;
+const DEPTH = 0.62;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
 /**
- * An open ring: the centre stays empty, points concentrate just outside the
- * hole and thin outwards, and the depth spread reads as a shallow cylinder
- * once rotated.
+ * A thin, open ring receding to its centre: the dense inner edge sits far
+ * from the viewer, the sparse outer edge sits close, and the centre stays
+ * empty. The whole form reads as a single sheet rather than a solid volume.
  */
 const createParticles = (count: number): Particle[] => {
   const particles: Particle[] = [];
@@ -28,11 +29,12 @@ const createParticles = (count: number): Particle[] => {
       HOLE_RADIUS +
       (1 - HOLE_RADIUS) * Math.pow(Math.random(), 1.55);
     const angle = Math.random() * TAU;
+    const spread = (radius - HOLE_RADIUS) / (1 - HOLE_RADIUS);
 
     particles.push({
       x: Math.cos(angle) * radius,
       y: Math.sin(angle) * radius,
-      z: (Math.random() * 2 - 1) * 0.55,
+      z: -DEPTH + DEPTH * 2 * spread + (Math.random() - 0.5) * 0.045,
       size: 0.65 + Math.random() * 1.05,
       alpha: 0.34 + Math.random() * 0.5,
     });
@@ -91,8 +93,8 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
         const perspective = focal / (focal - z2 * 0.9);
 
         context.globalAlpha = clamp(
-          particle.alpha * (0.62 + (perspective - 1) * 1.7),
-          0.1,
+          particle.alpha * (0.8 + (perspective - 1) * 0.7),
+          0.16,
           0.95,
         );
         context.beginPath();
