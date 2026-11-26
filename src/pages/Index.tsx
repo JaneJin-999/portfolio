@@ -156,7 +156,9 @@ const Index = () => <main className="bg-background text-foreground">
       <div className="mx-auto max-w-[1600px]">
         <div className="grid gap-12 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent" style={{
+            fontSize: "12px"
+          }}>
               联系我
             </p>
             <p className="mt-4 font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl pt-[16px]" style={{
@@ -166,11 +168,15 @@ const Index = () => <main className="bg-background text-foreground">
             </p>
           </div>
           <div className="md:col-span-3">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
+            fontSize: "12px"
+          }}>
               电话
             </p>
             <p className="mt-3 font-display text-lg md:text-xl">17361662629</p>
-            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
+            fontSize: "12px"
+          }}>
               邮箱
             </p>
             <p className="mt-3 break-all font-display text-lg md:text-xl">
@@ -178,28 +184,32 @@ const Index = () => <main className="bg-background text-foreground">
             </p>
           </div>
           <div className="md:col-span-2">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
+            fontSize: "12px"
+          }}>
               微信
             </p>
             <img src="/wechat-qr.png" alt="微信二维码" width={720} height={720} loading="lazy" className="mt-6 block w-36 md:w-44" />
           </div>
           <div className="md:col-span-3">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
+            fontSize: "12px"
+          }}>
               导航
             </p>
             <ul className="mt-6 space-y-4 font-display text-lg md:text-xl">
               <li>
-                <a href="#manifesto" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none">
+                <a href="#manifesto" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]">
                   背景
                 </a>
               </li>
               <li>
-                <a href="#studies" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none">
+                <a href="#studies" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]">
                   作品
                 </a>
               </li>
               <li>
-                <a href="#contact" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none">
+                <a href="#contact" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]">
                   联系我
                 </a>
               </li>
