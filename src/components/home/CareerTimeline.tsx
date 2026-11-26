@@ -419,7 +419,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
             >
               <article
                 className={cn(
-                  "flex h-full min-h-[20rem] w-full flex-col rounded-2xl border bg-card/40 p-6 transition-colors duration-500 md:min-h-[23rem] md:p-7",
+                  "flex h-full min-h-[20rem] w-full flex-col border-y-[1.5px] p-6 transition-colors duration-500 md:min-h-[23rem] md:p-7",
                   active === index ? "border-accent/60" : "border-border",
                 )}
               >
@@ -429,8 +429,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                     <span>{entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}</span>
                   )}
                 </div>
-                <div className="mt-14 h-px w-full bg-border" aria-hidden="true" />
-                <h3 className="mt-5 whitespace-pre-line font-display text-xl font-medium leading-snug tracking-[-0.02em] md:text-2xl">
+                <h3 className="mt-[4.75rem] whitespace-pre-line font-display text-xl font-medium leading-snug tracking-[-0.02em] md:text-2xl">
                   {entry.organization}
                 </h3>
                 {entry.role && (
