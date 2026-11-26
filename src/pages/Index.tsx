@@ -77,14 +77,13 @@ const Index = () => <main className="bg-background text-foreground">
                 </h1>
                 <div className="mt-14 w-full border-t border-border" aria-hidden="true" />
               </div>
-              <div
-                className="ml-auto flex flex-col gap-8 pt-6 md:flex-row md:items-start"
-                style={{ width: "calc(6.475 * clamp(3.2rem, 8vw, 8.5rem))" }}
-              >
-                <p
-                  className="relative shrink-0 font-display text-2xl leading-tight text-accent md:text-4xl"
-                  style={{ left: "calc(0.05 * (clamp(3.2rem, 8vw, 8.5rem) - 2.25rem))" }}
-                >
+              <div className="ml-auto flex flex-col gap-8 pt-6 md:flex-row md:items-start" style={{
+              width: "calc(6.475 * clamp(3.2rem, 8vw, 8.5rem))"
+            }}>
+                <p className="relative shrink-0 font-display text-2xl leading-tight text-accent md:text-4xl" style={{
+                left: "calc(0.05 * (clamp(3.2rem, 8vw, 8.5rem) - 2.25rem))",
+                color: "#03B3CDFF"
+              }}>
                   关于我
                 </p>
                 <p className="min-w-0 flex-1 whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg" style={{
