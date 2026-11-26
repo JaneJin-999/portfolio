@@ -375,7 +375,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
               return (
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute top-0 h-6 rounded-full bg-accent/30"
+                  className="pointer-events-none absolute top-0 h-[5px] rounded-full bg-accent/30"
                   key={`duration-${entry.period}-${entry.organization}`}
                   style={{
                     left: `${from * 100}%`,
