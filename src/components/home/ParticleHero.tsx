@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { MoveHorizontal } from "lucide-react";
 import { HeroIntro } from "@/components/home/HeroIntro";
 import { ParticleField } from "@/components/home/ParticleField";
 
@@ -56,10 +55,6 @@ export const ParticleHero = () => {
               2027
             </h1>
           </div>
-          <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 motion-reduce:hidden">
-            <MoveHorizontal className="size-4" aria-hidden="true" />
-            Move or drag to rotate
-          </p>
         </div>
       </div>
 
