@@ -86,7 +86,7 @@ const Index = () => <main className="bg-background text-foreground">
     <section id="process" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
-          <SectionHeading eyebrow="背景" />
+          <SectionHeading eyebrow="背景" heading="我的学习与工作经历" />
         </Reveal>
         <div className="mt-16 grid border-b border-border md:grid-cols-3">
           {process.map(step => <article key={step.index} className="border-t border-border py-8 md:border-l md:px-8 md:first:border-l-0 md:first:pl-0">
@@ -105,7 +105,7 @@ const Index = () => <main className="bg-background text-foreground">
     <section id="studies" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
-          <SectionHeading eyebrow="作品" />
+          <SectionHeading eyebrow="作品" heading="我的项目" />
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-12 md:gap-6">
           <Reveal className="md:col-span-7">
