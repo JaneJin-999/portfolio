@@ -156,11 +156,11 @@ const Index = () => <main className="bg-background text-foreground">
       <div className="mx-auto max-w-[1600px]">
         <div className="grid gap-12 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4">
-            <p className="font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl">
-              JINJIN
-            </p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
               联系我
+            </p>
+            <p className="mt-4 font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl">
+              JINJIN
             </p>
           </div>
           <div className="md:col-span-3">
