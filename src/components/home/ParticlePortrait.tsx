@@ -7,7 +7,7 @@ type SourceImage = {
 };
 
 const MAX_SIZE = 1600;
-const PARTICLE_SIZE = 6.5;
+const PARTICLE_SIZE = 5.5;
 const DEFAULT_PORTRAIT_SRC = "/portrait-default.jpg";
 
 const createRandom = (seed: number) => {
