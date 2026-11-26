@@ -167,7 +167,8 @@ const Index = () => <main className="bg-background text-foreground">
               JINJIN
             </p>
           </div>
-          <div className="md:col-span-3 md:w-fit">
+          <div className="flex flex-col gap-10 md:col-span-8 md:flex-row md:items-start md:justify-end md:gap-8">
+            <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
           }}>
@@ -187,7 +188,7 @@ const Index = () => <main className="bg-background text-foreground">
               17361662629@163.com
             </p>
           </div>
-          <div className="md:col-span-2 md:w-fit">
+          <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
           }}>
@@ -195,7 +196,7 @@ const Index = () => <main className="bg-background text-foreground">
             </p>
             <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-6 block w-36 md:w-44" />
           </div>
-          <div className="md:col-span-3 md:w-fit md:justify-self-end">
+          <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
           }}>
@@ -224,6 +225,7 @@ const Index = () => <main className="bg-background text-foreground">
                 </a>
               </li>
             </ul>
+          </div>
           </div>
         </div>
       </div>
