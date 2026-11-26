@@ -46,7 +46,7 @@ const background: CareerEntry[] = [{
 }, {
   period: "2026.06",
   organization: "合肥美的电冰箱\n有限公司",
-  role: "UXI 设计（暑期实习）",
+  role: "UXI 设计",
   kind: "实习",
   range: "2026.06 – 2026.08"
 }, {
