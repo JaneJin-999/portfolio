@@ -410,7 +410,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                     <span>{entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}</span>
                   )}
                 </div>
-                <h3 className="mt-12 whitespace-pre-line font-display text-xl font-medium leading-snug tracking-[-0.02em] md:text-2xl">
+                <h3 className="mt-12 whitespace-pre-line font-display text-xl font-semibold leading-snug tracking-[-0.02em] md:text-2xl">
                   {entry.organization}
                 </h3>
                 {entry.role && (
