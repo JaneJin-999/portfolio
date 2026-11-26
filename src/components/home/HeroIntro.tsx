@@ -215,7 +215,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         const openLeft = Math.max(0, Math.min(width, dotX));
         const openWidth = Math.max(1, width - openLeft);
         const steps = 32;
-        const curvePower = 1.25;
+        const curvePower = 1.4;
 
         // Curved zipper opening: zero height at the slider, widening to the
         // right edge, with both edges bending away from the drag line.
