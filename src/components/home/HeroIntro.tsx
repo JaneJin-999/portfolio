@@ -201,24 +201,25 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       context.stroke();
 
       if (phase === "idle" && !dragging) {
+        const haloRadius = 15;
+
         context.globalAlpha = 0.2;
         context.beginPath();
-        context.arc(dotX, lineY, 15, 0, TAU);
+        context.arc(dotX, lineY, haloRadius, 0, TAU);
         context.stroke();
 
         context.globalAlpha = 0.55;
         context.font = '10px "IBM Plex Mono", ui-monospace, monospace';
 
         const label = "DRAG";
-        const textWidth = context.measureText(label).width;
         const gap = 7;
         const arrowLength = 14;
         const hintY = lineY + 36;
         const arrowY = hintY - 3.5;
-        const arrowLeft = dotX - textWidth / 2 - gap - arrowLength;
+        const arrowLeft = dotX - haloRadius;
 
-        context.textAlign = "center";
-        context.fillText(label, dotX, hintY);
+        context.textAlign = "left";
+        context.fillText(label, arrowLeft + arrowLength + gap, hintY);
 
         context.beginPath();
         context.moveTo(arrowLeft, arrowY);
