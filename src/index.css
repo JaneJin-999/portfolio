@@ -89,8 +89,8 @@
   }
 
   ::selection {
-    background: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
 }
 
