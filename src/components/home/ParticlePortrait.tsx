@@ -46,7 +46,7 @@ export const ParticlePortrait = () => {
     canvas.height = canvasHeight;
 
     context.clearRect(0, 0, canvasWidth, canvasHeight);
-    context.fillStyle = "#171717";
+    context.fillStyle = "#f2ece3";
 
     const random = createRandom(582);
     const step = PARTICLE_SIZE;
@@ -70,13 +70,12 @@ export const ParticlePortrait = () => {
             data[index + 1] * 0.7152 +
             data[index + 2] * 0.0722) /
           255;
-        const darkness = 1 - brightness;
-        if (darkness < 0.05) continue;
+        if (brightness < 0.55) continue;
 
         const radius =
           step *
-          0.55 *
-          Math.sqrt(darkness) *
+          0.5 *
+          Math.sqrt(brightness) *
           (0.82 + random() * 0.36);
 
         let drawX = padding + px;
