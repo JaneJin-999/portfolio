@@ -236,6 +236,8 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
     if (isYear) yearTicks.push({ ratio, year: month / 12 });
   }
 
+  const laneKeys = Array.from(new Set(entries.map((entry) => entry.kind)));
+
   const current = entries[active] ?? entries[0];
 
   const scrubTo = (clientX: number) => {
@@ -359,7 +361,8 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         <div className="mx-auto w-full max-w-[34rem] px-5">
           <div
             aria-hidden="true"
-            className="relative h-12 cursor-ew-resize touch-none select-none"
+            className="relative cursor-ew-resize touch-none select-none"
+            style={{ height: 44 + laneKeys.length * 7 }}
             onPointerCancel={endScrub}
             onPointerDown={startScrub}
             onPointerMove={moveScrub}
@@ -401,6 +404,26 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                 {tick.year}
               </span>
             ))}
+            {entries.map((entry) => {
+              const start = monthOf(entry.period);
+              const end = endMonthOf(entry.range) ?? start;
+              if (start === null || end === null) return null;
+              const from = clamp((start - axisStart) / axisSpan, 0, 1);
+              const to = clamp((end + 1 - axisStart) / axisSpan, 0, 1);
+              const lane = Math.max(0, laneKeys.indexOf(entry.kind));
+              return (
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute h-1 rounded-full bg-accent/30"
+                  key={`duration-${entry.period}-${entry.organization}`}
+                  style={{
+                    left: `${from * 100}%`,
+                    width: `${Math.max(0.4, (to - from) * 100)}%`,
+                    top: 44 + lane * 7,
+                  }}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="mt-3 flex items-center justify-between gap-4">
