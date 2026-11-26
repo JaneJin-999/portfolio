@@ -86,7 +86,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
       const span = Math.min(distance, 2);
 
       element.style.transformOrigin = "center bottom";
-      element.style.transform = `scale(${(1 - span * 0.03).toFixed(4)})`;
+      element.style.transform = `scale(${(1 - span * 0.02).toFixed(4)}, ${(1 - span * 0.07).toFixed(4)})`;
       element.style.opacity = String(Math.max(0.5, 1 - span * 0.16));
     });
 
@@ -419,7 +419,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
             >
               <article
                 className={cn(
-                  "flex h-full min-h-[20rem] w-full flex-col border-y-[1.5px] p-6 transition-colors duration-500 md:min-h-[23rem] md:p-7",
+                  "flex h-full min-h-[17rem] w-full flex-col border-y-[1.5px] p-6 transition-colors duration-500 md:min-h-[19rem] md:p-7",
                   active === index ? "border-accent/60" : "border-border",
                 )}
               >
