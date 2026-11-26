@@ -159,6 +159,14 @@ const Index = () => <main className="bg-background text-foreground">
           Start a signal
           <ArrowDownRight className="mb-1 size-10 shrink-0 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 md:size-20" />
         </a>
+        <img
+          src="/wechat-qr.png"
+          alt="微信二维码"
+          width={720}
+          height={720}
+          loading="lazy"
+          className="mx-auto mt-10 block w-44 md:ml-auto md:mr-0 md:w-60"
+        />
       </div>
     </section>
 
