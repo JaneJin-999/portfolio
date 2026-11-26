@@ -321,15 +321,18 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         <aside className="order-2 xl:order-1 xl:col-span-4">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
+            className="xl:h-full"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             key={active}
             transition={{ duration: 0.4, ease: [0.2, 0, 0, 1] }}
           >
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-card/40">
+            <div
+              className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-card/40 xl:aspect-auto xl:h-full xl:min-h-[26rem]"
+            >
               {current?.image ? (
                 <img
                   alt={current.imageAlt ?? current.organization}
-                  className="h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover"
                   decoding="async"
                   loading="lazy"
                   src={current.image}
@@ -341,7 +344,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                     className="pointer-events-none absolute inset-3 rounded-xl border border-foreground/20"
                   />
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                    <span className="font-display text-5xl font-semibold tracking-[-0.04em] text-foreground/15">
+                    <span className="font-display text-6xl font-semibold tracking-[-0.04em] text-foreground/15">
                       {pad(active + 1)}
                     </span>
                     <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
@@ -350,32 +353,34 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                   </div>
                 </>
               )}
-            </div>
-            <div className="mt-6">
-              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                <span className="text-accent">[{pad(active + 1)}]</span>
-                {(current?.kind || current?.note) && (
-                  <span>{current?.note ? `${current.kind} · ${current.note}` : current?.kind}</span>
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-6 pt-20">
+                <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/70">
+                  <span className="text-accent">[{pad(active + 1)}]</span>
+                  {(current?.kind || current?.note) && (
+                    <span>{current?.note ? `${current.kind} · ${current.note}` : current?.kind}</span>
+                  )}
+                </div>
+                <h3 className="mt-2 font-display text-2xl font-medium tracking-[-0.02em] text-foreground md:text-3xl">
+                  {current?.organization}
+                </h3>
+                {current?.role && (
+                  <p className="mt-1 text-sm leading-relaxed text-foreground/80">{current.role}</p>
+                )}
+                <p className="mt-2 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
+                  {current?.range}
+                </p>
+                {current?.detail && (
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {current.detail}
+                  </p>
                 )}
               </div>
-              <h3 className="mt-3 font-display text-2xl font-medium tracking-[-0.02em] md:text-3xl">
-                {current?.organization}
-              </h3>
-              {current?.role && (
-                <p className="mt-2 text-sm leading-relaxed text-foreground/80">{current.role}</p>
-              )}
-              <p className="mt-4 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
-                {current?.range}
-              </p>
-              {current?.detail && (
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{current.detail}</p>
-              )}
             </div>
           </motion.div>
         </aside>
 
         <div className="order-1 min-w-0 xl:order-2 xl:col-span-8">
-          <div className="relative flex h-[1em] items-center justify-center overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
+          <div className="relative flex h-[1em] items-center justify-start overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
             <RollingPeriod value={current?.period ?? ""} animate={!reduceMotion} />
           </div>
 
@@ -439,6 +444,8 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
               </article>
             </div>
           ))}
+        </div>
+      </div>
         </div>
       </div>
 
@@ -537,8 +544,6 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
             </button>
           </div>
           </div>
-        </div>
-      </div>
         </div>
       </div>
     </div>
