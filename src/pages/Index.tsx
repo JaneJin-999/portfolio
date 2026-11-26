@@ -162,7 +162,8 @@ const Index = () => <main className="bg-background text-foreground">
               联系我
             </p>
             <p className="mt-4 font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl pt-[16px]" style={{
-            fontSize: "72px"
+            fontSize: "96px",
+            paddingTop: "32px"
           }}>
               JINJIN
             </p>
@@ -170,57 +171,57 @@ const Index = () => <main className="bg-background text-foreground">
           <div className="flex flex-col gap-10 md:col-span-8 md:flex-row md:items-start md:justify-end md:gap-[100px]">
             <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
-            fontSize: "12px"
-          }}>
+              fontSize: "12px"
+            }}>
               电话
             </p>
             <p className="mt-3 font-display text-lg md:text-xl" style={{
-            fontSize: "16px"
-          }}>17361662629</p>
+              fontSize: "16px"
+            }}>17361662629</p>
             <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
-            fontSize: "12px"
-          }}>
+              fontSize: "12px"
+            }}>
               邮箱
             </p>
             <p className="mt-3 break-all font-display text-lg md:text-xl" style={{
-            fontSize: "16px"
-          }}>
+              fontSize: "16px"
+            }}>
               17361662629@163.com
             </p>
           </div>
           <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
-            fontSize: "12px"
-          }}>
+              fontSize: "12px"
+            }}>
               微信
             </p>
             <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-6 block w-36 md:w-44" />
           </div>
           <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
-            fontSize: "12px"
-          }}>
+              fontSize: "12px"
+            }}>
               导航
             </p>
             <ul className="mt-6 space-y-4 font-display text-lg md:text-xl">
               <li className="text-[16px]">
                 <a href="#manifesto" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
-                fontSize: "16px"
-              }}>
+                  fontSize: "16px"
+                }}>
                   背景
                 </a>
               </li>
               <li>
                 <a href="#studies" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
-                fontSize: "16px"
-              }}>
+                  fontSize: "16px"
+                }}>
                   作品
                 </a>
               </li>
               <li>
                 <a href="/" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
-                fontSize: "16px"
-              }}>
+                  fontSize: "16px"
+                }}>
                   返回首页
                 </a>
               </li>
