@@ -419,7 +419,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
             >
               <article
                 className={cn(
-                  "flex min-h-[20rem] w-full flex-col rounded-2xl border bg-card/40 p-6 transition-colors duration-500 md:min-h-[23rem] md:p-7",
+                  "flex h-full min-h-[20rem] w-full flex-col rounded-2xl border bg-card/40 p-6 transition-colors duration-500 md:min-h-[23rem] md:p-7",
                   active === index ? "border-accent/60" : "border-border",
                 )}
               >
