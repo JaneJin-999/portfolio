@@ -58,7 +58,7 @@ const Reveal = ({
 const Index = () => <main className="bg-background text-foreground">
     <ParticleHero />
 
-    <div className="scanline-field h-20 border-b border-border" aria-hidden="true" />
+    <div className="scanline-field mx-auto h-20 max-w-[1600px] border-b border-border" aria-hidden="true" />
 
     <section id="manifesto" className="scroll-mt-20 px-5 py-24 md:px-8 md:py-36">
       <div className="mx-auto max-w-[1600px]">
