@@ -82,7 +82,7 @@ const Index = () => <main className="bg-background text-foreground">
             }}>
                 <p className="relative shrink-0 font-display text-2xl leading-tight text-accent md:text-4xl font-[500]" style={{
                 left: "calc(0.05 * (clamp(3.2rem, 8vw, 8.5rem) - 2.25rem))",
-                color: "#FFFFFFFF"
+                color: "#F2EDE3FF"
               }}>
                   关于我
                 </p>
@@ -152,7 +152,9 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-neutral-950 md:px-8 md:py-32">
+    <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-neutral-950 md:px-8 md:py-32" style={{
+    backgroundColor: "#FFFFFFFF"
+  }}>
       <div className="mx-auto max-w-[1600px]">
         <div className="grid gap-12 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4">
