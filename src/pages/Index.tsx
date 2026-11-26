@@ -67,7 +67,7 @@ const Index = () => (
             </div>
             <div className="md:col-span-9">
               <h1 className="max-w-6xl font-display text-[clamp(3.2rem,8vw,8.5rem)] font-semibold uppercase leading-[0.84] tracking-[-0.075em]">
-                Motion is not decoration.
+                设计不止于表面
               </h1>
               <div className="mt-14 grid gap-8 border-t border-border pt-6 md:grid-cols-9">
                 <p className="font-display text-2xl leading-tight text-accent md:col-span-5 md:text-4xl">
