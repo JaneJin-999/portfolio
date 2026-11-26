@@ -360,10 +360,11 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
       </div>
 
       <div className="mt-8 border-t border-border pt-5">
-        <div className="mx-auto w-full max-w-[34rem] px-5">
+        <div className="flex flex-col gap-3 md:mx-auto md:w-full md:max-w-[44rem] md:flex-row md:items-center md:gap-6">
+          <div className="flex w-full justify-center px-5 md:order-2 md:min-w-0 md:flex-1 md:px-0">
           <div
             aria-hidden="true"
-            className="relative h-12 cursor-ew-resize touch-none select-none"
+            className="relative h-12 w-full cursor-ew-resize touch-none select-none"
             onPointerCancel={endScrub}
             onPointerDown={startScrub}
             onPointerMove={moveScrub}
@@ -427,12 +428,12 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
               </span>
             ))}
           </div>
-        </div>
-        <div className="mt-3 flex items-center justify-between gap-4">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+          </div>
+          <div className="flex items-center justify-between gap-4 md:contents">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground md:order-1 md:shrink-0">
             {pad(active + 1)} / {pad(entries.length)}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 md:order-3 md:shrink-0">
             <button
               aria-label="上一段经历"
               className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
@@ -451,6 +452,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
             >
               <ArrowRight className="size-4" />
             </button>
+          </div>
           </div>
         </div>
       </div>
