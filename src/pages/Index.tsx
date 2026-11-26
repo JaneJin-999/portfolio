@@ -152,10 +152,10 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="contact" className="scroll-mt-20 bg-primary px-5 py-24 text-primary-foreground md:px-8 md:py-32">
+    <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-accent md:px-8 md:py-32">
       <div className="mx-auto max-w-[1600px]">
         <p className="font-mono text-xs uppercase tracking-[0.2em]">Commissions / exhibitions / exchange</p>
-        <a href="mailto:studio@aform.art" className="group mt-12 flex items-end justify-between gap-8 border-b-2 border-primary-foreground pb-5 font-display text-[clamp(3rem,10vw,10rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground">
+        <a href="mailto:studio@aform.art" className="group mt-12 flex items-end justify-between gap-8 border-b-2 border-accent pb-5 font-display text-[clamp(3rem,10vw,10rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
           Start a signal
           <ArrowDownRight className="mb-1 size-10 shrink-0 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 md:size-20" />
         </a>
@@ -164,11 +164,8 @@ const Index = () => <main className="bg-background text-foreground">
 
     <footer className="technical-grid px-5 py-12 md:px-8 md:py-16">
       <div className="mx-auto grid max-w-[1600px] gap-10 border-t border-border pt-6 md:grid-cols-12">
-        <p className="font-display text-xl font-semibold uppercase tracking-[-0.04em] md:col-span-4">A/FORM — Motion Archive</p>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground md:col-span-4">Independent experiments in image, motion and temporal perception.</p>
-        <div className="font-mono text-[11px] uppercase leading-6 tracking-[0.15em] text-muted-foreground md:col-span-4 md:text-right">
-          <p>Archived 2026–∞</p>
-          <a className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none" href="mailto:studio@aform.art">studio@aform.art</a>
+        <div className="font-mono text-[11px] uppercase leading-6 tracking-[0.15em] text-muted-foreground md:col-span-4 md:col-start-9 md:text-right">
+          <p>Created by JINJIN</p>
         </div>
       </div>
     </footer>
