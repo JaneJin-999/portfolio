@@ -360,11 +360,11 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
       </div>
 
       <div className="mt-8 border-t border-border pt-5">
-        <div className="flex flex-col gap-3 md:mx-auto md:w-full md:max-w-[44rem] md:flex-row md:items-center md:gap-6">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
           <div className="flex w-full justify-center px-5 md:order-2 md:min-w-0 md:flex-1 md:px-0">
           <div
             aria-hidden="true"
-            className="relative h-12 w-full cursor-ew-resize touch-none select-none"
+            className="relative h-12 w-full cursor-ew-resize touch-none select-none md:max-w-[44rem]"
             onPointerCancel={endScrub}
             onPointerDown={startScrub}
             onPointerMove={moveScrub}
@@ -430,7 +430,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
           </div>
           </div>
           <div className="flex items-center justify-between gap-4 md:contents">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground md:order-1 md:shrink-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground md:order-1 md:shrink-0 md:self-start md:pt-[26px]">
             {pad(active + 1)} / {pad(entries.length)}
           </p>
           <div className="flex items-center gap-2 md:order-3 md:shrink-0">
