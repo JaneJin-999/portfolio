@@ -40,9 +40,8 @@ export const ParticlePortrait = () => {
     canvas.width = width;
     canvas.height = height;
 
-    context.fillStyle = "#ededeb";
-    context.fillRect(0, 0, width, height);
-    context.fillStyle = "#171717";
+    context.clearRect(0, 0, width, height);
+    context.fillStyle = "#f2ece3";
 
     const random = createRandom(582);
     const step = PARTICLE_SIZE;
@@ -63,14 +62,12 @@ export const ParticlePortrait = () => {
             data[index + 1] * 0.7152 +
             data[index + 2] * 0.0722) /
           255;
-        const darkness = 1 - brightness;
-
-        if (darkness < 0.025) continue;
+        if (brightness < 0.55) continue;
 
         const radius =
           step *
-          0.61 *
-          Math.sqrt(darkness) *
+          0.5 *
+          Math.sqrt(brightness) *
           (0.82 + random() * 0.36);
 
         context.beginPath();
@@ -135,11 +132,11 @@ export const ParticlePortrait = () => {
           ref={canvasRef}
           role="img"
           aria-label="Particle portrait"
-          className="block h-auto w-full border border-border bg-[#ededeb]"
+          className="block h-auto w-full border border-border"
         />
       ) : (
         <div
-          className="aspect-square w-full border border-border bg-[#ededeb]"
+          className="aspect-square w-full border border-border bg-card/20"
           aria-hidden="true"
         />
       )}
