@@ -37,14 +37,21 @@ export const ParticlePortrait = () => {
     if (!context) return;
 
     const { width, height, data } = source;
-    canvas.width = width;
-    canvas.height = height;
+    const padding = Math.round(Math.max(width, height) * 0.06);
+    const canvasWidth = width + padding * 2;
+    const canvasHeight = height + padding * 2;
 
-    context.clearRect(0, 0, width, height);
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
     context.fillStyle = "#f2ece3";
 
     const random = createRandom(582);
     const step = PARTICLE_SIZE;
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const edgeBand = Math.max(70, Math.min(width, height) * 0.085);
 
     for (let y = step / 2; y < height; y += step) {
       for (let x = step / 2; x < width; x += step) {
@@ -70,11 +77,32 @@ export const ParticlePortrait = () => {
           Math.sqrt(brightness) *
           (0.82 + random() * 0.36);
 
+        let drawX = padding + px;
+        let drawY = padding + py;
+        const edgeDistance = Math.min(px, py, width - px, height - py);
+
+        context.globalAlpha = 1;
+
+        if (edgeDistance < edgeBand) {
+          const bleed = 1 - edgeDistance / edgeBand;
+          const directionX = px - centerX;
+          const directionY = py - centerY;
+          const directionLength =
+            Math.hypot(directionX, directionY) || 1;
+          const offset = bleed * padding * 0.9 * (0.4 + random() * 0.6);
+
+          drawX += (directionX / directionLength) * offset;
+          drawY += (directionY / directionLength) * offset;
+          context.globalAlpha = 1 - bleed * 0.55;
+        }
+
         context.beginPath();
-        context.arc(px, py, radius, 0, Math.PI * 2);
+        context.arc(drawX, drawY, radius, 0, Math.PI * 2);
         context.fill();
       }
     }
+
+    context.globalAlpha = 1;
   }, []);
 
   const processImage = useCallback((image: HTMLImageElement) => {
@@ -132,11 +160,11 @@ export const ParticlePortrait = () => {
           ref={canvasRef}
           role="img"
           aria-label="Particle portrait"
-          className="block h-auto w-full border border-border"
+          className="block h-auto w-full"
         />
       ) : (
         <div
-          className="aspect-square w-full border border-border bg-card/20"
+          className="aspect-square w-full"
           aria-hidden="true"
         />
       )}
