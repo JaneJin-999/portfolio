@@ -80,6 +80,11 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
     let manualStartX = 0;
     let dotX = 0;
     let initialized = false;
+    let reveal = 0;
+    let closing = false;
+    let closeStart = 0;
+    let closeFrom = 0;
+    let closeCallback: (() => void) | null = null;
 
     let phase: "idle" | "auto" | "sequence" = "idle";
     let dragging = false;
@@ -188,8 +193,43 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       wrapper.style.cursor = "default";
     };
 
+    const startClose = (callback: () => void) => {
+      if (reveal <= 0.001) {
+        reveal = 0;
+        callback();
+        return;
+      }
+
+      closing = true;
+      closeStart = performance.now();
+      closeFrom = reveal;
+      closeCallback = callback;
+    };
+
+    const drawMask = () => {
+      context.fillStyle = "#000000";
+      context.fillRect(0, 0, width, height);
+
+      if (reveal > 0.001) {
+        const tapeHalf = 12;
+        const maxGap = Math.min(140, Math.max(64, height * 0.11));
+        const gap = reveal * maxGap;
+        const openLeft = Math.max(0, Math.min(width, dotX));
+
+        context.clearRect(
+          openLeft,
+          lineY - tapeHalf - gap,
+          width - openLeft,
+          gap,
+        );
+        context.clearRect(openLeft, lineY + tapeHalf, width - openLeft, gap);
+      }
+
+      context.fillStyle = "#ffffff";
+    };
+
     const drawIdle = () => {
-      context.clearRect(0, 0, width, height);
+      drawMask();
       context.strokeStyle = "#ffffff";
       context.fillStyle = "#ffffff";
       context.lineWidth = 1.2;
@@ -200,7 +240,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       context.lineTo(Math.max(farX, dotX), lineY);
       context.stroke();
 
-      if (phase === "idle" && !dragging) {
+      if (phase === "idle" && !dragging && !closing && reveal < 0.02) {
         const haloRadius = 15;
 
         context.globalAlpha = 0.2;
@@ -238,7 +278,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
     };
 
     const drawSequence = (time: number) => {
-      context.clearRect(0, 0, width, height);
+      drawMask();
       context.strokeStyle = "#ffffff";
       context.fillStyle = "#ffffff";
       context.lineWidth = 1.2;
@@ -329,6 +369,22 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
     const tick = (now: number) => {
       if (finished) return;
 
+      if (closing) {
+        const t = clamp01((now - closeStart) / 260);
+        reveal = closeFrom * (1 - easeOutCubic(t));
+
+        if (t >= 1) {
+          reveal = 0;
+          closing = false;
+          const callback = closeCallback;
+          closeCallback = null;
+          if (callback) callback();
+        }
+      } else if (phase === "idle" && dragging) {
+        const span = Math.max(1, manualStartX - farX);
+        reveal = easeOutCubic(clamp01((manualStartX - dotX) / span));
+      }
+
       if (phase === "auto") {
         const t = clamp01((now - autoStart) / (AUTO_DRAW_DURATION * 1000));
         dotX = autoFromX + (farX - autoFromX) * easeInOutCubic(t);
@@ -363,7 +419,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
     };
 
     const handlePointerDown = (event: PointerEvent) => {
-      if (finished || phase !== "idle") return;
+      if (finished || closing || phase !== "idle") return;
       if (!hitDot(event)) return;
 
       event.preventDefault();
@@ -405,9 +461,9 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       wrapper.style.cursor = "default";
 
       if (dotX <= farX + STOP_TOLERANCE) {
-        triggerSequence(performance.now());
+        startClose(() => triggerSequence(performance.now()));
       } else {
-        armIdle();
+        startClose(() => armIdle());
       }
     };
 
@@ -416,6 +472,8 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
     };
 
     measure();
+    drawIdle();
+    wrapper.style.backgroundColor = "transparent";
     armIdle();
     frame = window.requestAnimationFrame(tick);
 
