@@ -156,7 +156,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       farRadius = geometry.farRadius;
       lineY = heroRect.top + (heroRect.height || height) * 0.5;
 
-      const startInset = Math.max(52, Math.min(84, width * 0.055));
+      const startInset = width * 0.15;
       manualStartX = width - startInset;
 
       if (!initialized) {
@@ -269,13 +269,13 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         context.stroke();
 
         context.globalAlpha = 0.55;
-        context.font = '10px "IBM Plex Mono", ui-monospace, monospace';
+        context.font = '12px "IBM Plex Mono", ui-monospace, monospace';
 
         const label = "DRAG";
-        const gap = 7;
-        const arrowLength = 14;
-        const hintY = lineY + 36;
-        const arrowY = hintY - 3.5;
+        const gap = 8;
+        const arrowLength = 17;
+        const hintY = lineY + 38;
+        const arrowY = hintY - 4;
         const arrowLeft = dotX - arrowLength / 2;
 
         context.textAlign = "left";
@@ -284,9 +284,9 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         context.beginPath();
         context.moveTo(arrowLeft, arrowY);
         context.lineTo(arrowLeft + arrowLength, arrowY);
-        context.moveTo(arrowLeft + 4, arrowY - 4);
+        context.moveTo(arrowLeft + 5, arrowY - 5);
         context.lineTo(arrowLeft, arrowY);
-        context.lineTo(arrowLeft + 4, arrowY + 4);
+        context.lineTo(arrowLeft + 5, arrowY + 5);
         context.stroke();
       }
 
