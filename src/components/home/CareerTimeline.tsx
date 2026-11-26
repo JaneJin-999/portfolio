@@ -50,6 +50,7 @@ const RollingPeriod = ({ value, animate }: { value: string; animate: boolean }) 
 export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
   const reduceMotion = useReducedMotion() ?? false;
   const reelRef = useRef<HTMLDivElement | null>(null);
+  const scaleRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const dragRef = useRef<{ id: number; x: number; left: number; moved: boolean } | null>(null);
   const suppressClickRef = useRef(false);
@@ -198,7 +199,44 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
     }
   };
 
+  const scrubTo = useCallback((clientX: number) => {
+    const reel = reelRef.current;
+    const scale = scaleRef.current;
+    if (!reel || !scale) return;
+    const rect = scale.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
+    reel.scrollLeft = ratio * (reel.scrollWidth - reel.clientWidth);
+  }, []);
+
+  const startScrub = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const reel = reelRef.current;
+    if (!reel) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    reel.style.scrollSnapType = "none";
+    scrubTo(event.clientX);
+  };
+
+  const moveScrub = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+    scrubTo(event.clientX);
+  };
+
+  const endScrub = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const reel = reelRef.current;
+    if (!reel) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    reel.style.scrollSnapType = "x mandatory";
+    measure();
+  };
+
   const current = entries[active] ?? entries[0];
+  const gaps = Math.max(1, entries.length - 1);
+  const ticksPerGap = 4;
+  const tickCount = gaps * ticksPerGap;
 
   return (
     <div className="mt-12 md:mt-16">
@@ -262,32 +300,81 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         </div>
       </div>
 
-      <div className="mt-8 flex items-center justify-between gap-4 border-t border-border pt-5">
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-          {pad(active + 1)} / {pad(entries.length)}
-        </p>
-        <p className="hidden font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground sm:block">
-          拖拽浏览 · ← →
-        </p>
-        <div className="flex items-center gap-2">
-          <button
-            aria-label="上一段经历"
-            className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-            disabled={active === 0}
-            onClick={() => goTo(active - 1)}
-            type="button"
+      <div className="mt-8 border-t border-border pt-5">
+        <div className="mx-auto w-full max-w-[34rem] px-3">
+          <div
+            aria-hidden="true"
+            className="relative h-12 cursor-ew-resize touch-none select-none"
+            onPointerCancel={endScrub}
+            onPointerDown={startScrub}
+            onPointerMove={moveScrub}
+            onPointerUp={endScrub}
+            ref={scaleRef}
           >
-            <ArrowLeft className="size-4" />
-          </button>
-          <button
-            aria-label="下一段经历"
-            className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-            disabled={active === entries.length - 1}
-            onClick={() => goTo(active + 1)}
-            type="button"
-          >
-            <ArrowRight className="size-4" />
-          </button>
+            {Array.from({ length: tickCount + 1 }, (_, index) => {
+              const isMajor = index % ticksPerGap === 0;
+              const itemIndex = index / ticksPerGap;
+              const isActive = isMajor && Math.round(itemIndex) === active;
+              return (
+                <span
+                  className={cn(
+                    "pointer-events-none absolute top-0 w-[2px] -translate-x-1/2 rounded-full transition-all duration-300",
+                    isActive ? "bg-accent" : isMajor ? "bg-foreground/35" : "bg-foreground/20",
+                  )}
+                  key={index}
+                  style={{
+                    left: `${(index / tickCount) * 100}%`,
+                    height: isActive ? 24 : isMajor ? 14 : 7,
+                  }}
+                />
+              );
+            })}
+            {entries.map((entry, index) => {
+              const left = entries.length > 1 ? (index / (entries.length - 1)) * 100 : 50;
+              return (
+                <span
+                  className={cn(
+                    "pointer-events-none absolute top-[26px] font-mono text-[10px] tracking-[0.08em] transition-colors duration-300",
+                    index === 0
+                      ? "translate-x-0"
+                      : index === entries.length - 1
+                        ? "-translate-x-full"
+                        : "-translate-x-1/2",
+                    active === index ? "text-accent" : "text-muted-foreground",
+                  )}
+                  key={`${entry.period}-${entry.organization}`}
+                  style={{ left: `${left}%` }}
+                >
+                  {entry.period}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+        <div className="mt-3 flex items-center justify-between gap-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+            {pad(active + 1)} / {pad(entries.length)}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              aria-label="上一段经历"
+              className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
+              disabled={active === 0}
+              onClick={() => goTo(active - 1)}
+              type="button"
+            >
+              <ArrowLeft className="size-4" />
+            </button>
+            <button
+              aria-label="下一段经历"
+              className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
+              disabled={active === entries.length - 1}
+              onClick={() => goTo(active + 1)}
+              type="button"
+            >
+              <ArrowRight className="size-4" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
