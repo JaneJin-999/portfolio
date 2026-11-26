@@ -26,7 +26,7 @@ export const ParticleHero = () => {
       <ParticleField interactive={!showIntro} className="absolute inset-0 h-full w-full cursor-crosshair" />
 
       <div className="pointer-events-none absolute inset-0 z-10 flex flex-col px-5 py-5 md:px-8 md:py-7">
-        <nav className="pointer-events-auto flex items-center justify-between gap-5 border-b border-black/20 bg-white pb-5">
+        <nav className="pointer-events-auto flex items-center justify-between gap-5 border-b border-black/20 pb-5">
           <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white" style={{
             fontFamily: "Open Sans"
           }}>
@@ -50,7 +50,7 @@ export const ParticleHero = () => {
           JIN's<br />PORTFOLIO
         </p>
 
-        <div className="flex flex-col gap-6 border-t border-black/20 bg-white pt-5 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-6 border-t border-black/20 pt-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">
               Motion archive / Study 001
