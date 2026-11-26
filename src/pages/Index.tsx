@@ -1,23 +1,9 @@
 import type { ReactNode } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArchiveStudy } from "@/components/home/ArchiveStudy";
 import { ParticleHero } from "@/components/home/ParticleHero";
 import { ParticlePortrait } from "@/components/home/ParticlePortrait";
 import { SectionHeading } from "@/components/home/SectionHeading";
-const screenings = [{
-  date: "04.26",
-  place: "Berlin / DE",
-  title: "Synthetic Landscapes"
-}, {
-  date: "06.12",
-  place: "Kyoto / JP",
-  title: "Time As Material"
-}, {
-  date: "09.08",
-  place: "Montréal / CA",
-  title: "Signals After Dark"
-}];
 const process = [{
   index: "01",
   title: "Capture",
@@ -97,30 +83,10 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="studies" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-[1600px]">
-        <Reveal>
-          <SectionHeading index="01" eyebrow="Archive" title="Selected studies" />
-        </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-12 md:gap-6">
-          <Reveal className="md:col-span-7">
-            <ArchiveStudy index="A-01" title="Recursive Field" medium="Motion study" timecode="00:14:08" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-orbit_f89c7082.png" imageAlt="Sculptural koi curving across a lacquer-red field" />
-          </Reveal>
-          <Reveal className="md:col-span-5">
-            <ArchiveStudy index="A-02" title="Phase Shift" medium="Signal work" timecode="00:08:21" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-detail_a84a9fb3.png" imageAlt="Close study of flowing teal and ivory koi fins" mediaClassName="aspect-[4/5]" />
-          </Reveal>
-          <div className="hidden md:col-span-3 md:block" />
-          <Reveal className="md:col-span-9">
-            <ArchiveStudy index="A-03" title="After Image" medium="Light study" timecode="00:11:03" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-ripple_e378eeb1.png" imageAlt="Koi silhouettes moving through dark rippling water" mediaClassName="aspect-video" />
-          </Reveal>
-        </div>
-      </div>
-    </section>
-
     <section id="process" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
-          <SectionHeading index="02" eyebrow="Method" title="Made in intervals" />
+          <SectionHeading index="01" eyebrow="Method" title="Made in intervals" />
         </Reveal>
         <div className="mt-16 grid border-b border-border md:grid-cols-3">
           {process.map(step => <article key={step.index} className="border-t border-border py-8 md:border-l md:px-8 md:first:border-l-0 md:first:pl-0">
@@ -136,18 +102,22 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="screenings" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
+    <section id="studies" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
-          <SectionHeading index="03" eyebrow="Public space" title="Screenings / installations" />
+          <SectionHeading index="02" eyebrow="Archive" title="Selected studies" />
         </Reveal>
-        <div className="mt-14 border-b border-border">
-          {screenings.map(screening => <a key={screening.title} href="#contact" className="group grid min-h-28 items-center gap-3 border-t border-border py-5 transition-colors hover:bg-card focus-visible:bg-card focus-visible:outline-none md:grid-cols-12 md:px-5">
-              <span className="font-mono text-xs text-accent md:col-span-2">2026.{screening.date}</span>
-              <span className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground md:col-span-3">{screening.place}</span>
-              <span className="font-display text-2xl uppercase tracking-[-0.03em] transition-colors group-hover:text-accent md:col-span-6 md:text-3xl">{screening.title}</span>
-              <ArrowUpRight className="size-5 text-accent md:justify-self-end" />
-            </a>)}
+        <div className="mt-12 grid gap-5 md:grid-cols-12 md:gap-6">
+          <Reveal className="md:col-span-7">
+            <ArchiveStudy index="A-01" title="Recursive Field" medium="Motion study" timecode="00:14:08" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-orbit_f89c7082.png" imageAlt="Sculptural koi curving across a lacquer-red field" />
+          </Reveal>
+          <Reveal className="md:col-span-5">
+            <ArchiveStudy index="A-02" title="Phase Shift" medium="Signal work" timecode="00:08:21" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-detail_a84a9fb3.png" imageAlt="Close study of flowing teal and ivory koi fins" mediaClassName="aspect-[4/5]" />
+          </Reveal>
+          <div className="hidden md:col-span-3 md:block" />
+          <Reveal className="md:col-span-9">
+            <ArchiveStudy index="A-03" title="After Image" medium="Light study" timecode="00:11:03" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-ripple_e378eeb1.png" imageAlt="Koi silhouettes moving through dark rippling water" mediaClassName="aspect-video" />
+          </Reveal>
         </div>
       </div>
     </section>
