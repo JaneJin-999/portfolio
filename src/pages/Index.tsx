@@ -167,7 +167,7 @@ const Index = () => <main className="bg-background text-foreground">
               JINJIN
             </p>
           </div>
-          <div className="flex flex-col gap-10 md:col-span-8 md:flex-row md:items-start md:justify-end md:gap-8">
+          <div className="flex flex-col gap-10 md:col-span-8 md:flex-row md:items-start md:justify-end md:gap-[100px]">
             <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
