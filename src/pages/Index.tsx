@@ -76,7 +76,7 @@ const Index = () => <main className="bg-background text-foreground">
               </h1>
               <div className="mt-14 grid gap-8 border-t border-border pt-6 md:grid-cols-9">
                 <p className="font-display text-2xl leading-tight text-accent md:col-span-5 md:text-4xl">
-                  It is the only true record of time.
+                  关于我
                 </p>
                 <p className="max-w-md text-base leading-relaxed text-muted-foreground md:col-span-4 md:text-lg">
                   A living study of light, duration and perception—built from images that refuse to stay still.
