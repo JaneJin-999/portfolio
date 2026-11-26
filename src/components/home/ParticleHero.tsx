@@ -23,7 +23,7 @@ export const ParticleHero = () => {
 
   return (
     <section className="relative h-[100svh] w-full overflow-hidden bg-white text-neutral-950" aria-label="Interactive particle study: an open ring of black particles with an empty centre that rotates with the pointer">
-      <ParticleField className="absolute inset-0 h-full w-full cursor-crosshair" />
+      <ParticleField interactive={!showIntro} className="absolute inset-0 h-full w-full cursor-crosshair" />
 
       <div className="pointer-events-none absolute inset-0 z-10 flex flex-col px-5 py-5 md:px-8 md:py-7">
         <nav className="pointer-events-auto flex items-center justify-between gap-5 border-b border-black/20 bg-white pb-5">

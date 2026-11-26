@@ -61,10 +61,17 @@ const createParticles = (count: number): Particle[] => {
 
 interface ParticleFieldProps {
   className?: string;
+  interactive?: boolean;
 }
 
-export const ParticleField = ({ className }: ParticleFieldProps) => {
+export const ParticleField = ({
+  className,
+  interactive = true,
+}: ParticleFieldProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const interactiveRef = useRef(interactive);
+
+  interactiveRef.current = interactive;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -260,7 +267,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
     };
 
     const handlePointerMove = (event: PointerEvent) => {
-      if (reduceMotion) return;
+      if (!interactiveRef.current || reduceMotion) return;
 
       const rect = host.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
