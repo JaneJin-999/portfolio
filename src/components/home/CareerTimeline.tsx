@@ -337,15 +337,19 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
               >
                 <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                   <span className="text-accent">[{pad(index + 1)}]</span>
-                  <span>{entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}</span>
+                  {(entry.kind || entry.note) && (
+                    <span>{entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}</span>
+                  )}
                 </div>
                 <div className="mt-14 h-px w-full bg-border" aria-hidden="true" />
                 <h3 className="mt-5 font-display text-xl font-medium leading-snug tracking-[-0.02em] md:text-2xl">
                   {entry.organization}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/80">
-                  {entry.role}
-                </p>
+                {entry.role && (
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+                    {entry.role}
+                  </p>
+                )}
                 <p className="mt-auto pt-8 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
                   {entry.range}
                 </p>
