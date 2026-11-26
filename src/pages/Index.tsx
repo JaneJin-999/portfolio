@@ -20,7 +20,7 @@ const background: CareerEntry[] = [{
   range: "2022.08 – 2023.03"
 }, {
   period: "2023.08",
-  organization: "甘肃鑫佳信勘测设计有限公司",
+  organization: "甘肃鑫佳信勘测设计\n有限公司",
   role: "景观设计助理",
   kind: "实习",
   range: "2023.08 – 2024.02"
