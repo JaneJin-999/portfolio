@@ -11,6 +11,7 @@ export interface CareerEntry {
   kind: string;
   range: string;
   note?: string;
+  label?: string;
 }
 
 const clamp = (value: number, min: number, max: number) =>
@@ -199,15 +200,71 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
     }
   };
 
-  const scrubTo = useCallback((clientX: number) => {
+  const monthOf = (value: string) => {
+    const match = /^(\d{4})\.(\d{2})$/.exec(value.trim());
+    return match ? Number(match[1]) * 12 + Number(match[2]) - 1 : null;
+  };
+  const endMonthOf = (range: string) => {
+    const parts = range
+      .split(/[–-]/)
+      .map((part) => part.trim())
+      .filter(Boolean);
+    return monthOf(parts[parts.length - 1] ?? "");
+  };
+
+  const startMonths = entries.map((entry) => monthOf(entry.period));
+  const parsedStarts = startMonths.filter((value): value is number => value !== null);
+  const axisStart = parsedStarts.length ? Math.min(...parsedStarts) : 0;
+  const axisEnd = entries.length
+    ? Math.max(
+        axisStart,
+        ...entries.map((entry) => endMonthOf(entry.range) ?? monthOf(entry.period) ?? axisStart),
+      )
+    : axisStart + 1;
+  const axisSpan = Math.max(1, axisEnd - axisStart);
+  const nodeRatios = startMonths.map((month) =>
+    month === null ? 0 : clamp((month - axisStart) / axisSpan, 0, 1),
+  );
+  const axisTicks: Array<{ ratio: number; major: boolean }> = [];
+  for (let month = axisStart; month <= axisEnd; month += 1) {
+    if (month % 3 !== 0) continue;
+    axisTicks.push({ ratio: (month - axisStart) / axisSpan, major: month % 12 === 0 });
+  }
+  const labeledNodes = entries
+    .map((entry, index) => ({ entry, index }))
+    .filter(({ entry }) => Boolean(entry.label));
+
+  const current = entries[active] ?? entries[0];
+
+  const scrubTo = (clientX: number) => {
     const reel = reelRef.current;
     const scale = scaleRef.current;
     if (!reel || !scale) return;
     const rect = scale.getBoundingClientRect();
     if (rect.width === 0) return;
+
     const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
-    reel.scrollLeft = ratio * (reel.scrollWidth - reel.clientWidth);
-  }, []);
+    const maxScroll = reel.scrollWidth - reel.clientWidth;
+    if (maxScroll <= 0) return;
+    const step = entries.length > 1 ? maxScroll / (entries.length - 1) : 0;
+
+    let position = 0;
+    const lastNode = nodeRatios[nodeRatios.length - 1] ?? 1;
+    if (ratio >= lastNode) {
+      position = maxScroll;
+    } else if (ratio > (nodeRatios[0] ?? 0)) {
+      for (let index = 0; index < nodeRatios.length - 1; index += 1) {
+        const from = nodeRatios[index];
+        const to = nodeRatios[index + 1];
+        if (ratio <= to) {
+          const between = to - from > 1e-6 ? (ratio - from) / (to - from) : 0;
+          position = (index + between) * step;
+          break;
+        }
+      }
+    }
+    reel.scrollLeft = position;
+  };
 
   const startScrub = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -233,10 +290,6 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
     measure();
   };
 
-  const current = entries[active] ?? entries[0];
-  const gaps = Math.max(1, entries.length - 1);
-  const ticksPerGap = 4;
-  const tickCount = gaps * ticksPerGap;
 
   return (
     <div className="mt-12 md:mt-16">
@@ -304,48 +357,57 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         <div className="mx-auto w-full max-w-[34rem] px-3">
           <div
             aria-hidden="true"
-            className="relative h-12 cursor-ew-resize touch-none select-none"
+            className="relative h-14 cursor-ew-resize touch-none select-none"
             onPointerCancel={endScrub}
             onPointerDown={startScrub}
             onPointerMove={moveScrub}
             onPointerUp={endScrub}
             ref={scaleRef}
           >
-            {Array.from({ length: tickCount + 1 }, (_, index) => {
-              const isMajor = index % ticksPerGap === 0;
-              const itemIndex = index / ticksPerGap;
-              const isActive = isMajor && Math.round(itemIndex) === active;
+            {axisTicks.map((tick, index) => (
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "pointer-events-none absolute top-0 w-px -translate-x-1/2 rounded-full",
+                  tick.major ? "bg-foreground/25" : "bg-foreground/10",
+                )}
+                key={`axis-${index}`}
+                style={{ left: `${tick.ratio * 100}%`, height: tick.major ? 10 : 5 }}
+              />
+            ))}
+            {entries.map((entry, index) => (
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "pointer-events-none absolute top-0 w-[2px] -translate-x-1/2 rounded-full transition-all duration-300",
+                  active === index ? "bg-accent" : "bg-foreground/50",
+                )}
+                key={`node-${entry.period}-${entry.organization}`}
+                style={{
+                  left: `${nodeRatios[index] * 100}%`,
+                  height: active === index ? 24 : 16,
+                }}
+              />
+            ))}
+            {labeledNodes.map(({ entry, index }, order) => {
+              const ratio = nodeRatios[index] * 100;
               return (
                 <span
+                  aria-hidden="true"
                   className={cn(
-                    "pointer-events-none absolute top-0 w-[2px] -translate-x-1/2 rounded-full transition-all duration-300",
-                    isActive ? "bg-accent" : isMajor ? "bg-foreground/35" : "bg-foreground/20",
-                  )}
-                  key={index}
-                  style={{
-                    left: `${(index / tickCount) * 100}%`,
-                    height: isActive ? 24 : isMajor ? 14 : 7,
-                  }}
-                />
-              );
-            })}
-            {entries.map((entry, index) => {
-              const left = entries.length > 1 ? (index / (entries.length - 1)) * 100 : 50;
-              return (
-                <span
-                  className={cn(
-                    "pointer-events-none absolute top-[26px] font-mono text-[10px] tracking-[0.08em] transition-colors duration-300",
-                    index === 0
+                    "pointer-events-none absolute font-mono text-[10px] tracking-[0.04em] transition-colors duration-300",
+                    order % 2 === 0 ? "top-[26px]" : "top-[40px]",
+                    ratio < 6
                       ? "translate-x-0"
-                      : index === entries.length - 1
+                      : ratio > 88
                         ? "-translate-x-full"
                         : "-translate-x-1/2",
                     active === index ? "text-accent" : "text-muted-foreground",
                   )}
-                  key={`${entry.period}-${entry.organization}`}
-                  style={{ left: `${left}%` }}
+                  key={`label-${entry.period}-${entry.organization}`}
+                  style={{ left: `${ratio}%` }}
                 >
-                  {entry.period}
+                  {entry.label}
                 </span>
               );
             })}
