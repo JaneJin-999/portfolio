@@ -167,7 +167,7 @@ const Index = () => <main className="bg-background text-foreground">
               JINJIN
             </p>
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-3 md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
           }}>
@@ -187,7 +187,7 @@ const Index = () => <main className="bg-background text-foreground">
               17361662629@163.com
             </p>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
           }}>
