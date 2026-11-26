@@ -195,7 +195,7 @@ const Index = () => <main className="bg-background text-foreground">
             }}>
               微信
             </p>
-            <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-6 block w-[120px]" />
+            <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-4 block w-[120px]" />
           </div>
           <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
@@ -203,7 +203,7 @@ const Index = () => <main className="bg-background text-foreground">
             }}>
               导航
             </p>
-            <ul className="mt-6 space-y-4 font-display text-lg md:text-xl">
+            <ul className="mt-4 space-y-4 font-display text-lg md:text-xl">
               <li className="text-[16px]">
                 <a href="#manifesto" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
                   fontSize: "16px"
