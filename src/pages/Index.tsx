@@ -11,8 +11,7 @@ const background: CareerEntry[] = [{
   role: "风景园林",
   kind: "教育",
   range: "2018.09 – 2022.07",
-  note: "211",
-  label: "2018 北京林业大学"
+  note: "211"
 }, {
   period: "2023.08",
   organization: "甘肃鑫佳信勘测设计有限公司",
@@ -31,8 +30,7 @@ const background: CareerEntry[] = [{
   role: "交互设计",
   kind: "教育",
   range: "2025.03 – 2026.11",
-  note: "QS31",
-  label: "2025 Monash"
+  note: "QS31"
 }, {
   period: "2025.11",
   organization: "小红书",
@@ -50,8 +48,7 @@ const background: CareerEntry[] = [{
   organization: "Converge AI",
   role: "产品设计",
   kind: "实习",
-  range: "2026.09 – 2026.11",
-  label: "2026 Converge AI"
+  range: "2026.09 – 2026.11"
 }];
 const Reveal = ({
   children,

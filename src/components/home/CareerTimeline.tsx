@@ -11,7 +11,6 @@ export interface CareerEntry {
   kind: string;
   range: string;
   note?: string;
-  label?: string;
 }
 
 const clamp = (value: number, min: number, max: number) =>
@@ -214,25 +213,28 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
 
   const startMonths = entries.map((entry) => monthOf(entry.period));
   const parsedStarts = startMonths.filter((value): value is number => value !== null);
-  const axisStart = parsedStarts.length ? Math.min(...parsedStarts) : 0;
-  const axisEnd = entries.length
+  const earliestStart = parsedStarts.length ? Math.min(...parsedStarts) : 0;
+  const latestEnd = entries.length
     ? Math.max(
-        axisStart,
-        ...entries.map((entry) => endMonthOf(entry.range) ?? monthOf(entry.period) ?? axisStart),
+        earliestStart,
+        ...entries.map((entry) => endMonthOf(entry.range) ?? monthOf(entry.period) ?? earliestStart),
       )
-    : axisStart + 1;
+    : earliestStart;
+  const axisStart = Math.floor(earliestStart / 12) * 12;
+  const axisEnd = Math.floor(latestEnd / 12) * 12 + 11;
   const axisSpan = Math.max(1, axisEnd - axisStart);
   const nodeRatios = startMonths.map((month) =>
     month === null ? 0 : clamp((month - axisStart) / axisSpan, 0, 1),
   );
   const axisTicks: Array<{ ratio: number; major: boolean }> = [];
+  const yearTicks: Array<{ ratio: number; year: number }> = [];
   for (let month = axisStart; month <= axisEnd; month += 1) {
     if (month % 3 !== 0) continue;
-    axisTicks.push({ ratio: (month - axisStart) / axisSpan, major: month % 12 === 0 });
+    const isYear = month % 12 === 0;
+    const ratio = (month - axisStart) / axisSpan;
+    axisTicks.push({ ratio, major: isYear });
+    if (isYear) yearTicks.push({ ratio, year: month / 12 });
   }
-  const labeledNodes = entries
-    .map((entry, index) => ({ entry, index }))
-    .filter(({ entry }) => Boolean(entry.label));
 
   const current = entries[active] ?? entries[0];
 
@@ -357,7 +359,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         <div className="mx-auto w-full max-w-[34rem] px-3">
           <div
             aria-hidden="true"
-            className="relative h-14 cursor-ew-resize touch-none select-none"
+            className="relative h-12 cursor-ew-resize touch-none select-none"
             onPointerCancel={endScrub}
             onPointerDown={startScrub}
             onPointerMove={moveScrub}
@@ -389,28 +391,23 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                 }}
               />
             ))}
-            {labeledNodes.map(({ entry, index }, order) => {
-              const ratio = nodeRatios[index] * 100;
-              return (
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "pointer-events-none absolute font-mono text-[10px] tracking-[0.04em] transition-colors duration-300",
-                    order % 2 === 0 ? "top-[26px]" : "top-[40px]",
-                    ratio < 6
-                      ? "translate-x-0"
-                      : ratio > 88
-                        ? "-translate-x-full"
-                        : "-translate-x-1/2",
-                    active === index ? "text-accent" : "text-muted-foreground",
-                  )}
-                  key={`label-${entry.period}-${entry.organization}`}
-                  style={{ left: `${ratio}%` }}
-                >
-                  {entry.label}
-                </span>
-              );
-            })}
+            {yearTicks.map((tick, index) => (
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "pointer-events-none absolute top-[26px] font-mono text-[10px] tracking-[0.04em] text-muted-foreground",
+                  index === 0
+                    ? "translate-x-0"
+                    : tick.ratio > 0.92
+                      ? "-translate-x-full"
+                      : "-translate-x-1/2",
+                )}
+                key={`year-${tick.year}`}
+                style={{ left: `${tick.ratio * 100}%` }}
+              >
+                {tick.year}
+              </span>
+            ))}
           </div>
         </div>
         <div className="mt-3 flex items-center justify-between gap-4">
