@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils";
 
 export interface CareerEntry {
   period: string;
-  title: string;
-  meta: string;
-  description: string;
+  organization: string;
+  role: string;
+  kind: string;
+  range: string;
+  note?: string;
 }
 
 const clamp = (value: number, min: number, max: number) =>
@@ -24,7 +26,8 @@ const RollingPeriod = ({ value, animate }: { value: string; animate: boolean }) 
       {value.split("").map((char, index) => (
         <span
           key={index}
-          className="relative inline-block h-[1em] w-[0.64em] overflow-hidden align-top text-center tabular-nums"
+          className="relative inline-block h-[1em] overflow-hidden align-top text-center tabular-nums"
+          style={{ width: char === "." ? "0.34em" : "0.64em" }}
         >
           <AnimatePresence initial={false}>
             <motion.span
@@ -204,7 +207,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
       </div>
 
       <p className="sr-only" aria-live="polite">
-        {`第 ${active + 1} 项，共 ${entries.length} 项：${current?.title ?? ""}`}
+        {`第 ${active + 1} 项，共 ${entries.length} 项：${current?.organization ?? ""}`}
       </p>
 
       <div
@@ -228,7 +231,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
           {entries.map((entry, index) => (
             <div
               className="w-[var(--card-w)] shrink-0 snap-center will-change-transform"
-              key={`${entry.period}-${entry.title}`}
+              key={`${entry.period}-${entry.organization}`}
               ref={(node) => {
                 itemRefs.current[index] = node;
               }}
@@ -241,14 +244,17 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
               >
                 <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                   <span className="text-accent">[{pad(index + 1)}]</span>
-                  <span>{entry.meta}</span>
+                  <span>{entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}</span>
                 </div>
                 <div className="mt-14 h-px w-full bg-border" aria-hidden="true" />
-                <h3 className="mt-5 font-display text-2xl font-medium tracking-[-0.03em] md:text-3xl">
-                  {entry.title}
+                <h3 className="mt-5 font-display text-xl font-medium leading-snug tracking-[-0.02em] md:text-2xl">
+                  {entry.organization}
                 </h3>
-                <p className="mt-auto pt-8 text-sm leading-relaxed text-muted-foreground">
-                  {entry.description}
+                <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+                  {entry.role}
+                </p>
+                <p className="mt-auto pt-8 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
+                  {entry.range}
                 </p>
               </article>
             </div>

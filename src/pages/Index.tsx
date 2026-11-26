@@ -6,20 +6,49 @@ import { ParticleHero } from "@/components/home/ParticleHero";
 import { ParticlePortrait } from "@/components/home/ParticlePortrait";
 import { SectionHeading } from "@/components/home/SectionHeading";
 const background: CareerEntry[] = [{
-  period: "01",
-  title: "风景园林",
-  meta: "本科",
-  description: "本科的风景园林学习，让我习惯从观察生活、以及人与环境的关系开始思考。"
+  period: "2018.09",
+  organization: "北京林业大学",
+  role: "风景园林",
+  kind: "教育",
+  range: "2018.09 – 2022.07",
+  note: "211"
 }, {
-  period: "02",
-  title: "交互设计",
-  meta: "转向数字世界",
-  description: "逐渐把这种观察带进数字世界，关注人与产品之间的联系，以及设计如何影响日常体验。"
+  period: "2023.08",
+  organization: "甘肃鑫佳信勘测设计有限公司",
+  role: "景观设计助理",
+  kind: "实习",
+  range: "2023.08 – 2024.02"
 }, {
-  period: "03",
-  title: "AI 探索",
-  meta: "现在",
-  description: "从用户研究、交互与界面设计，到探索 AI 带来的新可能，希望设计能让人与产品的相处更自然。"
+  period: "2024.11",
+  organization: "万唯原创文化传播（陕西）有限公司",
+  role: "新媒体运营",
+  kind: "实习",
+  range: "2024.11 – 2025.02"
+}, {
+  period: "2025.03",
+  organization: "莫纳什大学 Monash University",
+  role: "交互设计",
+  kind: "教育",
+  range: "2025.03 – 2026.11",
+  note: "QS31"
+}, {
+  period: "2025.11",
+  organization: "小红书",
+  role: "体验设计",
+  kind: "实习",
+  range: "2025.11 – 2026.02"
+}, {
+  period: "2026.06",
+  organization: "合肥美的电冰箱",
+  role: "UXI 设计（暑期实习）",
+  kind: "实习",
+  range: "2026.06 – 2026.08"
+}, {
+  period: "2026.09",
+  organization: "Converge AI",
+  role: "产品设计",
+  kind: "实习",
+  range: "2026.09 – 2026.11"
 }];
 const Reveal = ({
   children,
