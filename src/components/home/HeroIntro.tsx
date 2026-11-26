@@ -211,11 +211,11 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       context.fillRect(0, 0, width, height);
 
       if (reveal > 0.001) {
-        const maxGap = Math.min(220, Math.max(90, height * 0.17)) * reveal;
+        const maxGap = Math.min(280, Math.max(110, height * 0.22)) * reveal;
         const openLeft = Math.max(0, Math.min(width, dotX));
         const openWidth = Math.max(1, width - openLeft);
         const steps = 32;
-        const curvePower = 1.4;
+        const curvePower = 1.25;
 
         // Curved zipper opening: zero height at the slider, widening to the
         // right edge, with both edges bending away from the drag line.
