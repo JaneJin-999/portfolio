@@ -241,29 +241,6 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         context.clip();
         context.clearRect(0, 0, width, height);
         context.restore();
-
-        // Small white teeth along both curved edges.
-        context.globalAlpha = 0.55;
-        context.strokeStyle = "#ffffff";
-        context.lineWidth = 1;
-
-        const teeth = 28;
-
-        for (let i = 2; i < teeth; i += 1) {
-          const t = i / teeth;
-          const x = openLeft + openWidth * t;
-          const offset = maxGap * Math.pow(t, curvePower);
-
-          context.beginPath();
-          context.moveTo(x, lineY - offset - 1);
-          context.lineTo(x, lineY - offset - 5);
-          context.moveTo(x, lineY + offset + 1);
-          context.lineTo(x, lineY + offset + 5);
-          context.stroke();
-        }
-
-        context.globalAlpha = 1;
-        context.strokeStyle = "#ffffff";
       }
 
       context.fillStyle = "#ffffff";
