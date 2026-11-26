@@ -38,11 +38,13 @@ export const ParticleHero = () => {
 
         <div className="flex-1" />
 
-        <p className="absolute right-5 top-[47.7%] -translate-y-1/2 select-none whitespace-nowrap text-right font-display font-semibold leading-[0.85] tracking-[-0.04em] text-neutral-950 md:right-8" style={{
-          fontSize: "clamp(2rem, min(10.5vw, 20vh), 13rem)"
-        }}>
-          JIN's<br />PORTFOLIO
-        </p>
+        <div className="pointer-events-none absolute inset-x-0 top-[47.7%] mx-auto flex max-w-[1600px] -translate-y-1/2 justify-end px-5 md:px-8">
+          <p className="select-none whitespace-nowrap text-right font-display font-semibold leading-[0.85] tracking-[-0.04em] text-neutral-950" style={{
+            fontSize: "clamp(2rem, min(10.5vw, 20vh), 13rem)"
+          }}>
+            JIN's<br />PORTFOLIO
+          </p>
+        </div>
 
         <div className="flex flex-col gap-6 border-t border-black/20 pt-5 md:flex-row md:items-end md:justify-between">
           <div>
