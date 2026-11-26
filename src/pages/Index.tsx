@@ -155,10 +155,10 @@ const Index = () => <main className="bg-background text-foreground">
     <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-accent md:px-8 md:py-32">
       <div className="mx-auto max-w-[1600px]">
         <p className="font-mono text-xs uppercase tracking-[0.2em]">联系我</p>
-        <a href="mailto:studio@aform.art" className="group mt-12 flex items-end justify-between gap-8 border-b-2 border-accent pb-5 font-display text-[clamp(3rem,10vw,10rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+        <p className="mt-12 flex items-end justify-between gap-8 font-display text-[clamp(2.25rem,5.5vw,5.5rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em]">
           Start a signal
-          <ArrowDownRight className="mb-1 size-10 shrink-0 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 md:size-20" />
-        </a>
+          <ArrowDownRight className="mb-1 size-8 shrink-0 md:size-12" aria-hidden="true" />
+        </p>
         <img
           src="/wechat-qr.png"
           alt="微信二维码"
