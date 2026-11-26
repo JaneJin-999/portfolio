@@ -211,18 +211,59 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       context.fillRect(0, 0, width, height);
 
       if (reveal > 0.001) {
-        const tapeHalf = 12;
-        const maxGap = Math.min(140, Math.max(64, height * 0.11));
-        const gap = reveal * maxGap;
+        const maxGap = Math.min(150, Math.max(64, height * 0.12)) * reveal;
         const openLeft = Math.max(0, Math.min(width, dotX));
+        const openWidth = Math.max(1, width - openLeft);
+        const steps = 32;
+        const curvePower = 1.55;
 
-        context.clearRect(
-          openLeft,
-          lineY - tapeHalf - gap,
-          width - openLeft,
-          gap,
-        );
-        context.clearRect(openLeft, lineY + tapeHalf, width - openLeft, gap);
+        // Curved zipper opening: zero height at the slider, widening to the
+        // right edge, with both edges bending away from the drag line.
+        context.save();
+        context.beginPath();
+        context.moveTo(openLeft, lineY);
+
+        for (let i = 1; i <= steps; i += 1) {
+          const t = i / steps;
+          const x = openLeft + openWidth * t;
+          const y = lineY - maxGap * Math.pow(t, curvePower);
+          context.lineTo(x, y);
+        }
+
+        for (let i = steps; i >= 0; i -= 1) {
+          const t = i / steps;
+          const x = openLeft + openWidth * t;
+          const y = lineY + maxGap * Math.pow(t, curvePower);
+          context.lineTo(x, y);
+        }
+
+        context.closePath();
+        context.clip();
+        context.clearRect(0, 0, width, height);
+        context.restore();
+
+        // Small white teeth along both curved edges.
+        context.globalAlpha = 0.55;
+        context.strokeStyle = "#ffffff";
+        context.lineWidth = 1;
+
+        const teeth = 28;
+
+        for (let i = 2; i < teeth; i += 1) {
+          const t = i / teeth;
+          const x = openLeft + openWidth * t;
+          const offset = maxGap * Math.pow(t, curvePower);
+
+          context.beginPath();
+          context.moveTo(x, lineY - offset - 1);
+          context.lineTo(x, lineY - offset - 5);
+          context.moveTo(x, lineY + offset + 1);
+          context.lineTo(x, lineY + offset + 5);
+          context.stroke();
+        }
+
+        context.globalAlpha = 1;
+        context.strokeStyle = "#ffffff";
       }
 
       context.fillStyle = "#ffffff";
@@ -234,11 +275,13 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       context.fillStyle = "#ffffff";
       context.lineWidth = 1.2;
 
-      context.globalAlpha = 0.9;
-      context.beginPath();
-      context.moveTo(width + 14, lineY);
-      context.lineTo(Math.max(farX, dotX), lineY);
-      context.stroke();
+      if (reveal < 0.02) {
+        context.globalAlpha = 0.9;
+        context.beginPath();
+        context.moveTo(width + 14, lineY);
+        context.lineTo(Math.max(farX, dotX), lineY);
+        context.stroke();
+      }
 
       if (phase === "idle" && !dragging && !closing && reveal < 0.02) {
         const haloRadius = 15;
@@ -268,6 +311,17 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         context.lineTo(arrowLeft, arrowY);
         context.lineTo(arrowLeft + 4, arrowY + 4);
         context.stroke();
+      }
+
+      if (reveal > 0.02) {
+        context.globalAlpha = 0.9;
+        context.strokeStyle = "#000000";
+        context.lineWidth = 2.4;
+        context.beginPath();
+        context.arc(dotX, lineY, 7, 0, TAU);
+        context.stroke();
+        context.strokeStyle = "#ffffff";
+        context.lineWidth = 1.2;
       }
 
       context.globalAlpha = 1;
