@@ -1,21 +1,25 @@
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArchiveStudy } from "@/components/home/ArchiveStudy";
+import { CareerTimeline, type CareerEntry } from "@/components/home/CareerTimeline";
 import { ParticleHero } from "@/components/home/ParticleHero";
 import { ParticlePortrait } from "@/components/home/ParticlePortrait";
 import { SectionHeading } from "@/components/home/SectionHeading";
-const process = [{
-  index: "01",
-  title: "Capture",
-  text: "Light, movement and error are recorded as equal source material."
+const background: CareerEntry[] = [{
+  period: "01",
+  title: "风景园林",
+  meta: "本科",
+  description: "本科的风景园林学习，让我习惯从观察生活、以及人与环境的关系开始思考。"
 }, {
-  index: "02",
-  title: "Displace",
-  text: "Frames are stretched, interrupted and reorganized outside linear time."
+  period: "02",
+  title: "交互设计",
+  meta: "转向数字世界",
+  description: "逐渐把这种观察带进数字世界，关注人与产品之间的联系，以及设计如何影响日常体验。"
 }, {
-  index: "03",
-  title: "Resolve",
-  text: "The final image remains open, waiting for the viewer to activate it."
+  period: "03",
+  title: "AI 探索",
+  meta: "现在",
+  description: "从用户研究、交互与界面设计，到探索 AI 带来的新可能，希望设计能让人与产品的相处更自然。"
 }];
 const Reveal = ({
   children,
@@ -88,17 +92,7 @@ const Index = () => <main className="bg-background text-foreground">
         <Reveal>
           <SectionHeading eyebrow="背景" heading="我的学习与工作经历" />
         </Reveal>
-        <div className="mt-16 grid border-b border-border md:grid-cols-3">
-          {process.map(step => <article key={step.index} className="border-t border-border py-8 md:border-l md:px-8 md:first:border-l-0 md:first:pl-0">
-              <span className="font-mono text-xs text-accent">[{step.index}]</span>
-              <h3 className="mt-16 font-display text-3xl font-medium uppercase tracking-[-0.04em]">
-                {step.title}
-              </h3>
-              <p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
-                {step.text}
-              </p>
-            </article>)}
-        </div>
+        <CareerTimeline entries={background} />
       </div>
     </section>
 
