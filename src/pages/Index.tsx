@@ -152,11 +152,62 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-accent md:px-8 md:py-32">
+    <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-neutral-950 md:px-8 md:py-32">
       <div className="mx-auto max-w-[1600px]">
-        <p className="font-mono text-xs uppercase tracking-[0.2em]">联系我</p>
-        <p className="mt-12 flex items-end justify-between gap-8 font-display text-[clamp(2.25rem,5.5vw,5.5rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em]">{"jin jin"}</p>
-        <img src="/wechat-qr.png" alt="微信二维码" width={720} height={720} loading="lazy" className="mx-auto mt-10 block w-44 md:ml-auto md:mr-0 md:w-60" />
+        <div className="grid gap-12 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-4">
+            <p className="font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl">
+              JINJIN
+            </p>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
+              联系我
+            </p>
+          </div>
+          <div className="md:col-span-3">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+              联系方式
+            </p>
+            <div className="mt-6 space-y-4 font-display text-lg md:text-xl">
+              <p>17361662629</p>
+              <p className="break-all">17361662629@163.com</p>
+            </div>
+          </div>
+          <div className="md:col-span-2">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+              微信
+            </p>
+            <img
+              src="/wechat-qr.png"
+              alt="微信二维码"
+              width={720}
+              height={720}
+              loading="lazy"
+              className="mt-6 block w-36 md:w-44"
+            />
+          </div>
+          <div className="md:col-span-3">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+              导航
+            </p>
+            <ul className="mt-6 space-y-4 font-display text-lg md:text-xl">
+              <li>
+                <a href="#manifesto" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none">
+                  背景
+                </a>
+              </li>
+              <li>
+                <a href="#studies" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none">
+                  作品
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none">
+                  联系我
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
