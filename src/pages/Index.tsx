@@ -165,7 +165,7 @@ const Index = () => <main className="bg-background text-foreground">
     <footer className="technical-grid px-5 py-12 md:px-8 md:py-16">
       <div className="mx-auto grid max-w-[1600px] gap-10 border-t border-border pt-6 md:grid-cols-12">
         <div className="font-mono text-[11px] uppercase leading-6 tracking-[0.15em] text-muted-foreground md:col-span-4 md:col-start-9 md:text-right">
-          <p>© Created by JINJIN</p>
+          <p className="Sans'] Sans'] font-[Montserrat]">© Created by JINJIN</p>
         </div>
       </div>
     </footer>
