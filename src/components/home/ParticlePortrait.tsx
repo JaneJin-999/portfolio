@@ -99,20 +99,24 @@ export const ParticlePortrait = () => {
 
         // The photo has more particles toward the bottom, so let that edge
         // scatter further down into the extra transparent space.
-        const bottomBand = Math.max(140, height * 0.18);
+        const bottomBand = Math.max(150, height * 0.18);
         const bottomDistance = height - py;
 
         if (bottomDistance < bottomBand) {
           const bottomBleed = 1 - bottomDistance / bottomBand;
+
+          // Thin the count as the field approaches the bottom edge.
+          if (random() < bottomBleed * 0.7) continue;
+
           const spread =
             bottomBleed *
             (bottomPadding - padding) *
-            (0.55 + random() * 0.45);
+            (0.45 + random() * 0.4);
 
           drawY += spread;
           drawX +=
-            ((px - centerX) / Math.max(1, width / 2)) * spread * 0.14;
-          context.globalAlpha = 1 - bottomBleed * 0.35;
+            ((px - centerX) / Math.max(1, width / 2)) * spread * 0.1;
+          context.globalAlpha = (1 - bottomBleed) * 0.9;
         }
 
         context.beginPath();
