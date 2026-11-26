@@ -32,14 +32,11 @@ export const ParticleHero = () => {
           }}>
             JINJIN
           </a>
-          <div className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.16em] sm:gap-7 sm:text-xs">
+          <div className="ml-auto flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.16em] sm:gap-7 sm:text-xs">
             {navItems.map(item => <a key={item.href} href={item.href} className="transition-opacity hover:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white">
                 {item.label}
               </a>)}
           </div>
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-500 sm:inline">
-            001 / Particle field
-          </span>
         </nav>
 
         <div className="flex-1" />
