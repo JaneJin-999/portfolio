@@ -193,7 +193,7 @@ const Index = () => <main className="bg-background text-foreground">
           }}>
               微信
             </p>
-            <img src="/wechat-qr.png" alt="微信二维码" width={720} height={720} loading="lazy" className="mt-6 block w-36 md:w-44" />
+            <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-6 block w-36 md:w-44" />
           </div>
           <div className="md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
@@ -217,10 +217,10 @@ const Index = () => <main className="bg-background text-foreground">
                 </a>
               </li>
               <li>
-                <a href="#contact" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
+                <a href="/" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
                 fontSize: "16px"
               }}>
-                  联系我
+                  返回首页
                 </a>
               </li>
             </ul>
