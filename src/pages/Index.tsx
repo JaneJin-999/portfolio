@@ -159,7 +159,9 @@ const Index = () => <main className="bg-background text-foreground">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
               联系我
             </p>
-            <p className="mt-4 font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl">
+            <p className="mt-4 font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl pt-[16px]" style={{
+            fontSize: "72px"
+          }}>
               JINJIN
             </p>
           </div>
@@ -176,14 +178,7 @@ const Index = () => <main className="bg-background text-foreground">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
               微信
             </p>
-            <img
-              src="/wechat-qr.png"
-              alt="微信二维码"
-              width={720}
-              height={720}
-              loading="lazy"
-              className="mt-6 block w-36 md:w-44"
-            />
+            <img src="/wechat-qr.png" alt="微信二维码" width={720} height={720} loading="lazy" className="mt-6 block w-36 md:w-44" />
           </div>
           <div className="md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
