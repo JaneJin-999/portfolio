@@ -49,7 +49,10 @@ export const ParticleHero = () => {
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">
               UI/UX DESIGN
             </p>
-            <h1 className="mt-3 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-semibold uppercase leading-[0.84] tracking-[-0.06em]">
+            <h1
+              className="mt-3 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-semibold uppercase leading-[0.84]"
+              style={{ letterSpacing: "calc(-0.06em + 1px)" }}
+            >
               2027
             </h1>
           </div>
