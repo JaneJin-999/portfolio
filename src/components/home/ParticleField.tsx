@@ -1,5 +1,12 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import {
+  BASE_VIEW,
+  DEPTH,
+  FOCAL,
+  HOLE_RADIUS,
+  getParticleGeometry,
+} from "@/components/home/particleGeometry";
 
 type Particle = {
   x: number;
@@ -10,13 +17,6 @@ type Particle = {
 };
 
 const TAU = Math.PI * 2;
-const HOLE_RADIUS = 0.68;
-const DEPTH = 2.8;
-const FOCAL = 4.2;
-// Fixed viewing angle: tips the tunnel so its inner and outer rims meet at
-// the lower-left. The pointer rotation is layered on top of this base view.
-const BASE_VIEW = { x: 0.235, y: 0.235 };
-const RING_LEFT_INSET = 0.1;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -87,20 +87,13 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
     let inView = true;
     let dustParticles: Particle[] = [];
 
-    const getRingScale = () =>
-      Math.min(width * 0.44, Math.max(0, height - 170) * 0.48);
-
-    const getRingCenterX = () => width * RING_LEFT_INSET + getRingScale();
-
     /**
      * Sparse dust that fills the empty panel corners. It lives in the same
      * 3D space as the ring, so it follows the pointer rotation; positions are
      * pre-compensated so the corners are covered at rest.
      */
     const createDustParticles = (count: number) => {
-      const scale = getRingScale();
-      const centerX = getRingCenterX();
-      const centerY = height * 0.477;
+      const { scale, centerX, centerY } = getParticleGeometry(width, height);
       const clearance = scale * 0.86;
       const clearanceSq = clearance * clearance;
 
@@ -150,9 +143,7 @@ export const ParticleField = ({ className }: ParticleFieldProps) => {
       if (width === 0 || height === 0) return;
 
       const focal = FOCAL;
-      const scale = getRingScale();
-      const centerX = getRingCenterX();
-      const centerY = height * 0.477;
+      const { scale, centerX, centerY } = getParticleGeometry(width, height);
       const dustCosY = Math.cos(pointer.y);
       const dustSinY = Math.sin(pointer.y);
       const dustCosX = Math.cos(pointer.x);
