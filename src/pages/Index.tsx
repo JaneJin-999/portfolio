@@ -68,13 +68,16 @@ const Index = () => <main className="bg-background text-foreground">
               <ParticlePortrait />
             </div>
             <div className="md:col-span-9">
-              <h1 className="max-w-6xl font-display text-[clamp(3.2rem,8vw,8.5rem)] font-semibold uppercase leading-[0.84] tracking-[-0.075em] text-right pt-[60px]" style={{
-              marginTop: "4px",
-              marginBottom: "4px"
-            }}>
-                设计不止于表面
-              </h1>
-              <div className="mt-14 grid gap-8 border-t border-border pt-6 md:grid-cols-9 text-left">
+              <div className="ml-auto flex w-fit flex-col items-end">
+                <h1 className="max-w-6xl font-display text-[clamp(3.2rem,8vw,8.5rem)] font-semibold uppercase leading-[0.84] tracking-[-0.075em] text-right pt-[60px]" style={{
+                marginTop: "4px",
+                marginBottom: "4px"
+              }}>
+                  设计不止于表面
+                </h1>
+                <div className="mt-14 w-full border-t border-border" aria-hidden="true" />
+              </div>
+              <div className="grid gap-8 pt-6 md:grid-cols-9 text-left">
                 <p className="font-display text-2xl leading-tight text-accent md:col-span-5 md:text-4xl text-right">
                   关于我
                 </p>
