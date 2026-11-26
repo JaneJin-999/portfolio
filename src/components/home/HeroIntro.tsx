@@ -15,25 +15,29 @@ type ScatterParticle = {
 
 const TAU = Math.PI * 2;
 const LINE_START = 0.12;
-const LINE_DURATION = 1.15;
-const JUMP_DURATION = 0.38;
+const LINE_DURATION = 1.05;
+const HOP_UP_DURATION = 0.15;
+const HOP_FALL_DURATION = 0.38;
 const EXPAND_DURATION = 0.58;
 const SCATTER_DURATION = 0.95;
 
 const LINE_END = LINE_START + LINE_DURATION;
-const JUMP_END = LINE_END + JUMP_DURATION;
-const EXPAND_END = JUMP_END + EXPAND_DURATION;
+const HOP_UP_END = LINE_END + HOP_UP_DURATION;
+const LAND_END = HOP_UP_END + HOP_FALL_DURATION;
+const EXPAND_END = LAND_END + EXPAND_DURATION;
 const SCATTER_END = EXPAND_END + SCATTER_DURATION;
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 const easeInOutCubic = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+const easeInCubic = (t: number) => t * t * t;
 
 /**
  * Opening title sequence: on black, a solid dot draws a line from right to
- * left, jumps to the far opening of the particle tunnel, expands into a thin
- * outlined circle, then breaks into scattered particles as the field appears.
+ * left and stops above the far opening of the particle tunnel. It hops once
+ * in place, drops into the opening, expands into a thin outlined circle, then
+ * breaks into scattered particles as the field appears.
  */
 export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -129,23 +133,23 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       context.lineWidth = 1.2;
 
       const startX = width + 14;
-      const endX = -14;
       const lineProgress = easeInOutCubic(
         clamp01((elapsed - LINE_START) / LINE_DURATION),
       );
-      const dotAlongLineX = startX + (endX - startX) * lineProgress;
+      const dotAlongLineX = startX + (farX - startX) * lineProgress;
+      const hopHeight = Math.max(26, Math.min(60, (farY - lineY) * 0.35));
 
       if (elapsed >= LINE_START) {
         const lineAlpha =
-          elapsed < JUMP_END
+          elapsed < LAND_END
             ? 0.9
-            : Math.max(0, 0.9 * (1 - (elapsed - JUMP_END) / 0.45));
+            : Math.max(0, 0.9 * (1 - (elapsed - LAND_END) / 0.45));
 
         if (lineAlpha > 0) {
           context.globalAlpha = lineAlpha;
           context.beginPath();
           context.moveTo(startX, lineY);
-          context.lineTo(elapsed < LINE_END ? dotAlongLineX : endX, lineY);
+          context.lineTo(elapsed < LINE_END ? dotAlongLineX : farX, lineY);
           context.stroke();
         }
       }
@@ -154,18 +158,22 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       let dotY = lineY;
       let dotAlpha = 1;
 
-      if (elapsed >= LINE_END) {
-        const jumpProgress = easeInOutCubic(
-          clamp01((elapsed - LINE_END) / JUMP_DURATION),
+      if (elapsed >= LINE_END && elapsed < HOP_UP_END) {
+        const t = easeOutCubic(
+          clamp01((elapsed - LINE_END) / HOP_UP_DURATION),
         );
-        dotX = endX + (farX - endX) * jumpProgress;
-        dotY = lineY + (farY - lineY) * jumpProgress;
-      }
-
-      if (elapsed >= JUMP_END) {
+        dotX = farX;
+        dotY = lineY - hopHeight * t;
+      } else if (elapsed >= HOP_UP_END && elapsed < LAND_END) {
+        const t = easeInCubic(
+          clamp01((elapsed - HOP_UP_END) / HOP_FALL_DURATION),
+        );
+        dotX = farX;
+        dotY = lineY - hopHeight + (farY - (lineY - hopHeight)) * t;
+      } else if (elapsed >= LAND_END) {
         dotX = farX;
         dotY = farY;
-        dotAlpha = Math.max(0, 1 - (elapsed - JUMP_END) / 0.18);
+        dotAlpha = Math.max(0, 1 - (elapsed - LAND_END) / 0.18);
       }
 
       if (elapsed >= LINE_START && dotAlpha > 0) {
@@ -175,9 +183,9 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         context.fill();
       }
 
-      if (elapsed >= JUMP_END) {
+      if (elapsed >= LAND_END) {
         const expandProgress = easeOutCubic(
-          clamp01((elapsed - JUMP_END) / EXPAND_DURATION),
+          clamp01((elapsed - LAND_END) / EXPAND_DURATION),
         );
         const radius = 5.5 + (farRadius - 5.5) * expandProgress;
         let ringAlpha = 0.95;
