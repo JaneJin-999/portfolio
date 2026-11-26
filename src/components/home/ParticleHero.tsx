@@ -4,7 +4,7 @@ import { ParticleField } from "@/components/home/ParticleField";
 
 const navItems = [{
   label: "背景",
-  href: "#manifesto"
+  href: "#process"
 }, {
   label: "作品",
   href: "#studies"
