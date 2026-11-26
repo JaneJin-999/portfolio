@@ -211,11 +211,11 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       context.fillRect(0, 0, width, height);
 
       if (reveal > 0.001) {
-        const maxGap = Math.min(150, Math.max(64, height * 0.12)) * reveal;
+        const maxGap = Math.min(220, Math.max(90, height * 0.17)) * reveal;
         const openLeft = Math.max(0, Math.min(width, dotX));
         const openWidth = Math.max(1, width - openLeft);
         const steps = 32;
-        const curvePower = 1.55;
+        const curvePower = 1.4;
 
         // Curved zipper opening: zero height at the slider, widening to the
         // right edge, with both edges bending away from the drag line.
@@ -418,10 +418,18 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
 
       if (phase === "auto") {
         const t = clamp01((now - autoStart) / (AUTO_DRAW_DURATION * 1000));
+        const span = Math.max(1, manualStartX - farX);
+
         dotX = autoFromX + (farX - autoFromX) * easeInOutCubic(t);
+        reveal = clamp01((manualStartX - dotX) / span);
         drawIdle();
 
-        if (t >= 1) triggerSequence(now);
+        if (t >= 1) {
+          dotX = farX;
+          reveal = 1;
+          phase = "idle";
+          startClose(() => triggerSequence(performance.now()));
+        }
       } else if (phase === "sequence") {
         const time = (now - sequenceStart) / 1000;
         drawSequence(time);
