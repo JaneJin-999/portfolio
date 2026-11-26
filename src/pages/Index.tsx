@@ -195,7 +195,7 @@ const Index = () => <main className="bg-background text-foreground">
             </p>
             <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-6 block w-36 md:w-44" />
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-3 md:w-fit md:justify-self-end">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
           }}>
