@@ -64,9 +64,6 @@ const Index = () => (
           <div className="grid gap-12 md:grid-cols-12">
             <div className="md:col-span-3">
               <ParticlePortrait />
-              <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-accent">
-                Independent motion archive<br />2026 / ongoing
-              </p>
             </div>
             <div className="md:col-span-9">
               <h1 className="max-w-6xl font-display text-[clamp(3.2rem,8vw,8.5rem)] font-semibold uppercase leading-[0.84] tracking-[-0.075em]">
