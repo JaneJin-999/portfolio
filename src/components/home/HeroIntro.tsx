@@ -236,9 +236,9 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
       const elapsed = (time - startTime) / 1000;
       draw(elapsed);
 
-      if (!fadeStarted && elapsed >= EXPAND_END) {
+      if (!fadeStarted && elapsed >= LAND_END) {
         fadeStarted = true;
-        wrapper.style.transition = `opacity ${SCATTER_DURATION}s ease`;
+        wrapper.style.transition = `opacity ${EXPAND_DURATION + SCATTER_DURATION}s ease`;
         wrapper.style.opacity = "0";
       }
 
