@@ -30,7 +30,7 @@ export const ParticleHero = () => {
             JINJIN
           </a>
           <div className="ml-auto flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.16em] sm:gap-7 sm:text-xs">
-            {navItems.map(item => <a key={item.href} href={item.href} className="transition-opacity hover:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white">
+            {navItems.map(item => <a key={item.href} href={item.href} className="transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white">
                 {item.label}
               </a>)}
           </div>
