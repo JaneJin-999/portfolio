@@ -155,17 +155,8 @@ const Index = () => <main className="bg-background text-foreground">
     <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-accent md:px-8 md:py-32">
       <div className="mx-auto max-w-[1600px]">
         <p className="font-mono text-xs uppercase tracking-[0.2em]">联系我</p>
-        <p className="mt-12 flex items-end justify-between gap-8 font-display text-[clamp(2.25rem,5.5vw,5.5rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em]">
-          Start a signal
-        </p>
-        <img
-          src="/wechat-qr.png"
-          alt="微信二维码"
-          width={720}
-          height={720}
-          loading="lazy"
-          className="mx-auto mt-10 block w-44 md:ml-auto md:mr-0 md:w-60"
-        />
+        <p className="mt-12 flex items-end justify-between gap-8 font-display text-[clamp(2.25rem,5.5vw,5.5rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em]">{"jin jin"}</p>
+        <img src="/wechat-qr.png" alt="微信二维码" width={720} height={720} loading="lazy" className="mx-auto mt-10 block w-44 md:ml-auto md:mr-0 md:w-60" />
       </div>
     </section>
 
