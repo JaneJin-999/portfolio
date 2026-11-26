@@ -9,6 +9,7 @@ type SourceImage = {
 };
 
 const MAX_SIZE = 1600;
+const DEFAULT_PORTRAIT_SRC = "/portrait-default.jpg";
 
 const createRandom = (seed: number) => {
   let value = seed;
@@ -27,6 +28,7 @@ export const ParticlePortrait = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const sourceRef = useRef<SourceImage | null>(null);
   const [hasImage, setHasImage] = useState(false);
+  const [loadingDefault, setLoadingDefault] = useState(true);
   const [renderKey, setRenderKey] = useState(0);
   const [size, setSize] = useState(4);
   const [error, setError] = useState<string | null>(null);
@@ -82,6 +84,62 @@ export const ParticlePortrait = () => {
     }
   }, []);
 
+  const processImage = useCallback((image: HTMLImageElement) => {
+    const scale = MAX_SIZE / Math.max(image.width, image.height);
+    const width = Math.max(1, Math.round(image.width * scale));
+    const height = Math.max(1, Math.round(image.height * scale));
+
+    const source = document.createElement("canvas");
+    source.width = width;
+    source.height = height;
+
+    const context = source.getContext("2d", {
+      willReadFrequently: true,
+    });
+
+    if (!context) {
+      setError("Could not read this image.");
+      setLoadingDefault(false);
+      return;
+    }
+
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+
+    sourceRef.current = {
+      width,
+      height,
+      data: context.getImageData(0, 0, width, height).data,
+    };
+
+    setError(null);
+    setHasImage(true);
+    setLoadingDefault(false);
+    setRenderKey((value) => value + 1);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const image = new Image();
+
+    image.onload = () => {
+      if (!cancelled) processImage(image);
+    };
+
+    image.onerror = () => {
+      if (cancelled) return;
+      setLoadingDefault(false);
+      setError("Could not load the default portrait.");
+    };
+
+    image.src = DEFAULT_PORTRAIT_SRC;
+
+    return () => {
+      cancelled = true;
+    };
+  }, [processImage]);
+
   useEffect(() => {
     if (hasImage) render(size);
   }, [hasImage, renderKey, size, render]);
@@ -97,37 +155,7 @@ export const ParticlePortrait = () => {
     const image = new Image();
 
     image.onload = () => {
-      const scale = MAX_SIZE / Math.max(image.width, image.height);
-      const width = Math.max(1, Math.round(image.width * scale));
-      const height = Math.max(1, Math.round(image.height * scale));
-
-      const source = document.createElement("canvas");
-      source.width = width;
-      source.height = height;
-
-      const context = source.getContext("2d", {
-        willReadFrequently: true,
-      });
-
-      if (!context) {
-        setError("Could not read this image.");
-        URL.revokeObjectURL(url);
-        return;
-      }
-
-      context.fillStyle = "#ffffff";
-      context.fillRect(0, 0, width, height);
-      context.drawImage(image, 0, 0, width, height);
-
-      sourceRef.current = {
-        width,
-        height,
-        data: context.getImageData(0, 0, width, height).data,
-      };
-
-      setError(null);
-      setHasImage(true);
-      setRenderKey((value) => value + 1);
+      processImage(image);
       URL.revokeObjectURL(url);
     };
 
@@ -198,6 +226,12 @@ export const ParticlePortrait = () => {
             </button>
           </div>
         </>
+      ) : loadingDefault ? (
+        <div className="flex aspect-square w-full items-center justify-center border border-border bg-card/30">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            Preparing portrait
+          </span>
+        </div>
       ) : (
         <button
           type="button"
