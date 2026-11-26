@@ -321,14 +321,12 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         <aside className="order-2 xl:order-1 xl:col-span-4">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="xl:h-full"
+            className="flex flex-col xl:h-full"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             key={active}
             transition={{ duration: 0.4, ease: [0.2, 0, 0, 1] }}
           >
-            <div
-              className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-card/40 xl:aspect-auto xl:h-full xl:min-h-[26rem]"
-            >
+            <div className="relative aspect-video w-full overflow-hidden bg-card/40">
               {current?.image ? (
                 <img
                   alt={current.imageAlt ?? current.organization}
@@ -338,44 +336,27 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                   src={current.image}
                 />
               ) : (
-                <>
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-3 rounded-xl border border-foreground/20"
-                  />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                    <span className="font-display text-6xl font-semibold tracking-[-0.04em] text-foreground/15">
-                      {pad(active + 1)}
-                    </span>
-                    <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
-                      图片待补充
-                    </span>
-                  </div>
-                </>
-              )}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-6 pt-20">
-                <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/70">
-                  <span className="text-accent">[{pad(active + 1)}]</span>
-                  {(current?.kind || current?.note) && (
-                    <span>{current?.note ? `${current.kind} · ${current.note}` : current?.kind}</span>
-                  )}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                  <span className="font-display text-6xl font-semibold tracking-[-0.04em] text-foreground/15">
+                    {pad(active + 1)}
+                  </span>
+                  <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
+                    图片待补充
+                  </span>
                 </div>
-                <h3 className="mt-2 whitespace-pre-line font-display text-2xl font-medium tracking-[-0.02em] text-foreground md:text-3xl">
-                  {current?.organization}
-                </h3>
-                {current?.role && (
-                  <p className="mt-1 text-sm leading-relaxed text-foreground/80">{current.role}</p>
-                )}
-                <p className="mt-2 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
-                  {current?.range}
-                </p>
-                {current?.detail && (
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    {current.detail}
-                  </p>
-                )}
-              </div>
+              )}
             </div>
+            <p
+              className={cn(
+                "mt-8 whitespace-pre-line leading-relaxed xl:mt-auto xl:pt-10",
+                current?.detail
+                  ? "text-base text-foreground/80"
+                  : "text-sm text-muted-foreground",
+              )}
+            >
+              {current?.detail ??
+                "这段经历的详细介绍待补充：可以写负责的内容、参与的项目，以及这段经历带来的思考。"}
+            </p>
           </motion.div>
         </aside>
 
