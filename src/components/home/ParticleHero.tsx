@@ -26,9 +26,7 @@ export const ParticleHero = () => {
 
       <div className="pointer-events-none absolute inset-0 z-10 flex flex-col px-5 py-5 md:px-8 md:py-7">
         <nav className="pointer-events-auto flex items-center justify-between gap-5 border-b border-black/20 pb-5">
-          <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white" style={{
-            fontFamily: "Open Sans"
-          }}>
+          <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white">
             JINJIN
           </a>
           <div className="ml-auto flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.16em] sm:gap-7 sm:text-xs">
