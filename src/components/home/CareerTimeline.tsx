@@ -86,7 +86,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
       const span = Math.min(distance, 2);
 
       element.style.transformOrigin = "center bottom";
-      element.style.transform = `scale(${(1 - span * 0.02).toFixed(4)}, ${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`;
+      element.style.transform = `scale(${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`;
       element.style.opacity = String(Math.max(0.5, 1 - span * 0.16));
     });
 
