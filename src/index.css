@@ -90,7 +90,12 @@
 
   ::selection {
     background: hsl(var(--accent));
-    color: hsl(var(--accent-foreground));
+    color: hsl(var(--selection-foreground, 355 30% 6%));
+  }
+
+  /* Light surfaces invert their selected text to white. */
+  .on-light {
+    --selection-foreground: 0 0% 100%;
   }
 }
 

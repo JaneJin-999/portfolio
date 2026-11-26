@@ -122,7 +122,7 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-neutral-950 md:px-8 md:py-32" style={{
+    <section id="contact" className="on-light scroll-mt-20 bg-white px-5 py-24 text-neutral-950 md:px-8 md:py-32" style={{
     backgroundColor: "#FFFFFFFF"
   }}>
       <div className="mx-auto max-w-[1600px]">
