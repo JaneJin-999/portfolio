@@ -24,10 +24,9 @@ export const ArchiveStudy = ({
   imageClassName,
   className,
 }: ArchiveStudyProps) => (
-  <a
-    href="#contact"
+  <div
     className={cn(
-      "group block rounded-2xl border border-border bg-card/40 p-2 transition-all duration-500 hover:-translate-y-1 hover:border-accent/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+      "group block cursor-default rounded-2xl border border-border bg-card/40 p-2 transition-all duration-500 hover:-translate-y-1 hover:border-accent/70",
       className,
     )}
   >
@@ -69,5 +68,5 @@ export const ArchiveStudy = ({
         </span>
       </div>
     </div>
-  </a>
+  </div>
 );
