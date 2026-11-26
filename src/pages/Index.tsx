@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArchiveStudy } from "@/components/home/ArchiveStudy";
 import { ParticleHero } from "@/components/home/ParticleHero";
@@ -157,7 +157,6 @@ const Index = () => <main className="bg-background text-foreground">
         <p className="font-mono text-xs uppercase tracking-[0.2em]">联系我</p>
         <p className="mt-12 flex items-end justify-between gap-8 font-display text-[clamp(2.25rem,5.5vw,5.5rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em]">
           Start a signal
-          <ArrowDownRight className="mb-1 size-8 shrink-0 md:size-12" aria-hidden="true" />
         </p>
         <img
           src="/wechat-qr.png"
