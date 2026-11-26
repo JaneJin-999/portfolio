@@ -213,19 +213,20 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         const textWidth = context.measureText(label).width;
         const gap = 7;
         const arrowLength = 14;
-        const groupLeft = dotX - (arrowLength + gap + textWidth) / 2;
         const hintY = lineY + 36;
         const arrowY = hintY - 3.5;
+        const arrowLeft = dotX - textWidth / 2 - gap - arrowLength;
 
-        context.textAlign = "left";
+        context.textAlign = "center";
+        context.fillText(label, dotX, hintY);
+
         context.beginPath();
-        context.moveTo(groupLeft, arrowY);
-        context.lineTo(groupLeft + arrowLength, arrowY);
-        context.moveTo(groupLeft + 4, arrowY - 4);
-        context.lineTo(groupLeft, arrowY);
-        context.lineTo(groupLeft + 4, arrowY + 4);
+        context.moveTo(arrowLeft, arrowY);
+        context.lineTo(arrowLeft + arrowLength, arrowY);
+        context.moveTo(arrowLeft + 4, arrowY - 4);
+        context.lineTo(arrowLeft, arrowY);
+        context.lineTo(arrowLeft + 4, arrowY + 4);
         context.stroke();
-        context.fillText(label, groupLeft + arrowLength + gap, hintY);
       }
 
       context.globalAlpha = 1;
