@@ -51,7 +51,7 @@ const background: CareerEntry[] = [{
   range: "2026.06 – 2026.08"
 }, {
   period: "2026.09",
-  organization: "Converge AI",
+  organization: "Converge AI\n——九坤创投",
   role: "产品设计",
   kind: "实习",
   range: "2026.09 – 2026.11"
