@@ -11,6 +11,9 @@ export interface CareerEntry {
   kind: string;
   range: string;
   note?: string;
+  image?: string;
+  imageAlt?: string;
+  detail?: string;
 }
 
 const clamp = (value: number, min: number, max: number) =>
@@ -295,13 +298,71 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
 
   return (
     <div className="mt-12 md:mt-16">
-      <div className="relative flex h-[1em] items-center justify-center overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
-        <RollingPeriod value={current?.period ?? ""} animate={!reduceMotion} />
-      </div>
+      <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <aside className="order-2 lg:order-1 lg:col-span-4">
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            key={active}
+            transition={{ duration: 0.4, ease: [0.2, 0, 0, 1] }}
+          >
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-card/40">
+              {current?.image ? (
+                <img
+                  alt={current.imageAlt ?? current.organization}
+                  className="h-full w-full object-cover"
+                  decoding="async"
+                  loading="lazy"
+                  src={current.image}
+                />
+              ) : (
+                <>
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-3 rounded-xl border border-foreground/20"
+                  />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                    <span className="font-display text-5xl font-semibold tracking-[-0.04em] text-foreground/15">
+                      {pad(active + 1)}
+                    </span>
+                    <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
+                      图片待补充
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="mt-6">
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                <span className="text-accent">[{pad(active + 1)}]</span>
+                {(current?.kind || current?.note) && (
+                  <span>{current?.note ? `${current.kind} · ${current.note}` : current?.kind}</span>
+                )}
+              </div>
+              <h3 className="mt-3 font-display text-2xl font-medium tracking-[-0.02em] md:text-3xl">
+                {current?.organization}
+              </h3>
+              {current?.role && (
+                <p className="mt-2 text-sm leading-relaxed text-foreground/80">{current.role}</p>
+              )}
+              <p className="mt-4 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
+                {current?.range}
+              </p>
+              {current?.detail && (
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{current.detail}</p>
+              )}
+            </div>
+          </motion.div>
+        </aside>
 
-      <p className="sr-only" aria-live="polite">
-        {`第 ${active + 1} 项，共 ${entries.length} 项：${current?.organization ?? ""}`}
-      </p>
+        <div className="order-1 min-w-0 lg:order-2 lg:col-span-8">
+          <div className="relative flex h-[1em] items-center justify-center overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
+            <RollingPeriod value={current?.period ?? ""} animate={!reduceMotion} />
+          </div>
+
+          <p className="sr-only" aria-live="polite">
+            {`第 ${active + 1} 项，共 ${entries.length} 项：${current?.organization ?? ""}`}
+          </p>
 
       <div
         aria-label="学习与工作经历时间轴"
@@ -454,6 +515,8 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
             </button>
           </div>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>
