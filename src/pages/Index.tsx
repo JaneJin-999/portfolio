@@ -3,6 +3,7 @@ import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArchiveStudy } from "@/components/home/ArchiveStudy";
 import { ParticleHero } from "@/components/home/ParticleHero";
+import { ParticlePortrait } from "@/components/home/ParticlePortrait";
 import { SectionHeading } from "@/components/home/SectionHeading";
 
 const screenings = [
@@ -62,7 +63,8 @@ const Index = () => (
         <Reveal>
           <div className="grid gap-12 md:grid-cols-12">
             <div className="md:col-span-3">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+              <ParticlePortrait />
+              <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-accent">
                 Independent motion archive<br />2026 / ongoing
               </p>
             </div>
