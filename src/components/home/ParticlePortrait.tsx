@@ -186,7 +186,7 @@ export const ParticlePortrait = () => {
           ref={canvasRef}
           role="img"
           aria-label="Particle portrait"
-          className="block h-auto w-full"
+          className="block h-auto w-full md:origin-top-left md:scale-150"
         />
       ) : (
         <div
