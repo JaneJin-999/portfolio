@@ -58,7 +58,7 @@ const Reveal = ({
 const Index = () => <main className="bg-background text-foreground">
     <ParticleHero />
 
-    <div className="scanline-field relative mx-auto h-20 max-w-[1600px]" aria-hidden="true">
+    <div className="scanline-field relative h-20 w-full" aria-hidden="true">
       <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
     </div>
 
