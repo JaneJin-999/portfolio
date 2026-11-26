@@ -356,7 +356,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
       </div>
 
       <div className="mt-8 border-t border-border pt-5">
-        <div className="mx-auto w-full max-w-[34rem] px-3">
+        <div className="mx-auto w-full max-w-[34rem] px-5">
           <div
             aria-hidden="true"
             className="relative h-12 cursor-ew-resize touch-none select-none"
@@ -391,17 +391,10 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                 }}
               />
             ))}
-            {yearTicks.map((tick, index) => (
+            {yearTicks.map((tick) => (
               <span
                 aria-hidden="true"
-                className={cn(
-                  "pointer-events-none absolute top-[26px] font-mono text-[10px] tracking-[0.04em] text-muted-foreground",
-                  index === 0
-                    ? "translate-x-0"
-                    : tick.ratio > 0.92
-                      ? "-translate-x-full"
-                      : "-translate-x-1/2",
-                )}
+                className="pointer-events-none absolute top-[26px] -translate-x-1/2 font-mono text-[10px] tracking-[0.04em] text-muted-foreground"
                 key={`year-${tick.year}`}
                 style={{ left: `${tick.ratio * 100}%` }}
               >
