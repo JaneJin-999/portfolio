@@ -360,7 +360,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                     <span>{current?.note ? `${current.kind} · ${current.note}` : current?.kind}</span>
                   )}
                 </div>
-                <h3 className="mt-2 font-display text-2xl font-medium tracking-[-0.02em] text-foreground md:text-3xl">
+                <h3 className="mt-2 whitespace-pre-line font-display text-2xl font-medium tracking-[-0.02em] text-foreground md:text-3xl">
                   {current?.organization}
                 </h3>
                 {current?.role && (
@@ -430,7 +430,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                   )}
                 </div>
                 <div className="mt-14 h-px w-full bg-border" aria-hidden="true" />
-                <h3 className="mt-5 font-display text-xl font-medium leading-snug tracking-[-0.02em] md:text-2xl">
+                <h3 className="mt-5 whitespace-pre-line font-display text-xl font-medium leading-snug tracking-[-0.02em] md:text-2xl">
                   {entry.organization}
                 </h3>
                 {entry.role && (

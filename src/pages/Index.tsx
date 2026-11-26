@@ -32,7 +32,7 @@ const background: CareerEntry[] = [{
   range: "2024.11 – 2025.02"
 }, {
   period: "2025.03",
-  organization: "莫纳什大学 Monash University",
+  organization: "莫纳什大学\nMonash University",
   role: "交互设计",
   kind: "教育",
   range: "2025.03 – 2026.11",
