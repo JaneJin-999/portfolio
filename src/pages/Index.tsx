@@ -155,17 +155,37 @@ const Index = () => <main className="bg-background text-foreground">
     <section id="contact" className="scroll-mt-20 bg-white px-5 py-24 text-accent md:px-8 md:py-32">
       <div className="mx-auto max-w-[1600px]">
         <p className="font-mono text-xs uppercase tracking-[0.2em]">联系我</p>
-        <p className="mt-12 flex items-end justify-between gap-8 font-display text-[clamp(2.25rem,5.5vw,5.5rem)] font-semibold uppercase leading-[0.82] tracking-[-0.075em]">
-          Start a signal
-        </p>
-        <img
-          src="/wechat-qr.png"
-          alt="微信二维码"
-          width={720}
-          height={720}
-          loading="lazy"
-          className="mx-auto mt-10 block w-44 md:ml-auto md:mr-0 md:w-60"
-        />
+        <div className="mt-12 grid gap-10 md:grid-cols-3 md:items-start">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent/70">
+              手机号
+            </p>
+            <p className="mt-3 font-display text-2xl font-semibold tracking-[-0.02em] md:text-3xl">
+              17361662629
+            </p>
+          </div>
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent/70">
+              邮箱
+            </p>
+            <p className="mt-3 break-all font-display text-2xl font-semibold tracking-[-0.02em] md:text-3xl">
+              17361662629@163.com
+            </p>
+          </div>
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent/70">
+              微信
+            </p>
+            <img
+              src="/wechat-qr.png"
+              alt="微信二维码"
+              width={720}
+              height={720}
+              loading="lazy"
+              className="mt-3 block w-40 md:w-48"
+            />
+          </div>
+        </div>
       </div>
     </section>
 
