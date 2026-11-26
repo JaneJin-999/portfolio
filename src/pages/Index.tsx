@@ -173,13 +173,17 @@ const Index = () => <main className="bg-background text-foreground">
           }}>
               电话
             </p>
-            <p className="mt-3 font-display text-lg md:text-xl">17361662629</p>
+            <p className="mt-3 font-display text-lg md:text-xl" style={{
+            fontSize: "16px"
+          }}>17361662629</p>
             <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
             fontSize: "12px"
           }}>
               邮箱
             </p>
-            <p className="mt-3 break-all font-display text-lg md:text-xl">
+            <p className="mt-3 break-all font-display text-lg md:text-xl" style={{
+            fontSize: "16px"
+          }}>
               17361662629@163.com
             </p>
           </div>
@@ -198,18 +202,24 @@ const Index = () => <main className="bg-background text-foreground">
               导航
             </p>
             <ul className="mt-6 space-y-4 font-display text-lg md:text-xl">
-              <li>
-                <a href="#manifesto" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]">
+              <li className="text-[16px]">
+                <a href="#manifesto" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
+                fontSize: "16px"
+              }}>
                   背景
                 </a>
               </li>
               <li>
-                <a href="#studies" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]">
+                <a href="#studies" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
+                fontSize: "16px"
+              }}>
                   作品
                 </a>
               </li>
               <li>
-                <a href="#contact" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]">
+                <a href="#contact" className="transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none text-[14px]" style={{
+                fontSize: "16px"
+              }}>
                   联系我
                 </a>
               </li>
