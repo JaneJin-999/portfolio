@@ -99,14 +99,14 @@ export const ParticlePortrait = () => {
 
         // The photo has more particles toward the bottom, so let that edge
         // scatter further down into the extra transparent space.
-        const bottomBand = Math.max(150, height * 0.18);
+        const bottomBand = Math.max(200, height * 0.3);
         const bottomDistance = height - py;
 
         if (bottomDistance < bottomBand) {
           const bottomBleed = 1 - bottomDistance / bottomBand;
 
-          // Thin the count as the field approaches the bottom edge.
-          if (random() < bottomBleed * 0.7) continue;
+          // Thin the count gradually across the lower part of the photo.
+          if (random() < bottomBleed * 0.8) continue;
 
           const spread =
             bottomBleed *
@@ -116,7 +116,10 @@ export const ParticlePortrait = () => {
           drawY += spread;
           drawX +=
             ((px - centerX) / Math.max(1, width / 2)) * spread * 0.1;
-          context.globalAlpha = (1 - bottomBleed) * 0.9;
+
+          // Start from full opacity at the top of the fade so there is no
+          // visible horizontal seam where the gradient begins.
+          context.globalAlpha = 1 - bottomBleed * 0.95;
         }
 
         context.beginPath();
