@@ -197,7 +197,7 @@ const Index = () => <main className="bg-background text-foreground">
             }}>
               微信
             </p>
-            <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-4 block w-[105px]" />
+            <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-4 block w-[110px]" />
           </div>
           <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
