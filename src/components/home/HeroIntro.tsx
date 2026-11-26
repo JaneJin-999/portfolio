@@ -216,10 +216,10 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         const arrowLength = 14;
         const hintY = lineY + 36;
         const arrowY = hintY - 3.5;
-        const arrowLeft = dotX - haloRadius;
+        const arrowLeft = dotX - arrowLength / 2;
 
         context.textAlign = "left";
-        context.fillText(label, arrowLeft + arrowLength + gap, hintY);
+        context.fillText(label, dotX + arrowLength / 2 + gap, hintY);
 
         context.beginPath();
         context.moveTo(arrowLeft, arrowY);
