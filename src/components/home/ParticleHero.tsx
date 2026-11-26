@@ -3,14 +3,14 @@ import { HeroIntro } from "@/components/home/HeroIntro";
 import { ParticleField } from "@/components/home/ParticleField";
 
 const navItems = [{
-  label: "Studies",
+  label: "背景",
+  href: "#manifesto"
+}, {
+  label: "作品",
   href: "#studies"
 }, {
-  label: "Process",
-  href: "#process"
-}, {
-  label: "Screenings",
-  href: "#screenings"
+  label: "联系我",
+  href: "#contact"
 }];
 
 export const ParticleHero = () => {
