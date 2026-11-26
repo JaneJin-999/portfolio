@@ -53,6 +53,7 @@ const RollingPeriod = ({ value, animate }: { value: string; animate: boolean }) 
 export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
   const reduceMotion = useReducedMotion() ?? false;
   const reelRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const scaleRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const dragRef = useRef<{ id: number; x: number; left: number; moved: boolean } | null>(null);
@@ -60,46 +61,37 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
 
-  const centerOf = useCallback(
-    (element: HTMLElement) => element.offsetLeft + element.offsetWidth / 2,
-    [],
-  );
-
   const measure = useCallback(() => {
     const reel = reelRef.current;
     if (!reel) return;
 
-    const center = reel.scrollLeft + reel.clientWidth / 2;
-    let nearest = 0;
-    let nearestDistance = Number.POSITIVE_INFINITY;
+    const maxScroll = reel.scrollWidth - reel.clientWidth;
+    const step = entries.length > 1 ? maxScroll / (entries.length - 1) : 0;
+    const nextActive =
+      step > 0 ? clamp(Math.round(reel.scrollLeft / step), 0, entries.length - 1) : 0;
 
     itemRefs.current.forEach((element, index) => {
       if (!element) return;
 
-      const mid = centerOf(element);
-      const distance = Math.abs(mid - center);
-      if (distance < nearestDistance) {
-        nearestDistance = distance;
-        nearest = index;
-      }
-
       if (reduceMotion) {
         element.style.transform = "";
         element.style.opacity = "";
-        element.style.zIndex = "";
         return;
       }
 
-      const ratio = (mid - center) / element.offsetWidth;
-      const span = Math.min(Math.abs(ratio), 2.4);
+      const distance =
+        step > 0
+          ? Math.max(0, (element.offsetLeft - reel.scrollLeft) / step)
+          : Math.max(0, index - nextActive);
+      const span = Math.min(distance, 2);
 
-      element.style.transform = `perspective(1400px) translate3d(0, ${(span * 12).toFixed(2)}px, 0) scale(${(1 - span * 0.055).toFixed(4)}) rotateY(${clamp(-ratio * 4, -7, 7).toFixed(2)}deg)`;
-      element.style.opacity = Math.max(0.32, 1 - span * 0.3).toFixed(3);
-      element.style.zIndex = String(100 - Math.round(span * 20));
+      element.style.transformOrigin = "center";
+      element.style.transform = `scale(${(1 - span * 0.03).toFixed(4)})`;
+      element.style.opacity = String(Math.max(0.5, 1 - span * 0.16));
     });
 
-    setActive(nearest);
-  }, [centerOf, reduceMotion]);
+    setActive(nextActive);
+  }, [entries.length, reduceMotion]);
 
   useEffect(() => {
     const reel = reelRef.current;
@@ -127,17 +119,44 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
     };
   }, [measure]);
 
+  useEffect(() => {
+    const reel = reelRef.current;
+    const track = trackRef.current;
+    if (!reel || !track) return;
+
+    const update = () => {
+      const styles = getComputedStyle(track);
+      const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+      const columns = window.matchMedia("(min-width: 1024px)").matches
+        ? 3
+        : window.matchMedia("(min-width: 640px)").matches
+          ? 2
+          : 1;
+      const width = Math.max(0, (reel.clientWidth - gap * (columns - 1)) / columns);
+      if (width <= 0) return;
+      track.style.setProperty("--card-w", `${width}px`);
+      track.style.paddingRight = `${Math.max(0, reel.clientWidth - width)}px`;
+      requestAnimationFrame(measure);
+    };
+
+    const observer = new ResizeObserver(update);
+    observer.observe(reel);
+    update();
+    return () => observer.disconnect();
+  }, [measure]);
+
   const goTo = useCallback(
     (index: number) => {
       const reel = reelRef.current;
-      const target = itemRefs.current[clamp(index, 0, entries.length - 1)];
-      if (!reel || !target) return;
+      if (!reel) return;
+      const maxScroll = reel.scrollWidth - reel.clientWidth;
+      const step = entries.length > 1 ? maxScroll / (entries.length - 1) : 0;
       reel.scrollTo({
-        left: centerOf(target) - reel.clientWidth / 2,
+        left: clamp(index, 0, entries.length - 1) * step,
         behavior: reduceMotion ? "auto" : "smooth",
       });
     },
-    [centerOf, entries.length, reduceMotion],
+    [entries.length, reduceMotion],
   );
 
   useEffect(() => {
@@ -298,8 +317,8 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
 
   return (
     <div className="mt-12 md:mt-16">
-      <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-        <aside className="order-2 lg:order-1 lg:col-span-4">
+      <div className="grid gap-10 xl:grid-cols-12 xl:gap-12">
+        <aside className="order-2 xl:order-1 xl:col-span-4">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
@@ -355,7 +374,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
           </motion.div>
         </aside>
 
-        <div className="order-1 min-w-0 lg:order-2 lg:col-span-8">
+        <div className="order-1 min-w-0 xl:order-2 xl:col-span-8">
           <div className="relative flex h-[1em] items-center justify-center overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
             <RollingPeriod value={current?.period ?? ""} animate={!reduceMotion} />
           </div>
@@ -381,10 +400,13 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         tabIndex={0}
         style={{ scrollSnapType: "x mandatory" }}
       >
-        <div className="relative flex w-max items-stretch gap-5 px-[calc(50%_-_var(--card-w)*0.5)] md:gap-8 [--card-w:clamp(15.5rem,60vw,21rem)]">
+        <div
+          className="relative flex w-max items-stretch gap-5 md:gap-8 [--card-w:20rem]"
+          ref={trackRef}
+        >
           {entries.map((entry, index) => (
             <div
-              className="w-[var(--card-w)] shrink-0 snap-center will-change-transform"
+              className="w-[var(--card-w)] shrink-0 snap-start will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               ref={(node) => {
                 itemRefs.current[index] = node;
