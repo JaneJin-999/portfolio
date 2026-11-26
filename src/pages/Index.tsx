@@ -167,12 +167,15 @@ const Index = () => <main className="bg-background text-foreground">
           </div>
           <div className="md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
-              联系方式
+              电话
             </p>
-            <div className="mt-6 space-y-4 font-display text-lg md:text-xl">
-              <p>17361662629</p>
-              <p className="break-all">17361662629@163.com</p>
-            </div>
+            <p className="mt-3 font-display text-lg md:text-xl">17361662629</p>
+            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+              邮箱
+            </p>
+            <p className="mt-3 break-all font-display text-lg md:text-xl">
+              17361662629@163.com
+            </p>
           </div>
           <div className="md:col-span-2">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
