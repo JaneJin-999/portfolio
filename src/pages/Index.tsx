@@ -79,7 +79,7 @@ const Index = () => <main className="bg-background text-foreground">
               </div>
               <div
                 className="ml-auto flex flex-col gap-8 pt-6 md:flex-row md:items-start"
-                style={{ width: "calc(5.55 * clamp(3.2rem, 8vw, 8.5rem))" }}
+                style={{ width: "calc(6.475 * clamp(3.2rem, 8vw, 8.5rem))" }}
               >
                 <p
                   className="relative shrink-0 font-display text-2xl leading-tight text-accent md:text-4xl"
