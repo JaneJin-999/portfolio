@@ -413,7 +413,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         }
       } else if (phase === "idle" && dragging) {
         const span = Math.max(1, manualStartX - farX);
-        reveal = easeOutCubic(clamp01((manualStartX - dotX) / span));
+        reveal = clamp01((manualStartX - dotX) / span);
       }
 
       if (phase === "auto") {
