@@ -64,13 +64,15 @@ const background: CareerEntry[] = [{
   kind: "实习",
   range: "2026.06 – 2026.08",
   image: "/career-07-midea.jpg",
-  imageAlt: "晚霞下的厂房与城市天际线"
+  imageAlt: "带有 CERNET 标识的玻璃办公楼与旗帜"
 }, {
   period: "2026.09",
   organization: "Converge AI\n——九坤创投",
   role: "产品设计",
   kind: "实习",
-  range: "2026.09 – 2026.11"
+  range: "2026.09 – 2026.11",
+  image: "/career-08-converge.jpg",
+  imageAlt: "夜色中的 TusPark 办公楼与台阶"
 }];
 const Reveal = ({
   children,
