@@ -64,7 +64,7 @@ const background: CareerEntry[] = [{
   kind: "实习",
   range: "2026.06 – 2026.08",
   image: "/career-07-midea.jpg",
-  imageAlt: "带有 CERNET 标识的玻璃办公楼与旗帜"
+  imageAlt: "晚霞下的厂房与城市天际线"
 }, {
   period: "2026.09",
   organization: "Converge AI\n——九坤创投",
