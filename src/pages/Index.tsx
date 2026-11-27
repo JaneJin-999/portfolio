@@ -53,7 +53,7 @@ const background: CareerEntry[] = [{
   detail: "吸取之前实践太少的经验教训，我在等待入学期间又开始寻找实习。在万唯做了一些有关内容运营的工作：审核教辅书配套教学视频的内容，并对发现的讲解错误与教师沟通补录音频，并完成视频剪辑与内容修正。"
 }, {
   period: "2025.03",
-  organization: "莫纳什大学\nMonash University",
+  organization: "Monash University",
   role: "交互设计",
   kind: "教育",
   range: "2025.03 – 2026.11",
