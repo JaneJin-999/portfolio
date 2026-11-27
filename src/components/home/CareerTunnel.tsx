@@ -208,14 +208,14 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(60vh,560px)] min-h-[400px] w-[min(52rem,92%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(54vh,500px)] min-h-[380px] w-[min(46rem,88%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
                 transform: isPast
-                  ? "translate(-50%, -50%) rotateY(0deg) translateZ(420px) scale(1.05)"
+                  ? "translate(-50%, -50%) rotateY(0deg) scale(1.05)"
                   : `translate(-50%, -50%) rotateY(${
                       contentRight ? -8 : 8
-                    }deg) translateZ(${-depth * 120}px) scale(${Math.pow(0.72, depth)})`,
+                    }deg) scale(${Math.pow(0.72, depth)})`,
                 opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
@@ -223,9 +223,9 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
             >
               <article
                 className={cn(
-                  "absolute inset-0 rounded-2xl border transition-colors",
+                  "absolute inset-0 border transition-colors",
                   isFront
-                    ? "border-accent/70 shadow-[0_0_60px_rgba(161,218,218,0.16)]"
+                    ? "border-accent/70"
                     : "border-foreground/18",
                 )}
               >
@@ -240,13 +240,13 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                   {entry.image ? (
                     <img
                       alt={entry.imageAlt ?? entry.organization}
-                      className="aspect-[16/9] w-full rounded-lg border border-border/40 object-cover"
+                      className="aspect-[16/9] w-full border border-border/40 object-cover"
                       decoding="async"
                       loading="lazy"
                       src={entry.image}
                     />
                   ) : (
-                    <div className="flex aspect-[16/9] w-full items-center justify-center rounded-lg border border-border/40 bg-card/60 font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
+                    <div className="flex aspect-[16/9] w-full items-center justify-center border border-border/40 bg-card/60 font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
                       图片待补充
                     </div>
                   )}
