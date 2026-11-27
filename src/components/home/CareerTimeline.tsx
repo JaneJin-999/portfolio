@@ -50,6 +50,7 @@ export const CareerTimeline = ({
   entries: CareerEntry[];
 }) => {
   const reduceMotion = useReducedMotion() ?? false;
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const reelRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const scaleRef = useRef<HTMLDivElement | null>(null);
@@ -63,6 +64,7 @@ export const CareerTimeline = ({
   const suppressClickRef = useRef(false);
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
+  const [readyImage, setReadyImage] = useState<string | null>(null);
   const measure = useCallback(() => {
     const reel = reelRef.current;
     if (!reel) return;
@@ -280,7 +282,49 @@ export const CareerTimeline = ({
     reel.style.scrollSnapType = "x mandatory";
     measure();
   };
-  return <div className="mt-12 md:mt-16">
+  useEffect(() => {
+    const node = rootRef.current;
+    const sources = Array.from(
+      new Set(
+        entries
+          .map((entry) => entry.image)
+          .filter((src): src is string => Boolean(src)),
+      ),
+    );
+    if (!sources.length) return;
+
+    let cancelled = false;
+    const preload = () => {
+      if (cancelled) return;
+      for (const src of sources) {
+        const image = new Image();
+        image.decoding = "async";
+        image.src = src;
+      }
+    };
+
+    if (typeof IntersectionObserver === "undefined") {
+      preload();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (records) => {
+        if (records.some((record) => record.isIntersecting)) {
+          preload();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "800px 0px" },
+    );
+    if (node) observer.observe(node);
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, [entries]);
+
+  return <div ref={rootRef} className="mt-12 md:mt-16">
       <div className="grid gap-10 xl:grid-cols-12 xl:gap-12">
         <aside className="order-2 xl:order-1 xl:col-span-4">
           <motion.div animate={{
@@ -294,7 +338,7 @@ export const CareerTimeline = ({
           ease: [0.2, 0, 0, 1]
         }}>
             <div className="relative aspect-square w-full overflow-hidden bg-card/40">
-              {current?.image ? <img alt={current.imageAlt ?? current.organization} className="absolute inset-0 h-full w-full object-cover object-[center_40%]" decoding="async" loading="lazy" src={current.image} /> : <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              {current?.image ? <img alt={current.imageAlt ?? current.organization} className={cn("absolute inset-0 h-full w-full object-cover object-[center_40%] transition-opacity duration-500", readyImage === current.image ? "opacity-100" : "opacity-0")} decoding="async" loading="eager" onLoad={() => setReadyImage(current.image ?? null)} src={current.image} /> : <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                   <span className="font-display text-6xl font-semibold tracking-[-0.04em] text-foreground/15">
                     {pad(active + 1)}
                   </span>
