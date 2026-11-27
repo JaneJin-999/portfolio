@@ -195,7 +195,9 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                     <span className="text-accent">[{pad(index + 1)}]</span>{" "}
-                    {entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}
+                    <span className="text-[11px]">
+                      {entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}
+                    </span>
                   </p>
 
                   <h3 className="mt-1.5 whitespace-pre-line font-display text-lg font-bold leading-tight tracking-[-0.02em] md:text-2xl">
