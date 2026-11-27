@@ -329,7 +329,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
               {current?.image ? (
                 <img
                   alt={current.imageAlt ?? current.organization}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover object-[center_40%]"
                   decoding="async"
                   loading="lazy"
                   src={current.image}
