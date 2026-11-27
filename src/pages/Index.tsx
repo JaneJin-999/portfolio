@@ -13,7 +13,8 @@ const background: CareerEntry[] = [{
   range: "2018.09 – 2022.07",
   note: "211",
   image: "/career-01-beijing-forestry.jpg",
-  imageAlt: "北京林业大学校园雪景，林间水景与落叶"
+  imageAlt: "北京林业大学校园雪景，林间水景与落叶",
+  detail: "在北林的四年，我投身于自然山水与古典园林，对「美」有了自己的见解；也参与了各类文体活动，为班级同学服务。"
 }, {
   period: "2022.08",
   organization: "考研二战",
