@@ -395,7 +395,7 @@ export const CareerTimeline = ({
               if (start === null || end === null) return null;
               const from = clamp((start - axisStart) / axisSpan, 0, 1);
               const to = clamp((end + 1 - axisStart) / axisSpan, 0, 1);
-              return <span aria-hidden="true" className={cn("pointer-events-none absolute top-0 h-[5px] rounded-full", entry.kind === "教育" ? "bg-accent/30" : entry.kind === "实习" ? "bg-foreground/30" : "bg-foreground/10")} key={`duration-${entry.period}-${entry.organization}`} style={{
+              return <span aria-hidden="true" className={cn("pointer-events-none absolute top-0 h-[5px] rounded-full", entry.kind === "教育" ? "bg-foreground/30" : entry.kind === "实习" ? "bg-accent/30" : "bg-foreground/10")} key={`duration-${entry.period}-${entry.organization}`} style={{
                 left: `${from * 100}%`,
                 width: `${Math.max(0.4, (to - from) * 100)}%`
               }} />;
