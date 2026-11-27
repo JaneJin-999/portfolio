@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { CareerTimeline, type CareerEntry } from "@/components/home/CareerTimeline";
 import { ParticleHero } from "@/components/home/ParticleHero";
 import { StudyDeck, type Study } from "@/components/home/StudyDeck";
+import { wechatQrSrc } from "@/components/home/wechatQr";
 import { ParticlePortrait } from "@/components/home/ParticlePortrait";
 import { SectionHeading } from "@/components/home/SectionHeading";
 const background: CareerEntry[] = [{
@@ -246,7 +247,7 @@ const Index = () => <main className="bg-background text-foreground">
             }}>
               微信
             </p>
-            <img src="/wechat-qr.png" alt="微信二维码" width={612} height={612} loading="lazy" className="mt-4 block w-[110px]" />
+            <img src={wechatQrSrc} alt="微信二维码" width={240} height={240} className="mt-4 block w-[110px]" />
           </div>
           <div className="md:w-fit">
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500" style={{
