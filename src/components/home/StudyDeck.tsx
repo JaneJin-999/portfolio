@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 export interface Study {
   index: string;
@@ -19,7 +18,6 @@ export const StudyDeck = ({
   const total = studies.length;
   const current = studies[active] ?? studies[0];
   if (!current) return null;
-  const go = (index: number) => setActive(Math.min(total - 1, Math.max(0, index)));
   return <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12">
       <div className="flex flex-col lg:col-span-5">
         <p className="font-mono text-4xl font-medium leading-none tracking-[-0.02em]">
@@ -73,22 +71,6 @@ export const StudyDeck = ({
         })}
         </div>
 
-        <div className="mt-6 flex items-center justify-end gap-6">
-          <div className="flex w-[16rem] max-w-full items-center gap-1.5">
-            {studies.map((study, index) => <button aria-current={index === active ? "true" : undefined} aria-label={`第 ${index + 1} 个作品：${study.title}`} className="group flex h-4 flex-1 items-center" key={study.index} onClick={() => setActive(index)} type="button">
-                <span className={cn("h-[2px] w-full rounded-full transition-colors", index === active ? "bg-foreground" : "bg-border group-hover:bg-foreground/40")} />
-              </button>)}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button aria-label="上一个作品" className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30" disabled={active === 0} onClick={() => go(active - 1)} type="button">
-              <ChevronLeft className="size-4" />
-            </button>
-            <button aria-label="下一个作品" className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30" disabled={active === total - 1} onClick={() => go(active + 1)} type="button">
-              <ChevronRight className="size-4" />
-            </button>
-          </div>
-        </div>
       </div>
     </div>;
 };
