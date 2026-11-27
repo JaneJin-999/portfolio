@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { CareerTimeline, type CareerEntry } from "@/components/home/CareerTimeline";
+import { type CareerEntry } from "@/components/home/CareerTimeline";
+import { CareerTunnel } from "@/components/home/CareerTunnel";
 import { ParticleHero } from "@/components/home/ParticleHero";
 import { StudyDeck, type Study } from "@/components/home/StudyDeck";
 import { wechatQrSrc } from "@/components/home/wechatQr";
@@ -187,10 +188,7 @@ const Index = () => <main className="bg-background text-foreground">
         <Reveal>
           <SectionHeading eyebrow="背景" heading="我的学习与工作经历" />
         </Reveal>
-        <CareerTimeline entries={background} depth />
-        <div className="mt-24 md:mt-32">
-          <CareerTimeline entries={background} />
-        </div>
+        <CareerTunnel entries={background} />
       </div>
     </section>
 
