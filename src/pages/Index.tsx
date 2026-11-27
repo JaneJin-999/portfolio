@@ -26,7 +26,7 @@ const background: CareerEntry[] = [{
   detail: "本科毕业后，我在家中备考一年，但最终以一名之差再次落榜。虽然是一段失败的经历，但我也获得了很多。"
 }, {
   period: "2023.08",
-  organization: "甘肃鑫佳信勘测设计\n有限公司",
+  organization: "甘肃鑫佳信勘测设计有限公司",
   role: "景观设计助理",
   kind: "实习",
   range: "2023.08 – 2024.02",

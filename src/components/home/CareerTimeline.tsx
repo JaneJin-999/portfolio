@@ -370,7 +370,17 @@ export const CareerTimeline = ({
                   {(entry.kind || entry.note) && <span>{entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}</span>}
                 </div>
                 <h3 className="mt-12 whitespace-pre-line font-display text-xl font-bold leading-snug tracking-[-0.02em] md:text-2xl">
-                  {entry.organization}
+                  {entry.organization.includes("有限公司") ? (
+                    <>
+                      {entry.organization.slice(
+                        0,
+                        entry.organization.lastIndexOf("有限公司"),
+                      )}
+                      <span className="whitespace-nowrap">有限公司</span>
+                    </>
+                  ) : (
+                    entry.organization
+                  )}
                 </h3>
                 {entry.role && <p className="mt-3 text-sm leading-relaxed text-foreground/80">
                     {entry.role}
