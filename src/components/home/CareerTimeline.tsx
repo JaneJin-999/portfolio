@@ -85,7 +85,7 @@ export const CareerTimeline = ({
       element.style.transformOrigin = "center bottom";
       element.style.zIndex = String(100 - Math.round(span * 10));
       element.style.transform = depth
-        ? `perspective(1400px) translate3d(0, 0, ${(-span * 220).toFixed(0)}px) scale(${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`
+        ? `perspective(900px) translate3d(0, 0, ${(-span * 360).toFixed(0)}px) scale(${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`
         : `scale(${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`;
       element.style.opacity = String(Math.max(0.5, 1 - span * 0.16));
     });
