@@ -22,7 +22,7 @@ export const StudyDeck = ({
   const go = (index: number) => setActive(Math.min(total - 1, Math.max(0, index)));
   return <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12">
       <div className="flex flex-col lg:col-span-5">
-        <p className="font-display text-4xl font-medium leading-none tracking-[-0.04em]">
+        <p className="font-mono text-4xl font-medium leading-none tracking-[-0.02em]">
           {pad(active + 1)}
           <span className="ml-3 align-top font-mono text-xs tracking-[0.16em] text-muted-foreground font-[500]">
             / {pad(total)}
