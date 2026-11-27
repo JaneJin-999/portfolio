@@ -140,7 +140,9 @@ const Index = () => <main className="bg-background text-foreground">
 
     <div className="scanline-field h-20 w-full border-b border-border" aria-hidden="true" />
 
-    <section id="manifesto" className="scroll-mt-20 px-5 py-24 md:px-16 md:py-36">
+    <section id="manifesto" className="scroll-mt-20 px-5 py-24 md:px-16 md:py-36" style={{
+    paddingBottom: "90px"
+  }}>
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
           <div className="grid gap-12 pt-20 md:grid-cols-12">
