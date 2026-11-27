@@ -181,8 +181,8 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="process" className="scroll-mt-20 px-5 py-20 md:px-16 md:py-28" style={{
-    paddingBottom: "66px"
+    <section id="process" className="scroll-mt-20 px-5 py-10 md:px-16 md:py-[4.5rem]" style={{
+    paddingBottom: "26px"
   }}>
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
