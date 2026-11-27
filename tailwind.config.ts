@@ -65,6 +65,7 @@ export default {
 				}
 			},
 			fontFamily: {
+				sans: ['"Montserrat"', '"Helvetica Neue"', '"Nimbus Sans L"', 'sans-serif'],
 				display: ['var(--font-display)'],
 				mono: ['var(--font-mono)']
 			},
