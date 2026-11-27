@@ -149,7 +149,7 @@ const Index = () => <main className="bg-background text-foreground">
             </div>
             <div className="md:col-span-9">
               <div className="ml-auto flex w-fit flex-col items-end">
-                <h1 className="max-w-6xl font-display text-[clamp(3.2rem,8vw,8.5rem)] font-semibold uppercase leading-[0.84] tracking-[-0.075em] text-right pt-[60px]" style={{
+                <h1 className="max-w-6xl font-display text-[clamp(3.2rem,8vw,8.5rem)] font-semibold uppercase leading-[0.84] tracking-[-0.075em] text-right" style={{
                 marginTop: "4px",
                 marginBottom: "4px"
               }}>
