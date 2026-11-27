@@ -257,7 +257,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                   </p>
                 </div>
 
-                <p className="absolute bottom-[2%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-5xl font-semibold leading-none tracking-[-0.05em] md:text-7xl">
+                <p className="absolute bottom-[2%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-2xl font-semibold leading-none tracking-[-0.05em] md:text-4xl">
                   {entry.period}
                 </p>
               </article>
