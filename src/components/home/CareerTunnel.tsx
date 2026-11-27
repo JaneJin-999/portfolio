@@ -124,7 +124,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
     <div
       aria-label="学习与工作经历 3D 时间隧道，点击切换"
       aria-roledescription="carousel"
-      className="relative mt-12 h-[76vh] min-h-[580px] w-full cursor-pointer select-none overflow-hidden bg-background md:mt-16"
+      className="relative mt-12 h-[86vh] min-h-[640px] w-full cursor-pointer select-none overflow-hidden bg-background md:mt-16"
       onClick={() => go(active + 1)}
       onKeyDown={handleKeyDown}
       role="group"
@@ -146,7 +146,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(58vh,540px)] min-h-[420px] w-full transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(70vh,700px)] min-h-[520px] w-full transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
                 transform: isPast
