@@ -370,11 +370,13 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
             {`第 ${active + 1} 项，共 ${entries.length} 项：${current?.organization ?? ""}`}
           </p>
 
+          <div aria-hidden="true" className="hidden xl:block xl:flex-1" />
+
       <div
         aria-label="学习与工作经历时间轴"
         aria-roledescription="carousel"
         className={cn(
-          "mt-12 w-full select-none overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:min-h-0 xl:flex-1",
+          "mt-12 w-full select-none overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           dragging ? "cursor-grabbing" : "cursor-grab",
         )}
         onKeyDown={handleKeyDown}
@@ -388,7 +390,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         style={{ scrollSnapType: "x mandatory" }}
       >
         <div
-          className="relative flex w-max items-stretch gap-5 md:gap-8 [--card-w:20rem] xl:h-full"
+          className="relative flex w-max items-stretch gap-5 md:gap-8 [--card-w:20rem]"
           ref={trackRef}
         >
           {entries.map((entry, index) => (
