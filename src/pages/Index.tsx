@@ -143,7 +143,7 @@ const Index = () => <main className="bg-background text-foreground">
     <section id="manifesto" className="scroll-mt-20 px-5 py-24 md:px-16 md:py-36">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
-          <div className="grid gap-12 md:grid-cols-12">
+          <div className="grid gap-12 pt-10 md:grid-cols-12">
             <div className="md:col-span-3">
               <ParticlePortrait />
             </div>
