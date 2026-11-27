@@ -372,7 +372,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         aria-label="学习与工作经历时间轴"
         aria-roledescription="carousel"
         className={cn(
-          "mt-8 w-full select-none overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          "mt-12 w-full select-none overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           dragging ? "cursor-grabbing" : "cursor-grab",
         )}
         onKeyDown={handleKeyDown}
