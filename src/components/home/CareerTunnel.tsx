@@ -197,7 +197,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
         <span className="hidden md:block">拖动 / 滚动切换</span>
       </div>
 
-      <div className="absolute inset-0 z-10 [perspective:1600px]">
+      <div className="absolute inset-0 z-10 [perspective:1200px]" style={{ perspectiveOrigin: "50% 84%" }}>
         {entries.map((entry, index) => {
           const position = index - active;
           const depth = Math.max(0, position);
@@ -208,13 +208,13 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(54vh,430px)] min-h-[340px] w-[min(76rem,94%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute bottom-[16%] left-1/2 top-[10%] w-[min(80rem,96%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
-                transform: `translate(-50%, -50%) rotateY(${
+                transform: `translateX(-50%) rotateY(${
                   contentRight ? -12 : 12
-                }deg) translateZ(${isPast ? 380 : -depth * 260}px)`,
-                opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
+                }deg) translateZ(${isPast ? 380 : -depth * 420}px)`,
+                opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.1, 0.6 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
               }}
@@ -269,9 +269,11 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                   </p>
                 </div>
 
-                <p className="absolute bottom-[7%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-5xl font-semibold leading-none tracking-[-0.05em] md:text-7xl">
-                  {entry.period}
-                </p>
+                {isFront ? (
+                  <p className="absolute bottom-[2%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-5xl font-semibold leading-none tracking-[-0.05em] md:text-7xl">
+                    {entry.period}
+                  </p>
+                ) : null}
               </article>
             </div>
           );
