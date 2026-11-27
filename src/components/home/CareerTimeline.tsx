@@ -64,7 +64,6 @@ export const CareerTimeline = ({
   const suppressClickRef = useRef(false);
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
-  const [readyImage, setReadyImage] = useState<string | null>(null);
   const measure = useCallback(() => {
     const reel = reelRef.current;
     if (!reel) return;
@@ -316,25 +315,32 @@ export const CareerTimeline = ({
   return <div ref={rootRef} className="mt-12 md:mt-16">
       <div className="grid gap-10 xl:grid-cols-12 xl:gap-12 mt-[60px] pt-[80px]">
         <aside className="order-2 xl:order-1 xl:col-span-4">
-          <motion.div animate={{
-          opacity: 1,
-          y: 0
-        }} className="xl:h-full" initial={reduceMotion ? false : {
-          opacity: 0,
-          y: 10
-        }} key={active} transition={{
-          duration: 0.4,
-          ease: [0.2, 0, 0, 1]
-        }}>
+          <div className="flex flex-col xl:h-full">
             <div className="relative aspect-square w-full overflow-hidden bg-card/40 xl:aspect-auto xl:h-full">
-              {current?.image ? <img alt={current.imageAlt ?? current.organization} className={cn("absolute inset-0 h-full w-full object-cover object-[center_40%] transition-opacity duration-200", readyImage === current.image ? "opacity-100" : "opacity-0")} decoding="async" loading="eager" onLoad={() => setReadyImage(current.image ?? null)} src={current.image} /> : <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              {entries.map(entry => entry.image ? (
+                <img
+                  key={entry.image}
+                  alt={entry.image === current?.image ? entry.imageAlt ?? entry.organization : ""}
+                  aria-hidden={entry.image !== current?.image}
+                  className={cn(
+                    "absolute inset-0 h-full w-full object-cover object-[center_40%] transition-opacity duration-300",
+                    entry.image === current?.image ? "opacity-100" : "opacity-0",
+                  )}
+                  decoding="async"
+                  loading="lazy"
+                  src={entry.image}
+                />
+              ) : null)}
+              {!current?.image && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                   <span className="font-display text-6xl font-semibold tracking-[-0.04em] text-foreground/15">
                     {pad(active + 1)}
                   </span>
                   <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
                     图片待补充
                   </span>
-                </div>}
+                </div>
+              )}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#140B0B]/80 via-[#140B0B]/35 to-transparent p-6 pt-24 md:p-7 md:pt-28">
                 <p className={cn("whitespace-pre-line leading-relaxed", current?.detail ? "text-sm text-foreground/90 md:text-base" : "text-sm text-foreground/55")} style={{
                 fontSize: "14px"
@@ -343,7 +349,7 @@ export const CareerTimeline = ({
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </aside>
 
         <div className="order-1 min-w-0 xl:order-2 xl:col-span-8 xl:flex xl:flex-col">
