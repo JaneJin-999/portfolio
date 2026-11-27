@@ -327,7 +327,7 @@ export const CareerTimeline = ({
           ease: [0.2, 0, 0, 1]
         }}>
             <div className="relative aspect-square w-full overflow-hidden bg-card/40 xl:aspect-auto xl:h-full">
-              {current?.image ? <img alt={current.imageAlt ?? current.organization} className={cn("absolute inset-0 h-full w-full object-cover object-[center_40%] transition-opacity duration-500", readyImage === current.image ? "opacity-100" : "opacity-0")} decoding="async" loading="eager" onLoad={() => setReadyImage(current.image ?? null)} src={current.image} /> : <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              {current?.image ? <img alt={current.imageAlt ?? current.organization} className={cn("absolute inset-0 h-full w-full object-cover object-[center_40%] transition-opacity duration-200", readyImage === current.image ? "opacity-100" : "opacity-0")} decoding="async" loading="eager" onLoad={() => setReadyImage(current.image ?? null)} src={current.image} /> : <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                   <span className="font-display text-6xl font-semibold tracking-[-0.04em] text-foreground/15">
                     {pad(active + 1)}
                   </span>

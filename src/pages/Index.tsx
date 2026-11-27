@@ -12,7 +12,7 @@ const background: CareerEntry[] = [{
   kind: "教育",
   range: "2018.09 – 2022.07",
   note: "211",
-  image: "/career-01-beijing-forestry.jpg",
+  image: "/career-01-beijing-forestry.webp",
   imageAlt: "北京林业大学校园雪景，林间水景与落叶",
   detail: "在北林的四年，我投身于自然山水与古典园林，对「美」有了自己的见解；也参与了各类文体活动，为班级同学服务。"
 }, {
@@ -21,7 +21,7 @@ const background: CareerEntry[] = [{
   role: "",
   kind: "",
   range: "2022.08 – 2023.03",
-  image: "/career-02-exam-retake.jpg",
+  image: "/career-02-exam-retake.webp",
   imageAlt: "雪中停泊的船只与江岸",
   detail: "本科毕业后，我在家中备考一年，但最终以一名之差再次落榜。虽然是一段失败的经历，但我也获得了很多。"
 }, {
@@ -30,7 +30,7 @@ const background: CareerEntry[] = [{
   role: "景观设计助理",
   kind: "实习",
   range: "2023.08 – 2024.02",
-  image: "/career-03-gansu-survey.jpg",
+  image: "/career-03-gansu-survey.webp",
   imageAlt: "夜色中的城市高楼与街道",
   detail: "对于是否三战，我经过了一段时间的思考，最后决定先去实践，体验一下风景园林的实际工作流程。工作期间，我主要负责项目的平面图制作与视觉优化。"
 }, {
@@ -39,7 +39,7 @@ const background: CareerEntry[] = [{
   role: "",
   kind: "",
   range: "2024.04 – 2024.10",
-  image: "/career-04-study-abroad.jpg",
+  image: "/career-04-study-abroad.webp",
   imageAlt: "暮色中的城市天际线与高楼",
   detail: "实践后，我发现风景园林所学，与实际工作所需有比较大的出入，因此产生了转专业的想法。经过一段时间的作品集准备与语言学习，拿到了莫纳什大学、悉尼大学、拉夫堡大学的offer。"
 }, {
@@ -48,7 +48,7 @@ const background: CareerEntry[] = [{
   role: "新媒体运营",
   kind: "实习",
   range: "2024.11 – 2025.02",
-  image: "/career-04-wanwei.jpg",
+  image: "/career-04-wanwei.webp",
   imageAlt: "红色几何建筑与水面倒影",
   detail: "吸取之前实践太少的经验教训，我在等待入学期间又开始寻找实习。在万唯做了一些有关内容运营的工作：审核教辅书配套教学视频的内容，并对发现的讲解错误与教师沟通补录音频，并完成视频剪辑与内容修正。"
 }, {
@@ -58,7 +58,7 @@ const background: CareerEntry[] = [{
   kind: "教育",
   range: "2025.03 – 2026.11",
   note: "QS31",
-  image: "/career-05-monash.jpg",
+  image: "/career-05-monash.webp",
   imageAlt: "海边的礁石、灌木与远处小镇",
   detail: "在莫纳什，我学习了用户研究，交互设计和UI设计相关的知识，也选修了前端、3D建模、动画设计课程。并在最终的毕设评审中，获得了优秀毕业设计的奖项。"
 }, {
@@ -67,7 +67,7 @@ const background: CareerEntry[] = [{
   role: "体验设计",
   kind: "实习",
   range: "2025.11 – 2026.02",
-  image: "/career-06-xiaohongshu.jpg",
+  image: "/career-06-xiaohongshu.webp",
   imageAlt: "与小红书吉祥物合影",
   detail: "在小红书，我参与了社区体验设计，工作内容包括需求分析、交互设计、UI设计及设计走查，持续优化社区内的内容浏览与互动体验。具体的项目有「私信语音交互更新」「H5回流页面改版」「创作者中心笔记分析改版」「小米折叠屏适配设计」等。"
 }, {
@@ -76,7 +76,7 @@ const background: CareerEntry[] = [{
   role: "UXI 设计",
   kind: "实习",
   range: "2026.06 – 2026.08",
-  image: "/career-07-midea.jpg",
+  image: "/career-07-midea.webp",
   imageAlt: "晚霞下的厂房与城市天际线",
   detail: "在美的，我参与了冰箱产品的用户体验与视觉设计工作，具体包括冰箱显控交互及前瞻体验研究，还会配合企划、工业设计团队推进设计落地。"
 }, {
@@ -85,7 +85,7 @@ const background: CareerEntry[] = [{
   role: "产品设计",
   kind: "实习",
   range: "2026.09 – 2026.11",
-  image: "/career-08-converge.jpg",
+  image: "/career-08-converge.webp",
   imageAlt: "夜色中的 TusPark 办公楼与台阶",
   detail: "在 Converge，我参与了 Covey 这款 AI 协作办公产品的搭建，也体验到了 AI Native 公司中设计工作方式的变化。设计不再只是需求的承接与执行，而是可以主动提出想法、参与产品决策，并通过Vibe Coding将设计落地，设计师的角色也因此有了更多可能。"
 }];
