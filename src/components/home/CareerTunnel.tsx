@@ -94,6 +94,7 @@ const StarField = () => {
 export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
   const [active, setActive] = useState(0);
   const [narrow, setNarrow] = useState(false);
+  const stageLayerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -108,13 +109,26 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
   const go = (index: number) => setActive(((index % total) + total) % total);
 
+  const advance = (delta: number) => {
+    go(active + delta);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    stageLayerRef.current?.animate(
+      [
+        { transform: "scale(1)" },
+        { transform: "scale(1.035)", offset: 0.35 },
+        { transform: "scale(1)" },
+      ],
+      { duration: 700, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+    );
+  };
+
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      go(active + 1);
+      advance(1);
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
-      go(active - 1);
+      advance(-1);
     }
   };
 
@@ -125,7 +139,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
       aria-label="学习与工作经历 3D 时间隧道，点击切换"
       aria-roledescription="carousel"
       className="relative mt-12 h-[86vh] min-h-[640px] w-full cursor-pointer select-none overflow-hidden bg-background md:mt-16"
-      onClick={() => go(active + 1)}
+      onClick={() => advance(1)}
       onKeyDown={handleKeyDown}
       role="group"
       tabIndex={0}
@@ -135,7 +149,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
         {`${active + 1} of ${total}: ${current.organization}`}
       </p>
 
-      <div className="absolute inset-0 z-10 [perspective:1600px]">
+      <div className="absolute inset-0 z-10 [perspective:1600px]" ref={stageLayerRef}>
         {entries.map((entry, index) => {
           const position = index - active;
           const depth = Math.max(0, position);
@@ -146,11 +160,16 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(70vh,700px)] min-h-[520px] w-full transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(70vh,700px)] min-h-[520px] w-full transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
+                filter: isPast
+                  ? "blur(10px)"
+                  : depth > 0
+                    ? `blur(${Math.min(depth * 0.6, 2.4)}px)`
+                    : "blur(0px)",
                 transform: isPast
-                  ? "translate(-50%, -50%) rotateY(0deg) scale(1.05)"
+                  ? "translate(-50%, -50%) rotateY(0deg) scale(1.4)"
                   : `translate(-50%, -50%) rotateY(${
                       narrow ? 0 : contentRight ? -8 : 8
                     }deg) scale(${Math.pow(0.68, depth)})`,
