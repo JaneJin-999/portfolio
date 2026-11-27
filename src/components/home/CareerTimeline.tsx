@@ -395,11 +395,9 @@ export const CareerTimeline = ({
               if (start === null || end === null) return null;
               const from = clamp((start - axisStart) / axisSpan, 0, 1);
               const to = clamp((end + 1 - axisStart) / axisSpan, 0, 1);
-              const bandColor = entry.kind === "教育" ? "color-mix(in srgb, hsl(var(--foreground)) 30%, hsl(var(--background)))" : entry.kind === "实习" ? "color-mix(in srgb, hsl(var(--accent)) 30%, hsl(var(--background)))" : "color-mix(in srgb, hsl(var(--foreground)) 10%, hsl(var(--background)))";
               return <span aria-hidden="true" className={cn("pointer-events-none absolute top-0 h-[5px] rounded-full", entry.kind === "教育" ? "bg-foreground/30" : entry.kind === "实习" ? "bg-accent/30" : "bg-foreground/10")} key={`duration-${entry.period}-${entry.organization}`} style={{
                 left: `${from * 100}%`,
-                width: `${Math.max(0.4, (to - from) * 100)}%`,
-                backgroundColor: bandColor
+                width: `${Math.max(0.4, (to - from) * 100)}%`
               }} />;
             })}
             {axisTicks.map((tick, index) => <span aria-hidden="true" className={cn("pointer-events-none absolute top-0 w-px -translate-x-1/2 rounded-full", tick.major ? "bg-foreground/25" : "bg-foreground/10")} key={`axis-${index}`} style={{
