@@ -211,7 +211,8 @@ const Index = () => <main className="bg-background text-foreground">
             </p>
             <p className="mt-4 font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl pt-[16px]" style={{
             fontSize: "96px",
-            paddingTop: "32px"
+            paddingTop: "32px",
+            fontWeight: "800"
           }}>
               JINJIN
             </p>

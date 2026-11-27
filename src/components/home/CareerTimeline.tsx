@@ -28,7 +28,7 @@ const RollingPeriod = ({
       width: char === "." ? "0.34em" : "0.64em"
     }}>
           <AnimatePresence initial={false}>
-            <motion.span key={char} className="absolute inset-0 flex items-center justify-center" initial={{
+            <motion.span key={char} className="absolute inset-0 flex items-center justify-center font-[700]" initial={{
           y: "100%"
         }} animate={{
           y: "0%"

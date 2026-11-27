@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { HeroIntro } from "@/components/home/HeroIntro";
 import { ParticleField } from "@/components/home/ParticleField";
-
 const navItems = [{
   label: "背景",
   href: "#process"
@@ -12,21 +11,16 @@ const navItems = [{
   label: "联系我",
   href: "#contact"
 }];
-
 export const ParticleHero = () => {
-  const [showIntro, setShowIntro] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
-
-  return (
-    <section className="on-light relative h-[100svh] w-full overflow-hidden bg-[#F2EDE3] text-[#140B0B]" aria-label="Interactive particle study: an open ring of black particles with an empty centre that rotates with the pointer">
+  const [showIntro, setShowIntro] = useState(() => typeof window !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  return <section className="on-light relative h-[100svh] w-full overflow-hidden bg-[#F2EDE3] text-[#140B0B]" aria-label="Interactive particle study: an open ring of black particles with an empty centre that rotates with the pointer">
       <ParticleField interactive={!showIntro} className="absolute inset-0 h-full w-full cursor-crosshair" />
 
       <div className="pointer-events-none absolute inset-0 z-10 flex flex-col px-5 py-5 md:px-16 md:py-7">
         <nav className="pointer-events-auto mx-auto flex w-full max-w-[1600px] items-center justify-between gap-5 border-b border-[#140B0B]/20 pb-5">
-          <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#140B0B] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F2EDE3]">
+          <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#140B0B] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F2EDE3]" style={{
+          fontWeight: "700"
+        }}>
             JINJIN
           </a>
           <div className="ml-auto flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.16em] sm:gap-7 sm:text-xs">
@@ -41,8 +35,9 @@ export const ParticleHero = () => {
         <div className="pointer-events-none absolute inset-x-0 top-[47.7%] px-5 md:px-16">
           <div className="mx-auto flex max-w-[1600px] -translate-y-1/2 justify-end">
             <p className="select-none whitespace-nowrap text-right font-display font-semibold leading-[0.85] tracking-[-0.04em] text-[#140B0B]" style={{
-              fontSize: "clamp(2rem, min(10.5vw, 20vh), 13rem)"
-            }}>
+            fontSize: "clamp(2rem, min(10.5vw, 20vh), 13rem)",
+            fontWeight: "800"
+          }}>
               JIN's<br />PORTFOLIO
             </p>
           </div>
@@ -53,10 +48,10 @@ export const ParticleHero = () => {
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
               UI/UX DESIGN
             </p>
-            <h1
-              className="mt-3 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-semibold uppercase leading-[0.84]"
-              style={{ letterSpacing: "calc(-0.06em + 1px)" }}
-            >
+            <h1 className="mt-3 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-semibold uppercase leading-[0.84]" style={{
+            letterSpacing: "calc(-0.06em + 1px)",
+            fontWeight: "700"
+          }}>
               2027
             </h1>
           </div>
@@ -64,6 +59,5 @@ export const ParticleHero = () => {
       </div>
 
       {showIntro ? <HeroIntro onComplete={() => setShowIntro(false)} /> : null}
-    </section>
-  );
+    </section>;
 };
