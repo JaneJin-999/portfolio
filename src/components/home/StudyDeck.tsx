@@ -18,7 +18,6 @@ const DECK_SIZE = 6;
 
 export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const [active, setActive] = useState(0);
-  const [dragX, setDragX] = useState(0);
   const [deckDragging, setDeckDragging] = useState(false);
   const deckDragRef = useRef<{ id: number; x: number; dx: number } | null>(null);
   const wheelLockRef = useRef(0);
@@ -57,7 +56,6 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
     if (!drag || drag.id !== event.pointerId) return;
     const dx = Math.max(-160, Math.min(160, event.clientX - drag.x));
     drag.dx = dx;
-    setDragX(dx);
   };
 
   const endDeckDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -68,7 +66,6 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
     setDeckDragging(false);
-    setDragX(0);
     if (drag.dx <= -30) go(active + 1);
     else if (drag.dx >= 30) go(active - 1);
   };
@@ -154,14 +151,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
           onWheel={handleDeckWheel}
           role="group"
         >
-          <div
-            className={cn(
-              "relative h-full w-full",
-              !deckDragging &&
-                "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            )}
-            style={{ transform: `translateX(${dragX}px)` }}
-          >
+          <div className="relative h-full w-full">
           {items.map((study, index) => {
             const offset = (index - active + total) % total;
             const isFront = offset === 0;
@@ -175,7 +165,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
                   zIndex: total - offset,
                   transform: hidden
                     ? "translate(-20%) scale(0.94)"
-                    : `perspective(1200px) translate(${offset * 27}%, ${offset * 6}px) scale(${Math.pow(0.8, offset)}) rotateY(${offset === 0 ? 0 : 4}deg)`,
+                    : `perspective(1200px) translate(${offset * 27.8}%, ${offset * 6}px) scale(${Math.pow(0.8, offset)}) rotateY(${offset === 0 ? 0 : 4}deg)`,
                   opacity: hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.95 - offset * 0.18),
                   pointerEvents: isFront ? "auto" : "none",
                 }}
