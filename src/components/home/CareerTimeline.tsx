@@ -361,7 +361,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
           </motion.div>
         </aside>
 
-        <div className="order-1 min-w-0 xl:order-2 xl:col-span-8">
+        <div className="order-1 min-w-0 xl:order-2 xl:col-span-8 xl:flex xl:flex-col">
           <div className="relative -top-[10px] flex h-[1em] items-center justify-start overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
             <RollingPeriod value={current?.period ?? ""} animate={!reduceMotion} />
           </div>
@@ -374,7 +374,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         aria-label="学习与工作经历时间轴"
         aria-roledescription="carousel"
         className={cn(
-          "mt-12 w-full select-none overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          "mt-12 w-full select-none overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:min-h-0 xl:flex-1",
           dragging ? "cursor-grabbing" : "cursor-grab",
         )}
         onKeyDown={handleKeyDown}
@@ -388,7 +388,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         style={{ scrollSnapType: "x mandatory" }}
       >
         <div
-          className="relative flex w-max items-stretch gap-5 md:gap-8 [--card-w:20rem]"
+          className="relative flex w-max items-stretch gap-5 md:gap-8 [--card-w:20rem] xl:h-full"
           ref={trackRef}
         >
           {entries.map((entry, index) => (
