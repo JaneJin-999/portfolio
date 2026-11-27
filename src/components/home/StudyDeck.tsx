@@ -32,53 +32,69 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
             / {pad(total)}
           </span>
         </p>
+        <p aria-live="polite" className="sr-only">
+          {`${active + 1} of ${total}: ${current.title}`}
+        </p>
 
-        <div className="mt-14 lg:mt-24">
-          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-            {current.medium} · {current.timecode}
-          </p>
-          <h3 className="mt-3 font-display text-[clamp(2rem,3.5vw,3.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]">
-            {current.title}
-          </h3>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            {current.imageAlt}
-          </p>
-
-          <ul className="mt-10 space-y-4">
-            {studies.map((study, index) => (
+        <ul className="mt-20 space-y-6 md:mt-32">
+          {studies.map((study, index) => {
+            const isActive = index === active;
+            return (
               <li key={study.index}>
                 <button
-                  aria-current={index === active ? "true" : undefined}
+                  aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "font-display text-xl tracking-[-0.02em] transition-colors md:text-2xl",
-                    index === active
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
+                    "block text-left font-display transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)]",
+                    isActive
+                      ? "text-3xl font-semibold leading-[1.05] tracking-[-0.04em] text-foreground md:text-5xl"
+                      : "text-lg font-medium leading-tight tracking-[-0.02em] text-muted-foreground hover:text-foreground md:text-2xl",
                   )}
                   onClick={() => setActive(index)}
                   type="button"
                 >
                   {study.title}
                 </button>
+
+                <div
+                  aria-hidden={!isActive}
+                  className={cn(
+                    "grid transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)]",
+                    isActive ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                  )}
+                >
+                  <div className="overflow-hidden">
+                    <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground md:text-base">
+                      {study.imageAlt}
+                    </p>
+                    <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                      {study.medium} · {study.timecode}
+                    </p>
+                  </div>
+                </div>
               </li>
-            ))}
-          </ul>
-        </div>
+            );
+          })}
+        </ul>
       </div>
 
       <div className="min-w-0 lg:col-span-7">
-        <div className="relative aspect-[4/3] w-full">
+        <div className="relative aspect-[10/7] w-full">
           {studies.map((study, index) => {
-            const position = (index - active + total) % total;
+            const position = index - active;
             const isFront = position === 0;
+            const isPast = position < 0;
+            const depth = Math.max(0, position);
             return (
               <div
-                className="absolute inset-y-0 left-0 w-[82%] overflow-hidden rounded-xl bg-card transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.2,0,0,1)] will-change-transform"
+                className="absolute inset-y-0 left-0 w-[64%] overflow-hidden rounded-xl bg-card transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
                 key={study.index}
                 style={{
-                  zIndex: total - position,
-                  transform: `translate(${position * 8}%, ${position * 14}px) scale(${1 - position * 0.055})`,
-                  opacity: isFront ? 1 : Math.max(0.3, 0.75 - position * 0.18),
+                  zIndex: total - Math.abs(position),
+                  transform: isPast
+                    ? "translate(-12%, 10px) scale(0.94)"
+                    : `translate(${depth * 24}%, ${depth * 10}px) scale(${1 - depth * 0.06})`,
+                  opacity: isPast ? 0 : isFront ? 1 : Math.max(0.26, 0.8 - depth * 0.22),
+                  pointerEvents: isFront ? "auto" : "none",
                 }}
               >
                 <img
@@ -94,8 +110,8 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
           })}
         </div>
 
-        <div className="mt-6 flex items-center gap-6">
-          <div className="flex flex-1 items-center gap-1.5">
+        <div className="mt-6 flex items-center justify-end gap-6">
+          <div className="flex w-[16rem] max-w-full items-center gap-1.5">
             {studies.map((study, index) => (
               <button
                 aria-current={index === active ? "true" : undefined}
