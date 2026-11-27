@@ -143,14 +143,14 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(54vh,500px)] min-h-[380px] w-[min(46rem,88%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(58vh,540px)] min-h-[420px] w-[min(60rem,94%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
                 transform: isPast
                   ? "translate(-50%, -50%) rotateY(0deg) scale(1.05)"
                   : `translate(-50%, -50%) rotateY(${
                       contentRight ? -8 : 8
-                    }deg) scale(${Math.pow(0.72, depth)})`,
+                    }deg) scale(${Math.pow(0.68, depth)})`,
                 opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
@@ -203,6 +203,11 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
                   <p className="mt-1.5 font-mono text-[10px] tracking-[0.12em] text-muted-foreground">
                     {entry.range}
+                  </p>
+
+                  <p className="mt-3 hidden overflow-hidden text-xs leading-relaxed text-foreground/60 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] md:block">
+                    {entry.detail ??
+                      "这段经历的详细介绍待补充：可以写负责的内容、参与的项目，以及这段经历带来的思考。"}
                   </p>
                 </div>
 
