@@ -116,7 +116,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
                 <button
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "block text-left font-display transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)]",
+                    "block text-left font-display transition-colors duration-300",
                     isActive
                       ? "text-3xl font-semibold leading-[1.05] tracking-[-0.04em] text-foreground md:text-5xl"
                       : "text-lg font-medium leading-tight tracking-[-0.02em] text-muted-foreground hover:text-foreground md:text-2xl",
