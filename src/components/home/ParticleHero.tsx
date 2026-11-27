@@ -50,7 +50,7 @@ export const ParticleHero = () => {
 
         <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 border-t border-[#140B0B]/20 pt-5 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
               UI/UX DESIGN
             </p>
             <h1
