@@ -180,7 +180,6 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
         <span>
           {pad(active + 1)} <span className="text-muted-foreground/60">/ {pad(total)}</span>
         </span>
-        <span className="hidden md:block">拖动 / 滚动切换</span>
       </div>
 
       <div className="absolute inset-0 z-10 [perspective:1600px]">
@@ -266,11 +265,6 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
         })}
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-1.5 pb-3 text-center">
-        <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground/70">
-          拖动 / 滚动切换
-        </span>
-      </div>
     </div>
   );
 };
