@@ -106,14 +106,14 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
 
             return (
               <div
-                className="absolute inset-y-0 left-0 w-[61%] overflow-hidden rounded-xl bg-card transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+                className="absolute inset-y-0 left-0 w-[55%] origin-top overflow-hidden rounded-xl bg-card transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
                 key={study.index}
                 style={{
                   zIndex: total - offset,
                   transform: hidden
                     ? "translate(-20%) scale(0.94)"
-                    : `translate(${offset * 14}%) scale(${1 - offset * 0.07})`,
-                  opacity: hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.8 - offset * 0.16),
+                    : `translate(${offset * 27}%, ${offset * 6}px) scale(${Math.pow(0.8, offset)})`,
+                  opacity: hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.95 - offset * 0.18),
                   pointerEvents: isFront ? "auto" : "none",
                 }}
               >
