@@ -188,6 +188,9 @@ const Index = () => <main className="bg-background text-foreground">
           <SectionHeading eyebrow="背景" heading="我的学习与工作经历" />
         </Reveal>
         <CareerTimeline entries={background} />
+        <div className="mt-24 md:mt-32">
+          <CareerTimeline entries={background} />
+        </div>
       </div>
     </section>
 
