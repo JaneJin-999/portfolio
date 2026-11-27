@@ -93,6 +93,15 @@ const StarField = () => {
 
 export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
   const [active, setActive] = useState(0);
+  const [narrow, setNarrow] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const update = () => setNarrow(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   const total = entries.length;
   const current = entries[active];
@@ -143,21 +152,32 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                 transform: isPast
                   ? "translate(-50%, -50%) rotateY(0deg) scale(1.05)"
                   : `translate(-50%, -50%) rotateY(${
-                      contentRight ? -8 : 8
+                      narrow ? 0 : contentRight ? -8 : 8
                     }deg) scale(${Math.pow(0.68, depth)})`,
-                opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
+                opacity:
+                  isPast || hidden
+                    ? 0
+                    : isFront
+                      ? 1
+                      : narrow
+                        ? 0
+                        : Math.max(0.08, 0.5 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
               }}
             >
               <article className="absolute inset-0">
                 <div
-                  className={cn(
-                    "absolute top-[9%] w-[58%] md:top-1/2 md:w-[28%] md:-translate-y-1/2",
-                    contentRight
-                      ? "right-[4%] text-right md:right-[4%]"
-                      : "left-[4%] text-left md:left-[4%]",
-                  )}
+                  className={
+                    narrow
+                      ? "absolute left-0 top-[6%] w-[64%] text-left"
+                      : cn(
+                          "absolute top-[9%] w-[58%] md:top-1/2 md:w-[28%] md:-translate-y-1/2",
+                          contentRight
+                            ? "right-[4%] text-right md:right-[4%]"
+                            : "left-[4%] text-left md:left-[4%]",
+                        )
+                  }
                 >
                   {entry.image ? (
                     <img
@@ -198,9 +218,11 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                   </p>
                 </div>
 
-                <p className="absolute bottom-[2%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-2xl font-semibold leading-none tracking-[-0.05em] md:text-4xl">
-                  {entry.period}
-                </p>
+                {!narrow ? (
+                  <p className="absolute bottom-[2%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-2xl font-semibold leading-none tracking-[-0.05em] md:text-4xl">
+                    {entry.period}
+                  </p>
+                ) : null}
               </article>
             </div>
           );
