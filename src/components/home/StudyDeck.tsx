@@ -106,7 +106,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
 
             return (
               <div
-                className="absolute inset-y-0 left-0 w-[55%] origin-top overflow-hidden rounded-xl bg-card transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+                className="absolute inset-y-0 left-0 w-[55%] origin-top overflow-hidden bg-foreground transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
                 key={study.index}
                 style={{
                   zIndex: total - offset,
@@ -117,34 +117,6 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
                   pointerEvents: isFront ? "auto" : "none",
                 }}
               >
-                {study.imageSrc ? (
-                  <img
-                    alt={study.imageAlt}
-                    className="h-full w-full object-cover"
-                    crossOrigin="anonymous"
-                    decoding="async"
-                    loading="lazy"
-                    src={study.imageSrc}
-                  />
-                ) : (
-                  <div className="relative flex h-full w-full flex-col justify-between bg-card p-6">
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-3 rounded-lg border border-foreground/10"
-                    />
-                    <span className="relative font-mono text-[11px] tracking-[0.16em] text-muted-foreground">
-                      [{pad(index + 1)}]
-                    </span>
-                    <span className="relative">
-                      <span className="block font-display text-2xl font-semibold tracking-[-0.02em] text-muted-foreground">
-                        作品待补充
-                      </span>
-                      <span className="mt-2 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/60">
-                        Placeholder
-                      </span>
-                    </span>
-                  </div>
-                )}
               </div>
             );
           })}
