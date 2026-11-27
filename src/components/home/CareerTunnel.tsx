@@ -208,12 +208,14 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(54vh,430px)] min-h-[340px] w-[min(76rem,94%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(60vh,560px)] min-h-[400px] w-[min(52rem,92%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
-                transform: `translate(-50%, -50%) rotateY(-12deg) translateZ(${
-                  isPast ? 380 : -depth * 260
-                }px)`,
+                transform: isPast
+                  ? "translate(-50%, -50%) rotateY(0deg) translateZ(420px) scale(1.05)"
+                  : `translate(-50%, -50%) rotateY(${
+                      contentRight ? -8 : 8
+                    }deg) translateZ(${-depth * 120}px) scale(${Math.pow(0.72, depth)})`,
                 opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
