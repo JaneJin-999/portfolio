@@ -211,9 +211,9 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
               className="absolute left-1/2 top-1/2 h-[min(54vh,430px)] min-h-[340px] w-[min(76rem,94%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
-                transform: `translate(-50%, -50%) rotateY(${
-                  contentRight ? -12 : 12
-                }deg) translateZ(${isPast ? 380 : -depth * 260}px)`,
+                transform: `translate(-50%, -50%) rotateY(-12deg) translateZ(${
+                  isPast ? 380 : -depth * 260
+                }px)`,
                 opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
@@ -269,32 +269,13 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                   </p>
                 </div>
 
-
+                <p className="absolute bottom-[2%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-5xl font-semibold leading-none tracking-[-0.05em] md:text-7xl">
+                  {entry.period}
+                </p>
               </article>
             </div>
           );
         })}
-      </div>
-
-      <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-center">
-        <div className="flex flex-col items-center">
-          {[3, 2, 1].map(step => {
-            const entry = entries[(active + step) % total];
-            if (!entry) return null;
-            return (
-              <span
-                className="font-display font-medium leading-tight tracking-[-0.03em] text-muted-foreground/70"
-                key={`upcoming-${entry.period}`}
-                style={{ fontSize: `${Math.max(11, 22 - step * 4)}px` }}
-              >
-                {entry.period}
-              </span>
-            );
-          })}
-          <span className="font-display text-5xl font-semibold leading-none tracking-[-0.05em] md:text-7xl">
-            {current.period}
-          </span>
-        </div>
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-1.5 pb-3 text-center">
