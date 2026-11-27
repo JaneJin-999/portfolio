@@ -38,7 +38,9 @@ const background: CareerEntry[] = [{
   organization: "留学申请",
   role: "",
   kind: "",
-  range: "2024.04 – 2024.10"
+  range: "2024.04 – 2024.10",
+  image: "/career-04-study-abroad.jpg",
+  imageAlt: "暮色中的城市天际线与高楼"
 }, {
   period: "2024.11",
   organization: "万唯原创文化传播（陕西）有限公司",
