@@ -137,7 +137,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(58vh,540px)] min-h-[420px] w-[min(60rem,94%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(58vh,540px)] min-h-[420px] w-full transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
                 transform: isPast
@@ -153,10 +153,10 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
               <article className="absolute inset-0">
                 <div
                   className={cn(
-                    "absolute top-[9%] w-[58%] md:top-1/2 md:w-[34%] md:-translate-y-1/2",
+                    "absolute top-[9%] w-[58%] md:top-1/2 md:w-[28%] md:-translate-y-1/2",
                     contentRight
-                      ? "right-[5%] text-right md:right-[6%]"
-                      : "left-[5%] text-left md:left-[6%]",
+                      ? "right-[4%] text-right md:right-[4%]"
+                      : "left-[4%] text-left md:left-[4%]",
                   )}
                 >
                   {entry.image ? (
