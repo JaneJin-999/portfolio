@@ -77,7 +77,8 @@ const background: CareerEntry[] = [{
   kind: "实习",
   range: "2026.06 – 2026.08",
   image: "/career-07-midea.jpg",
-  imageAlt: "晚霞下的厂房与城市天际线"
+  imageAlt: "晚霞下的厂房与城市天际线",
+  detail: "在美的，我参与了冰箱产品的用户体验与视觉设计工作，具体包括冰箱显控交互及前瞻体验研究，还会配合企划、工业设计团队推进设计落地。"
 }, {
   period: "2026.09",
   organization: "Converge AI\n——九坤创投",
