@@ -174,8 +174,8 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                       : cn(
                           "absolute top-[9%] w-[58%] md:top-1/2 md:w-[28%] md:-translate-y-1/2",
                           contentRight
-                            ? "right-[3%] text-right"
-                            : "left-[3%] text-left",
+                            ? "right-[2%] text-right"
+                            : "left-[2%] text-left",
                         )
                   }
                 >
