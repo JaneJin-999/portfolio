@@ -320,12 +320,12 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         <aside className="order-2 xl:order-1 xl:col-span-4">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col xl:h-full"
+            className="xl:h-full"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             key={active}
             transition={{ duration: 0.4, ease: [0.2, 0, 0, 1] }}
           >
-            <div className="relative aspect-video w-full overflow-hidden bg-card/40">
+            <div className="relative aspect-square w-full overflow-hidden bg-card/40">
               {current?.image ? (
                 <img
                   alt={current.imageAlt ?? current.organization}
@@ -344,18 +344,20 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                   </span>
                 </div>
               )}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-6 pt-24 md:p-7 md:pt-28">
+                <p
+                  className={cn(
+                    "whitespace-pre-line leading-relaxed",
+                    current?.detail
+                      ? "text-sm text-foreground/90 md:text-base"
+                      : "text-sm text-foreground/55",
+                  )}
+                >
+                  {current?.detail ??
+                    "这段经历的详细介绍待补充：可以写负责的内容、参与的项目，以及这段经历带来的思考。"}
+                </p>
+              </div>
             </div>
-            <p
-              className={cn(
-                "mt-8 whitespace-pre-line leading-relaxed xl:mt-auto xl:pt-10",
-                current?.detail
-                  ? "text-base text-foreground/80"
-                  : "text-sm text-muted-foreground",
-              )}
-            >
-              {current?.detail ??
-                "这段经历的详细介绍待补充：可以写负责的内容、参与的项目，以及这段经历带来的思考。"}
-            </p>
           </motion.div>
         </aside>
 
