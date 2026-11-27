@@ -207,7 +207,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
     };
 
     const drawMask = () => {
-      context.fillStyle = "#000000";
+      context.fillStyle = "#140B0B";
       context.fillRect(0, 0, width, height);
 
       if (reveal > 0.001) {
@@ -292,7 +292,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
 
       if (reveal > 0.02) {
         context.globalAlpha = 0.9;
-        context.strokeStyle = "#000000";
+        context.strokeStyle = "#140B0B";
         context.lineWidth = 2.4;
         context.beginPath();
         context.arc(dotX, lineY, 7, 0, TAU);
@@ -541,7 +541,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
   return (
     <div
       ref={wrapperRef}
-      className="fixed inset-0 z-[100] touch-none select-none bg-black"
+      className="fixed inset-0 z-[100] touch-none select-none bg-[#140B0B]"
       aria-hidden="true"
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />

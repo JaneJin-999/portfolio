@@ -161,7 +161,7 @@ export const ParticleField = ({
       const cosX = Math.cos(pointer.x + BASE_VIEW.x);
       const sinX = Math.sin(pointer.x + BASE_VIEW.x);
 
-      context.fillStyle = "#111111";
+      context.fillStyle = "#140B0B";
 
       for (const particle of dustParticles) {
         const x1 = particle.x * dustCosY + particle.z * dustSinY;

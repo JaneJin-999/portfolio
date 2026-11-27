@@ -335,7 +335,7 @@ export const CareerTimeline = ({
                     图片待补充
                   </span>
                 </div>}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent p-6 pt-24 md:p-7 md:pt-28">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#140B0B]/80 via-[#140B0B]/35 to-transparent p-6 pt-24 md:p-7 md:pt-28">
                 <p className={cn("whitespace-pre-line leading-relaxed", current?.detail ? "text-sm text-foreground/90 md:text-base" : "text-sm text-foreground/55")} style={{
                 fontSize: "14px"
               }}>
