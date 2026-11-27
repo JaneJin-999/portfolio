@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useState } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 import { cn } from "@/lib/utils";
 
 export interface Study {
@@ -18,6 +18,9 @@ const DECK_SIZE = 6;
 
 export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const [active, setActive] = useState(0);
+  const [dragX, setDragX] = useState(0);
+  const [deckDragging, setDeckDragging] = useState(false);
+  const deckDragRef = useRef<{ id: number; x: number; dx: number } | null>(null);
 
   const placeholderCount = Math.max(0, DECK_SIZE - studies.length);
   const placeholders: Study[] = Array.from(
@@ -40,6 +43,34 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
 
   const go = (index: number) =>
     setActive(((index % total) + total) % total);
+
+  const startDeckDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    deckDragRef.current = { id: event.pointerId, x: event.clientX, dx: 0 };
+    setDeckDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const moveDeckDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = deckDragRef.current;
+    if (!drag || drag.id !== event.pointerId) return;
+    const dx = Math.max(-160, Math.min(160, event.clientX - drag.x));
+    drag.dx = dx;
+    setDragX(dx);
+  };
+
+  const endDeckDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = deckDragRef.current;
+    if (!drag || drag.id !== event.pointerId) return;
+    deckDragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    setDeckDragging(false);
+    setDragX(0);
+    if (drag.dx <= -40) go(active + 1);
+    else if (drag.dx >= 40) go(active - 1);
+  };
 
   return (
     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12">
@@ -98,7 +129,27 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
       </div>
 
       <div className="min-w-0 lg:col-span-8">
-        <div className="relative aspect-[10/7] w-full">
+        <div
+          aria-label="作品轮播，可左右拖动切换"
+          aria-roledescription="carousel"
+          className={cn(
+            "relative aspect-[10/7] w-full touch-pan-y select-none",
+            deckDragging ? "cursor-grabbing" : "cursor-grab",
+          )}
+          onPointerCancel={endDeckDrag}
+          onPointerDown={startDeckDrag}
+          onPointerMove={moveDeckDrag}
+          onPointerUp={endDeckDrag}
+          role="group"
+        >
+          <div
+            className={cn(
+              "relative h-full w-full",
+              !deckDragging &&
+                "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            )}
+            style={{ transform: `translateX(${dragX}px)` }}
+          >
           {items.map((study, index) => {
             const offset = (index - active + total) % total;
             const isFront = offset === 0;
@@ -120,25 +171,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
               </div>
             );
           })}
-        </div>
-
-        <div className="mt-6 flex items-center justify-end gap-2">
-          <button
-            aria-label="上一个作品"
-            className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-            onClick={() => go(active - 1)}
-            type="button"
-          >
-            <ChevronLeft className="size-4" />
-          </button>
-          <button
-            aria-label="下一个作品"
-            className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-            onClick={() => go(active + 1)}
-            type="button"
-          >
-            <ChevronRight className="size-4" />
-          </button>
+          </div>
         </div>
       </div>
     </div>
