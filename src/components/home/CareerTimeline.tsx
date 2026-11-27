@@ -284,15 +284,8 @@ export const CareerTimeline = ({
   };
   useEffect(() => {
     const node = rootRef.current;
-    const sources = Array.from(
-      new Set(
-        entries
-          .map((entry) => entry.image)
-          .filter((src): src is string => Boolean(src)),
-      ),
-    );
+    const sources = Array.from(new Set(entries.map(entry => entry.image).filter((src): src is string => Boolean(src))));
     if (!sources.length) return;
-
     let cancelled = false;
     const preload = () => {
       if (cancelled) return;
@@ -302,30 +295,26 @@ export const CareerTimeline = ({
         image.src = src;
       }
     };
-
     if (typeof IntersectionObserver === "undefined") {
       preload();
       return;
     }
-
-    const observer = new IntersectionObserver(
-      (records) => {
-        if (records.some((record) => record.isIntersecting)) {
-          preload();
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "800px 0px" },
-    );
+    const observer = new IntersectionObserver(records => {
+      if (records.some(record => record.isIntersecting)) {
+        preload();
+        observer.disconnect();
+      }
+    }, {
+      rootMargin: "800px 0px"
+    });
     if (node) observer.observe(node);
     return () => {
       cancelled = true;
       observer.disconnect();
     };
   }, [entries]);
-
   return <div ref={rootRef} className="mt-12 md:mt-16">
-      <div className="grid gap-10 xl:grid-cols-12 xl:gap-12">
+      <div className="grid gap-10 xl:grid-cols-12 xl:gap-12 mt-[60px] pt-[80px]">
         <aside className="order-2 xl:order-1 xl:col-span-4">
           <motion.div animate={{
           opacity: 1,

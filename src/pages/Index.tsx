@@ -155,7 +155,9 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="process" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
+    <section id="process" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28" style={{
+    paddingBottom: "66px"
+  }}>
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
           <SectionHeading eyebrow="背景" heading="我的学习与工作经历" />
@@ -169,7 +171,7 @@ const Index = () => <main className="bg-background text-foreground">
         <Reveal>
           <SectionHeading eyebrow="作品" heading="我的项目" />
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-12 md:gap-6">
+        <div className="mt-12 grid gap-5 md:grid-cols-12 md:gap-6 pt-[80px]">
           <Reveal className="md:col-span-7">
             <ArchiveStudy index="A-01" title="Recursive Field" medium="Motion study" timecode="00:14:08" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-orbit_f89c7082.png" imageAlt="Sculptural koi curving across a lacquer-red field" />
           </Reveal>
