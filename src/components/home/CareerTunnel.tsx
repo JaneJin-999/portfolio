@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type {
-  KeyboardEvent as ReactKeyboardEvent,
-  PointerEvent as ReactPointerEvent,
-  WheelEvent as ReactWheelEvent,
-} from "react";
+import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { cn } from "@/lib/utils";
 import type { CareerEntry } from "@/components/home/CareerTimeline";
 
@@ -97,50 +93,11 @@ const StarField = () => {
 
 export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
   const [active, setActive] = useState(0);
-  const [dragging, setDragging] = useState(false);
-  const dragRef = useRef<{ id: number; x: number; dx: number } | null>(null);
-  const wheelRef = useRef(0);
 
   const total = entries.length;
   const current = entries[active];
 
   const go = (index: number) => setActive(((index % total) + total) % total);
-
-  const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
-    dragRef.current = { id: event.pointerId, x: event.clientX, dx: 0 };
-    setDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
-
-  const moveDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const drag = dragRef.current;
-    if (!drag || drag.id !== event.pointerId) return;
-    drag.dx = event.clientX - drag.x;
-  };
-
-  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const drag = dragRef.current;
-    if (!drag || drag.id !== event.pointerId) return;
-    dragRef.current = null;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-    setDragging(false);
-    if (event.type === "pointercancel") return;
-    if (drag.dx <= -30) go(active + 1);
-    else if (drag.dx >= 30) go(active - 1);
-    else if (Math.abs(drag.dx) < 6) go(active + 1);
-  };
-
-  const handleWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
-    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : 0;
-    if (Math.abs(delta) < 10) return;
-    const now = Date.now();
-    if (now - wheelRef.current < 500) return;
-    wheelRef.current = now;
-    go(delta > 0 ? active + 1 : active - 1);
-  };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
@@ -156,18 +113,11 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
   return (
     <div
-      aria-label="学习与工作经历 3D 时间隧道，可拖动或滚动切换"
+      aria-label="学习与工作经历 3D 时间隧道，点击切换"
       aria-roledescription="carousel"
-      className={cn(
-        "relative mt-12 h-[76vh] min-h-[580px] w-full touch-pan-y select-none overflow-hidden bg-background md:mt-16",
-        dragging ? "cursor-grabbing" : "cursor-grab",
-      )}
+      className="relative mt-12 h-[76vh] min-h-[580px] w-full cursor-pointer select-none overflow-hidden bg-background md:mt-16"
+      onClick={() => go(active + 1)}
       onKeyDown={handleKeyDown}
-      onPointerCancel={endDrag}
-      onPointerDown={startDrag}
-      onPointerMove={moveDrag}
-      onPointerUp={endDrag}
-      onWheel={handleWheel}
       role="group"
       tabIndex={0}
     >
