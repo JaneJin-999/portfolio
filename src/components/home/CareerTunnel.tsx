@@ -197,7 +197,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
         <span className="hidden md:block">拖动 / 滚动切换</span>
       </div>
 
-      <div className="absolute inset-0 z-10 [perspective:1100px]">
+      <div className="absolute inset-0 z-10 [perspective:1600px]">
         {entries.map((entry, index) => {
           const position = index - active;
           const depth = Math.max(0, position);
@@ -207,76 +207,63 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 w-[min(64rem,92%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(54vh,430px)] min-h-[340px] w-[min(76rem,94%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
-                transform: `translate(-50%, -50%) translateZ(${
-                  isPast ? 320 : -depth * 360
+                transform: `translate(-50%, -50%) rotateY(-12deg) translateZ(${
+                  isPast ? 380 : -depth * 260
                 }px)`,
-                opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.1, 0.55 - depth * 0.13),
+                opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
               }}
             >
               <article
                 className={cn(
-                  "relative overflow-hidden rounded-2xl border bg-background/30 p-5 backdrop-blur-[2px] transition-colors md:p-8",
+                  "absolute inset-0 rounded-2xl border transition-colors",
                   isFront
-                    ? "border-accent/60 shadow-[0_0_80px_rgba(161,218,218,0.14)]"
-                    : "border-foreground/20",
+                    ? "border-accent/70 shadow-[0_0_60px_rgba(161,218,218,0.16)]"
+                    : "border-foreground/18",
                 )}
               >
-                <div className="grid gap-6 md:grid-cols-[1.05fr_auto_0.85fr] md:items-center md:gap-8">
-                  <div className="order-2 md:order-1">
-                    <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                      <span className="text-accent">[{pad(index + 1)}]</span>
-                      <span>
-                        {entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}
-                      </span>
+                <div className="absolute left-[5%] top-[9%] w-[58%] md:left-[6%] md:top-1/2 md:w-[34%] md:-translate-y-1/2">
+                  {entry.image ? (
+                    <img
+                      alt={entry.imageAlt ?? entry.organization}
+                      className="aspect-[16/9] w-full rounded-lg border border-border/40 object-cover"
+                      decoding="async"
+                      loading="lazy"
+                      src={entry.image}
+                    />
+                  ) : (
+                    <div className="flex aspect-[16/9] w-full items-center justify-center rounded-lg border border-border/40 bg-card/60 font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
+                      图片待补充
                     </div>
+                  )}
 
-                    <h3 className="mt-4 whitespace-pre-line font-display text-2xl font-bold leading-snug tracking-[-0.02em] md:text-4xl">
-                      <Organization name={entry.organization} />
-                    </h3>
+                  <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                    <span className="text-accent">[{pad(index + 1)}]</span>{" "}
+                    {entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}
+                  </p>
 
-                    {entry.role ? (
-                      <p className="mt-2 text-sm leading-relaxed text-foreground/75 md:text-base">
-                        {entry.role}
-                      </p>
-                    ) : null}
+                  <h3 className="mt-1.5 whitespace-pre-line font-display text-lg font-bold leading-tight tracking-[-0.02em] md:text-2xl">
+                    <Organization name={entry.organization} />
+                  </h3>
 
-                    <p className="mt-3 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
-                      {entry.range}
+                  {entry.role ? (
+                    <p className="mt-1 text-xs leading-relaxed text-foreground/70 md:text-sm">
+                      {entry.role}
                     </p>
+                  ) : null}
 
-                    <p className="mt-4 hidden overflow-hidden text-sm leading-relaxed text-foreground/60 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] md:block">
-                      {entry.detail ??
-                        "这段经历的详细介绍待补充：可以写负责的内容、参与的项目，以及这段经历带来的思考。"}
-                    </p>
-                  </div>
-
-                  <div className="order-1 text-center md:order-2">
-                    <p className="font-display text-5xl font-semibold leading-none tracking-[-0.05em] md:text-7xl">
-                      {entry.period}
-                    </p>
-                  </div>
-
-                  <div className="order-3 overflow-hidden rounded-xl border border-border/40">
-                    {entry.image ? (
-                      <img
-                        alt={entry.imageAlt ?? entry.organization}
-                        className="aspect-[4/3] w-full object-cover"
-                        decoding="async"
-                        loading="lazy"
-                        src={entry.image}
-                      />
-                    ) : (
-                      <div className="flex aspect-[4/3] w-full items-center justify-center bg-card/60 font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
-                        图片待补充
-                      </div>
-                    )}
-                  </div>
+                  <p className="mt-1.5 font-mono text-[10px] tracking-[0.12em] text-muted-foreground">
+                    {entry.range}
+                  </p>
                 </div>
+
+                <p className="absolute bottom-[7%] left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-5xl font-semibold leading-none tracking-[-0.05em] md:text-7xl">
+                  {entry.period}
+                </p>
               </article>
             </div>
           );
