@@ -94,7 +94,6 @@ const StarField = () => {
 export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
   const [active, setActive] = useState(0);
   const [narrow, setNarrow] = useState(false);
-  const stageLayerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -109,18 +108,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
   const go = (index: number) => setActive(((index % total) + total) % total);
 
-  const advance = (delta: number) => {
-    go(active + delta);
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    stageLayerRef.current?.animate(
-      [
-        { transform: "scale(1)" },
-        { transform: "scale(1.035)", offset: 0.35 },
-        { transform: "scale(1)" },
-      ],
-      { duration: 700, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
-    );
-  };
+  const advance = (delta: number) => go(active + delta);
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
@@ -149,7 +137,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
         {`${active + 1} of ${total}: ${current.organization}`}
       </p>
 
-      <div className="absolute inset-0 z-10 [perspective:1600px]" ref={stageLayerRef}>
+      <div className="absolute inset-0 z-10 [perspective:1600px]">
         {entries.map((entry, index) => {
           const position = index - active;
           const depth = Math.max(0, position);
