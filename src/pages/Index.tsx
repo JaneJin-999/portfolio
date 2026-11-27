@@ -22,14 +22,16 @@ const background: CareerEntry[] = [{
   kind: "",
   range: "2022.08 – 2023.03",
   image: "/career-02-exam-retake.jpg",
-  imageAlt: "俯拍的林荫道路与树影",
+  imageAlt: "雪中停泊的船只与江岸",
   detail: "本科毕业后，我在家中备考一年，但最终以一名之差再次落榜。虽然是一段失败的经历，但我也获得了很多。"
 }, {
   period: "2023.08",
   organization: "甘肃鑫佳信勘测设计\n有限公司",
   role: "景观设计助理",
   kind: "实习",
-  range: "2023.08 – 2024.02"
+  range: "2023.08 – 2024.02",
+  image: "/career-03-gansu-survey.jpg",
+  imageAlt: "夜色中的城市高楼与街道"
 }, {
   period: "2024.11",
   organization: "万唯原创文化传播（陕西）有限公司",
