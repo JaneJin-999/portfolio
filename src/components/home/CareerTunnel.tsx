@@ -70,20 +70,6 @@ const StarField = () => {
       const H = rect.height;
       ctx.clearRect(0, 0, W, H);
 
-      const glow = ctx.createRadialGradient(
-        W / 2,
-        H * 0.44,
-        0,
-        W / 2,
-        H * 0.44,
-        Math.max(W, H) * 0.75,
-      );
-      glow.addColorStop(0, "rgba(161, 218, 218, 0.08)");
-      glow.addColorStop(0.5, "rgba(20, 11, 11, 0)");
-      glow.addColorStop(1, "rgba(0, 0, 0, 0.35)");
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, W, H);
-
       for (const star of stars) {
         const twinkle = reduceMotion
           ? 0.5
