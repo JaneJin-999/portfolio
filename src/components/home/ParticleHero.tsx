@@ -24,7 +24,7 @@ export const ParticleHero = () => {
     <section className="on-light relative h-[100svh] w-full overflow-hidden bg-[#F2EDE3] text-neutral-950" aria-label="Interactive particle study: an open ring of black particles with an empty centre that rotates with the pointer">
       <ParticleField interactive={!showIntro} className="absolute inset-0 h-full w-full cursor-crosshair" />
 
-      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col px-10 py-5 md:px-8 md:py-7">
+      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col px-5 py-5 md:px-16 md:py-7">
         <nav className="pointer-events-auto mx-auto flex w-full max-w-[1600px] items-center justify-between gap-5 border-b border-black/20 pb-5">
           <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F2EDE3]">
             JINJIN
@@ -38,7 +38,7 @@ export const ParticleHero = () => {
 
         <div className="flex-1" />
 
-        <div className="pointer-events-none absolute inset-x-0 top-[47.7%] px-10 md:px-8">
+        <div className="pointer-events-none absolute inset-x-0 top-[47.7%] px-5 md:px-16">
           <div className="mx-auto flex max-w-[1600px] -translate-y-1/2 justify-end">
             <p className="select-none whitespace-nowrap text-right font-display font-semibold leading-[0.85] tracking-[-0.04em] text-neutral-950" style={{
               fontSize: "clamp(2rem, min(10.5vw, 20vh), 13rem)"
