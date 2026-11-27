@@ -37,26 +37,34 @@ const background: CareerEntry[] = [{
   organization: "万唯原创文化传播（陕西）有限公司",
   role: "新媒体运营",
   kind: "实习",
-  range: "2024.11 – 2025.02"
+  range: "2024.11 – 2025.02",
+  image: "/career-04-wanwei.jpg",
+  imageAlt: "红色几何建筑与水面倒影"
 }, {
   period: "2025.03",
   organization: "莫纳什大学\nMonash University",
   role: "交互设计",
   kind: "教育",
   range: "2025.03 – 2026.11",
-  note: "QS31"
+  note: "QS31",
+  image: "/career-05-monash.jpg",
+  imageAlt: "海边的礁石、灌木与远处小镇"
 }, {
   period: "2025.11",
   organization: "小红书",
   role: "体验设计",
   kind: "实习",
-  range: "2025.11 – 2026.02"
+  range: "2025.11 – 2026.02",
+  image: "/career-06-xiaohongshu.jpg",
+  imageAlt: "与小红书吉祥物合影"
 }, {
   period: "2026.06",
   organization: "合肥美的电冰箱\n有限公司",
   role: "UXI 设计",
   kind: "实习",
-  range: "2026.06 – 2026.08"
+  range: "2026.06 – 2026.08",
+  image: "/career-07-midea.jpg",
+  imageAlt: "晚霞下的厂房与城市天际线"
 }, {
   period: "2026.09",
   organization: "Converge AI\n——九坤创投",
