@@ -45,9 +45,11 @@ const RollingPeriod = ({
     </span>;
 };
 export const CareerTimeline = ({
-  entries
+  entries,
+  depth = false
 }: {
   entries: CareerEntry[];
+  depth?: boolean;
 }) => {
   const reduceMotion = useReducedMotion() ?? false;
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -81,11 +83,14 @@ export const CareerTimeline = ({
       const distance = step > 0 ? Math.max(0, (element.offsetLeft - reel.scrollLeft) / step) : Math.max(0, index - nextActive);
       const span = Math.min(distance, 2);
       element.style.transformOrigin = "center bottom";
-      element.style.transform = `scale(${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`;
+      element.style.zIndex = String(100 - Math.round(span * 10));
+      element.style.transform = depth
+        ? `perspective(1400px) translate3d(0, 0, ${(-span * 220).toFixed(0)}px) scale(${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`
+        : `scale(${(1 - Math.min(span, 1) * 0.23).toFixed(4)})`;
       element.style.opacity = String(Math.max(0.5, 1 - span * 0.16));
     });
     setActive(nextActive);
-  }, [entries.length, reduceMotion]);
+  }, [depth, entries.length, reduceMotion]);
   useEffect(() => {
     const reel = reelRef.current;
     if (!reel) return;

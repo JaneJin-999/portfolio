@@ -189,7 +189,7 @@ const Index = () => <main className="bg-background text-foreground">
         </Reveal>
         <CareerTimeline entries={background} />
         <div className="mt-24 md:mt-32">
-          <CareerTimeline entries={background} />
+          <CareerTimeline entries={background} depth />
         </div>
       </div>
     </section>
