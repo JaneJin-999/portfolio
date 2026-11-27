@@ -126,12 +126,6 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
         {`${active + 1} of ${total}: ${current.organization}`}
       </p>
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between p-5 font-mono text-[11px] tracking-[0.16em] text-muted-foreground md:p-8">
-        <span>
-          {pad(active + 1)} <span className="text-muted-foreground/60">/ {pad(total)}</span>
-        </span>
-      </div>
-
       <div className="absolute inset-0 z-10 [perspective:1600px]">
         {entries.map((entry, index) => {
           const position = index - active;
