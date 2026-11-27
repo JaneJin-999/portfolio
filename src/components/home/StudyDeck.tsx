@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import type { PointerEvent as ReactPointerEvent } from "react";
+import type { PointerEvent as ReactPointerEvent, WheelEvent as ReactWheelEvent } from "react";
 import { cn } from "@/lib/utils";
 
 export interface Study {
@@ -21,6 +21,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const [dragX, setDragX] = useState(0);
   const [deckDragging, setDeckDragging] = useState(false);
   const deckDragRef = useRef<{ id: number; x: number; dx: number } | null>(null);
+  const wheelLockRef = useRef(0);
 
   const placeholderCount = Math.max(0, DECK_SIZE - studies.length);
   const placeholders: Study[] = Array.from(
@@ -68,8 +69,18 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
     }
     setDeckDragging(false);
     setDragX(0);
-    if (drag.dx <= -40) go(active + 1);
-    else if (drag.dx >= 40) go(active - 1);
+    if (drag.dx <= -30) go(active + 1);
+    else if (drag.dx >= 30) go(active - 1);
+  };
+
+  const handleDeckWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+    const delta =
+      Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : 0;
+    if (Math.abs(delta) < 10) return;
+    const now = Date.now();
+    if (now - wheelLockRef.current < 450) return;
+    wheelLockRef.current = now;
+    go(delta > 0 ? active + 1 : active - 1);
   };
 
   return (
@@ -140,6 +151,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
           onPointerDown={startDeckDrag}
           onPointerMove={moveDeckDrag}
           onPointerUp={endDeckDrag}
+          onWheel={handleDeckWheel}
           role="group"
         >
           <div
