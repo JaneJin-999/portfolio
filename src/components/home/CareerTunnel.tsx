@@ -204,15 +204,16 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
           const isPast = position < 0;
           const isFront = position === 0;
           const hidden = depth > 4;
+          const contentRight = index % 2 === 1;
 
           return (
             <div
               className="absolute left-1/2 top-1/2 h-[min(54vh,430px)] min-h-[340px] w-[min(76rem,94%)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
-                transform: `translate(-50%, -50%) rotateY(-12deg) translateZ(${
-                  isPast ? 380 : -depth * 260
-                }px)`,
+                transform: `translate(-50%, -50%) rotateY(${
+                  contentRight ? -12 : 12
+                }deg) translateZ(${isPast ? 380 : -depth * 260}px)`,
                 opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.08, 0.5 - depth * 0.12),
                 zIndex: 100 - depth,
                 pointerEvents: isFront ? "auto" : "none",
@@ -226,7 +227,14 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                     : "border-foreground/18",
                 )}
               >
-                <div className="absolute left-[5%] top-[9%] w-[58%] md:left-[6%] md:top-1/2 md:w-[34%] md:-translate-y-1/2">
+                <div
+                  className={cn(
+                    "absolute top-[9%] w-[58%] md:top-1/2 md:w-[34%] md:-translate-y-1/2",
+                    contentRight
+                      ? "right-[5%] text-right md:right-[6%]"
+                      : "left-[5%] text-left md:left-[6%]",
+                  )}
+                >
                   {entry.image ? (
                     <img
                       alt={entry.imageAlt ?? entry.organization}
