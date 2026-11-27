@@ -19,9 +19,13 @@ const DECK_SIZE = 6;
 export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const [active, setActive] = useState(0);
   const [deckDragging, setDeckDragging] = useState(false);
-  const deckDragRef = useRef<{ id: number; x: number; dx: number } | null>(null);
+  const deckDragRef = useRef<{
+    id: number;
+    x: number;
+    dx: number;
+    card: number | null;
+  } | null>(null);
   const wheelLockRef = useRef(0);
-  const suppressDeckClickRef = useRef(false);
 
   const placeholderCount = Math.max(0, DECK_SIZE - studies.length);
   const placeholders: Study[] = Array.from(
@@ -47,7 +51,13 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
 
   const startDeckDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    deckDragRef.current = { id: event.pointerId, x: event.clientX, dx: 0 };
+    const card = (event.target as HTMLElement).closest<HTMLElement>("[data-deck-index]");
+    deckDragRef.current = {
+      id: event.pointerId,
+      x: event.clientX,
+      dx: 0,
+      card: card ? Number(card.dataset.deckIndex) : null,
+    };
     setDeckDragging(true);
     event.currentTarget.setPointerCapture(event.pointerId);
   };
@@ -67,11 +77,11 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
     setDeckDragging(false);
-    suppressDeckClickRef.current = Math.abs(drag.dx) > 6;
-    window.setTimeout(() => {
-      suppressDeckClickRef.current = false;
-    }, 0);
-    if (drag.dx <= -30) go(active + 1);
+    if (event.type === "pointercancel") return;
+    if (Math.abs(drag.dx) <= 6 && drag.card !== null && !Number.isNaN(drag.card)) {
+      if (drag.card === active) go(active + 1);
+      else setActive(drag.card);
+    } else if (drag.dx <= -30) go(active + 1);
     else if (drag.dx >= 30) go(active - 1);
   };
 
@@ -165,12 +175,8 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
             return (
               <div
                 className="absolute inset-y-0 left-0 w-[55%] origin-top cursor-pointer overflow-hidden bg-foreground transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+                data-deck-index={index}
                 key={study.index}
-                onClick={() => {
-                  if (suppressDeckClickRef.current) return;
-                  if (offset === 0) go(active + 1);
-                  else setActive(index);
-                }}
                 style={{
                   zIndex: total - offset,
                   transform: hidden

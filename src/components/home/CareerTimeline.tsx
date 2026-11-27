@@ -60,6 +60,7 @@ export const CareerTimeline = ({
     x: number;
     left: number;
     moved: boolean;
+    card: number | null;
   } | null>(null);
   const suppressClickRef = useRef(false);
   const [active, setActive] = useState(0);
@@ -152,11 +153,13 @@ export const CareerTimeline = ({
     if (event.pointerType !== "mouse" || event.button !== 0) return;
     const reel = reelRef.current;
     if (!reel) return;
+    const card = (event.target as HTMLElement).closest<HTMLElement>("[data-card-index]");
     dragRef.current = {
       id: event.pointerId,
       x: event.clientX,
       left: reel.scrollLeft,
-      moved: false
+      moved: false,
+      card: card ? Number(card.dataset.cardIndex) : null
     };
     reel.style.scrollSnapType = "none";
     reel.setPointerCapture(event.pointerId);
@@ -182,6 +185,14 @@ export const CareerTimeline = ({
     }
     setDragging(false);
     measure();
+    if (
+      event.type !== "pointercancel" &&
+      !drag.moved &&
+      drag.card !== null &&
+      !Number.isNaN(drag.card)
+    ) {
+      goTo(drag.card);
+    }
     window.setTimeout(() => {
       suppressClickRef.current = false;
     }, 0);
@@ -367,7 +378,7 @@ export const CareerTimeline = ({
           scrollSnapType: "x mandatory"
         }}>
         <div className="relative flex w-max items-stretch gap-5 md:gap-8 [--card-w:20rem]" ref={trackRef}>
-          {entries.map((entry, index) => <div className="w-[var(--card-w)] shrink-0 snap-start will-change-transform" key={`${entry.period}-${entry.organization}`} onClick={() => {
+          {entries.map((entry, index) => <div className="w-[var(--card-w)] cursor-pointer shrink-0 snap-start will-change-transform" data-card-index={index} key={`${entry.period}-${entry.organization}`} onClick={() => {
               if (suppressClickRef.current) return;
               goTo(index);
             }} ref={node => {
