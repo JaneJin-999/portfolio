@@ -20,7 +20,9 @@ const background: CareerEntry[] = [{
   organization: "考研二战",
   role: "",
   kind: "",
-  range: "2022.08 – 2023.03"
+  range: "2022.08 – 2023.03",
+  image: "/career-02-exam-retake.jpg",
+  imageAlt: "俯拍的林荫道路与树影"
 }, {
   period: "2023.08",
   organization: "甘肃鑫佳信勘测设计\n有限公司",
