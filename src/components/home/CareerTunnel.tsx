@@ -150,14 +150,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                 pointerEvents: isFront ? "auto" : "none",
               }}
             >
-              <article
-                className={cn(
-                  "absolute inset-0 border transition-colors",
-                  isFront
-                    ? "border-accent/70"
-                    : "border-foreground/18",
-                )}
-              >
+              <article className="absolute inset-0">
                 <div
                   className={cn(
                     "absolute top-[9%] w-[58%] md:top-1/2 md:w-[34%] md:-translate-y-1/2",
