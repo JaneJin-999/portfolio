@@ -243,13 +243,13 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         context.restore();
       }
 
-      context.fillStyle = "#ffffff";
+      context.fillStyle = "#F2EDE3";
     };
 
     const drawIdle = () => {
       drawMask();
-      context.strokeStyle = "#ffffff";
-      context.fillStyle = "#ffffff";
+      context.strokeStyle = "#F2EDE3";
+      context.fillStyle = "#F2EDE3";
       context.lineWidth = 1.2;
 
       if (reveal < 0.02) {
@@ -297,7 +297,7 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
         context.beginPath();
         context.arc(dotX, lineY, 7, 0, TAU);
         context.stroke();
-        context.strokeStyle = "#ffffff";
+        context.strokeStyle = "#F2EDE3";
         context.lineWidth = 1.2;
       }
 
@@ -310,8 +310,8 @@ export const HeroIntro = ({ onComplete }: HeroIntroProps) => {
 
     const drawSequence = (time: number) => {
       drawMask();
-      context.strokeStyle = "#ffffff";
-      context.fillStyle = "#ffffff";
+      context.strokeStyle = "#F2EDE3";
+      context.fillStyle = "#F2EDE3";
       context.lineWidth = 1.2;
 
       const hopHeight = Math.max(26, Math.min(60, (farY - lineY) * 0.35));
