@@ -13,7 +13,7 @@ export interface Study {
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
-const VISIBLE_DEPTH = 5;
+const VISIBLE_DEPTH = 4;
 const DECK_SIZE = 6;
 
 export const StudyDeck = ({ studies }: { studies: Study[] }) => {
@@ -39,7 +39,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   if (!current) return null;
 
   const go = (index: number) =>
-    setActive(Math.min(total - 1, Math.max(0, index)));
+    setActive(((index % total) + total) % total);
 
   return (
     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12">
@@ -100,23 +100,20 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
       <div className="min-w-0 lg:col-span-8">
         <div className="relative aspect-[10/7] w-full">
           {items.map((study, index) => {
-            const position = index - active;
-            const depth = Math.max(0, position);
-            const isFront = position === 0;
-            const isPast = position < 0;
-            const hidden = depth > VISIBLE_DEPTH;
+            const offset = (index - active + total) % total;
+            const isFront = offset === 0;
+            const hidden = offset > VISIBLE_DEPTH;
 
             return (
               <div
                 className="absolute inset-y-0 left-0 w-[61%] overflow-hidden rounded-xl bg-card transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
                 key={study.index}
                 style={{
-                  zIndex: total - Math.abs(position),
-                  transform:
-                    isPast || hidden
-                      ? "translate(-12%, 10px) scale(0.94)"
-                      : `translate(${depth * 11}%, ${depth * 8}px) scale(${1 - depth * 0.06})`,
-                  opacity: isPast || hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.8 - depth * 0.16),
+                  zIndex: total - offset,
+                  transform: hidden
+                    ? "translate(-12%, 10px) scale(0.94)"
+                    : `translate(${offset * 11}%, ${offset * 8}px) scale(${1 - offset * 0.06})`,
+                  opacity: hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.8 - offset * 0.16),
                   pointerEvents: isFront ? "auto" : "none",
                 }}
               >
@@ -157,7 +154,6 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
           <button
             aria-label="上一个作品"
             className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-            disabled={active === 0}
             onClick={() => go(active - 1)}
             type="button"
           >
@@ -166,7 +162,6 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
           <button
             aria-label="下一个作品"
             className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-            disabled={active === total - 1}
             onClick={() => go(active + 1)}
             type="button"
           >
