@@ -360,7 +360,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         </aside>
 
         <div className="order-1 min-w-0 xl:order-2 xl:col-span-8">
-          <div className="relative flex h-[1em] items-center justify-start overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
+          <div className="relative -top-[10px] flex h-[1em] items-center justify-start overflow-hidden font-display text-[clamp(3rem,7vw,5.5rem)] font-semibold leading-none tracking-[-0.04em]">
             <RollingPeriod value={current?.period ?? ""} animate={!reduceMotion} />
           </div>
 
