@@ -14,30 +14,32 @@ export interface Study {
 const pad = (value: number) => String(value).padStart(2, "0");
 
 const VISIBLE_DEPTH = 5;
+const DECK_SIZE = 6;
 
 export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const [active, setActive] = useState(0);
-  const total = studies.length;
-  const current = studies[active] ?? studies[0];
+
+  const placeholderCount = Math.max(0, DECK_SIZE - studies.length);
+  const placeholders: Study[] = Array.from(
+    { length: placeholderCount },
+    (_, index) => ({
+      index: `P-${index + 1}`,
+      title: `待补充 ${pad(studies.length + index + 1)}`,
+      medium: "Placeholder",
+      timecode: "—",
+      imageSrc: "",
+      imageAlt: "这件作品的介绍待补充。",
+    }),
+  );
+
+  const items = [...studies, ...placeholders];
+  const total = items.length;
+  const current = items[Math.min(active, total - 1)] ?? items[0];
 
   if (!current) return null;
 
   const go = (index: number) =>
     setActive(Math.min(total - 1, Math.max(0, index)));
-
-  const placeholders = Array.from(
-    { length: Math.max(0, VISIBLE_DEPTH + 3 - total) },
-    (_, index) => ({
-      index: `P-${index + 1}`,
-      title: "作品待补充",
-      medium: "",
-      timecode: "",
-      imageSrc: "",
-      imageAlt: "",
-    }),
-  );
-
-  const deck = [...studies, ...placeholders];
 
   return (
     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12">
@@ -53,7 +55,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
         </p>
 
         <ul className="mt-20 space-y-6 md:mt-32">
-          {studies.map((study, index) => {
+          {items.map((study, index) => {
             const isActive = index === active;
             return (
               <li key={study.index}>
@@ -97,7 +99,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
 
       <div className="min-w-0 lg:col-span-8">
         <div className="relative aspect-[10/7] w-full">
-          {deck.map((study, index) => {
+          {items.map((study, index) => {
             const position = index - active;
             const depth = Math.max(0, position);
             const isFront = position === 0;
@@ -109,7 +111,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
                 className="absolute inset-y-0 left-0 w-[61%] overflow-hidden rounded-xl bg-card transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
                 key={study.index}
                 style={{
-                  zIndex: deck.length - Math.abs(position),
+                  zIndex: total - Math.abs(position),
                   transform:
                     isPast || hidden
                       ? "translate(-12%, 10px) scale(0.94)"
