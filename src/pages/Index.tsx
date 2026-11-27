@@ -40,7 +40,8 @@ const background: CareerEntry[] = [{
   kind: "",
   range: "2024.04 – 2024.10",
   image: "/career-04-study-abroad.jpg",
-  imageAlt: "暮色中的城市天际线与高楼"
+  imageAlt: "暮色中的城市天际线与高楼",
+  detail: "实践后，我发现风景园林所学，与实际工作所需有比较大的出入，因此产生了转专业的想法。经过一段时间的作品集准备与语言学习，拿到了莫纳什大学、悉尼大学、拉夫堡大学的offer。"
 }, {
   period: "2024.11",
   organization: "万唯原创文化传播（陕西）有限公司",
