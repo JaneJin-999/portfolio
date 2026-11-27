@@ -112,7 +112,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
                   zIndex: total - offset,
                   transform: hidden
                     ? "translate(-20%) scale(0.94)"
-                    : `translate(${offset * 27}%, ${offset * 6}px) scale(${Math.pow(0.8, offset)}) rotateY(${offset * 8}deg)`,
+                    : `translate(${offset * 27}%, ${offset * 6}px) scale(${Math.pow(0.8, offset)}) rotateY(${offset === 0 ? 0 : 4}deg)`,
                   opacity: hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.95 - offset * 0.18),
                   pointerEvents: isFront ? "auto" : "none",
                 }}
