@@ -96,6 +96,7 @@
   /* Light surfaces invert their selected text to white. */
   .on-light {
     --selection-foreground: 38 38% 92%;
+    --accent: 176 80% 27%;
   }
 }
 
