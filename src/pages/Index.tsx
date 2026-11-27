@@ -140,7 +140,7 @@ const Index = () => <main className="bg-background text-foreground">
 
     <div className="scanline-field h-20 w-full border-b border-border" aria-hidden="true" />
 
-    <section id="manifesto" className="scroll-mt-20 px-5 py-24 md:px-8 md:py-36">
+    <section id="manifesto" className="scroll-mt-20 px-10 py-24 md:px-8 md:py-36">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
           <div className="grid gap-12 md:grid-cols-12">
@@ -177,7 +177,7 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="process" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28" style={{
+    <section id="process" className="scroll-mt-20 px-10 py-20 md:px-8 md:py-28" style={{
     paddingBottom: "66px"
   }}>
       <div className="mx-auto max-w-[1600px]">
@@ -188,7 +188,7 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="studies" className="scroll-mt-20 px-5 py-20 md:px-8 md:py-28">
+    <section id="studies" className="scroll-mt-20 px-10 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
           <SectionHeading eyebrow="作品" heading="我的项目" />
@@ -197,7 +197,7 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="contact" className="on-light scroll-mt-20 bg-[#F2EDE3] px-5 py-24 text-neutral-950 md:px-8 md:py-32" style={{
+    <section id="contact" className="on-light scroll-mt-20 bg-[#F2EDE3] px-10 py-24 text-neutral-950 md:px-8 md:py-32" style={{
     backgroundColor: "#F2EDE3FF"
   }}>
       <div className="mx-auto max-w-[1600px]">
@@ -280,7 +280,7 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <footer className="technical-grid px-5 py-12 md:px-8 md:py-16">
+    <footer className="technical-grid px-10 py-12 md:px-8 md:py-16">
       <div className="mx-auto grid max-w-[1600px] gap-10 border-t border-border pt-6 md:grid-cols-12">
         <div className="font-mono text-[11px] uppercase leading-6 tracking-[0.15em] text-muted-foreground md:col-span-4 md:col-start-9 md:text-right">
           <p className="Sans'] Sans'] font-[Montserrat]">© Created by JINJIN</p>
