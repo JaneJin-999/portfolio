@@ -21,16 +21,16 @@ export const ParticleHero = () => {
   );
 
   return (
-    <section className="on-light relative h-[100svh] w-full overflow-hidden bg-white text-neutral-950" aria-label="Interactive particle study: an open ring of black particles with an empty centre that rotates with the pointer">
+    <section className="on-light relative h-[100svh] w-full overflow-hidden bg-[#F2EDE3] text-neutral-950" aria-label="Interactive particle study: an open ring of black particles with an empty centre that rotates with the pointer">
       <ParticleField interactive={!showIntro} className="absolute inset-0 h-full w-full cursor-crosshair" />
 
       <div className="pointer-events-none absolute inset-0 z-10 flex flex-col px-5 py-5 md:px-8 md:py-7">
         <nav className="pointer-events-auto mx-auto flex w-full max-w-[1600px] items-center justify-between gap-5 border-b border-black/20 pb-5">
-          <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white">
+          <a href="#manifesto" className="font-display text-lg font-semibold uppercase tracking-[-0.04em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F2EDE3]">
             JINJIN
           </a>
           <div className="ml-auto flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.16em] sm:gap-7 sm:text-xs">
-            {navItems.map(item => <a key={item.href} href={item.href} className="transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-white">
+            {navItems.map(item => <a key={item.href} href={item.href} className="transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F2EDE3]">
                 {item.label}
               </a>)}
           </div>
