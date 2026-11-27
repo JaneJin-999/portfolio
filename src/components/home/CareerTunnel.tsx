@@ -109,27 +109,6 @@ const StarField = () => {
   return <canvas className="absolute inset-0 h-full w-full" ref={canvasRef} />;
 };
 
-const NeonIcons = () => (
-  <div
-    aria-hidden="true"
-    className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 gap-6 md:flex lg:right-12"
-  >
-    <div className="flex flex-col gap-6">
-      <span className="size-16 rounded-xl border-2 border-[#8fdfe2]/70 shadow-[0_0_22px_rgba(143,223,226,0.35)]" />
-      <span className="size-16 rounded-xl border-2 border-[#8fdfe2]/70 shadow-[0_0_22px_rgba(143,223,226,0.35)]" />
-    </div>
-    <div className="flex flex-col gap-4 pt-4">
-      <span className="size-16 rounded-xl border-2 border-[#8fdfe2]/70 shadow-[0_0_22px_rgba(143,223,226,0.35)]" />
-      <div className="flex h-16 items-center gap-1.5">
-        <span className="h-10 w-[3px] rounded-full bg-[#8fdfe2]/70 shadow-[0_0_12px_rgba(143,223,226,0.4)]" />
-        <span className="h-14 w-[3px] rounded-full bg-[#8fdfe2]/70 shadow-[0_0_12px_rgba(143,223,226,0.4)]" />
-        <span className="h-8 w-[3px] rounded-full bg-[#8fdfe2]/70 shadow-[0_0_12px_rgba(143,223,226,0.4)]" />
-        <span className="h-12 w-[3px] rounded-full bg-[#8fdfe2]/70 shadow-[0_0_12px_rgba(143,223,226,0.4)]" />
-      </div>
-    </div>
-  </div>
-);
-
 export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
@@ -207,7 +186,6 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
       tabIndex={0}
     >
       <StarField />
-      <NeonIcons />
       <p aria-live="polite" className="sr-only">
         {`${active + 1} of ${total}: ${current.organization}`}
       </p>
