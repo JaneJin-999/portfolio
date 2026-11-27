@@ -225,13 +225,13 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                   {entry.image ? (
                     <img
                       alt={entry.imageAlt ?? entry.organization}
-                      className="aspect-[16/9] w-full border border-border/40 object-cover"
+                      className="aspect-square w-full object-cover"
                       decoding="async"
                       loading="lazy"
                       src={entry.image}
                     />
                   ) : (
-                    <div className="flex aspect-[16/9] w-full items-center justify-center border border-border/40 bg-card/60 font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
+                    <div className="flex aspect-square w-full items-center justify-center bg-card/60 font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
                       图片待补充
                     </div>
                   )}
