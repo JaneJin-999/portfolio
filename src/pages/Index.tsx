@@ -86,7 +86,8 @@ const background: CareerEntry[] = [{
   kind: "实习",
   range: "2026.09 – 2026.11",
   image: "/career-08-converge.jpg",
-  imageAlt: "夜色中的 TusPark 办公楼与台阶"
+  imageAlt: "夜色中的 TusPark 办公楼与台阶",
+  detail: "在 Converge，我参与了 Covey 这款 AI 协作办公产品的搭建，也体验到了 AI Native 公司中设计工作方式的变化。设计不再只是需求的承接与执行，而是可以主动提出想法、参与产品决策，并通过Vibe Coding将设计落地，设计师的角色也因此有了更多可能。"
 }];
 const Reveal = ({
   children,
