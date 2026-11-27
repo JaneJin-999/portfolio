@@ -214,7 +214,7 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
                     {entry.range}
                   </p>
 
-                  <p className="mt-3 hidden overflow-hidden text-xs leading-relaxed text-foreground/60 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] md:block">
+                  <p className="mt-3 hidden text-xs leading-relaxed text-foreground/60 md:block">
                     {entry.detail ??
                       "这段经历的详细介绍待补充：可以写负责的内容、参与的项目，以及这段经历带来的思考。"}
                   </p>
