@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface CareerEntry {
@@ -497,31 +496,6 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
                 {tick.year}
               </span>
             ))}
-          </div>
-          </div>
-          <div className="flex items-center justify-between gap-4 md:contents">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground md:order-1 md:shrink-0 md:self-start md:pt-[26px]">
-            {pad(active + 1)} / {pad(entries.length)}
-          </p>
-          <div className="flex items-center gap-2 md:order-3 md:shrink-0">
-            <button
-              aria-label="上一段经历"
-              className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-              disabled={active === 0}
-              onClick={() => goTo(active - 1)}
-              type="button"
-            >
-              <ArrowLeft className="size-4" />
-            </button>
-            <button
-              aria-label="下一段经历"
-              className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-30"
-              disabled={active === entries.length - 1}
-              onClick={() => goTo(active + 1)}
-              type="button"
-            >
-              <ArrowRight className="size-4" />
-            </button>
           </div>
           </div>
         </div>
