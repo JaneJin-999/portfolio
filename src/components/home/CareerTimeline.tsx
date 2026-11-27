@@ -375,7 +375,7 @@ export const CareerTimeline = ({
           {entries.map((entry, index) => <div className="w-[var(--card-w)] shrink-0 snap-start will-change-transform" key={`${entry.period}-${entry.organization}`} ref={node => {
               itemRefs.current[index] = node;
             }}>
-              <article className={cn("flex h-full min-h-[17rem] w-full flex-col p-6 transition-[border-width,border-color] duration-500 ease-out md:min-h-[19rem] md:p-7", active === index ? "border-y-8 border-border" : "border-y-2 border-border")}>
+              <article className={cn("flex h-full min-h-[17rem] w-full flex-col p-6 transition-[border-width,border-color] duration-500 ease-out md:min-h-[19rem] md:p-7", active === index ? "border-y-8 border-foreground" : "border-y-2 border-border")}>
                 <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                   <span className="text-accent">[{pad(index + 1)}]</span>
                   {(entry.kind || entry.note) && <span>{entry.note ? `${entry.kind} · ${entry.note}` : entry.kind}</span>}
