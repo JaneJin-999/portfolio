@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArchiveStudy } from "@/components/home/ArchiveStudy";
 import { CareerTimeline, type CareerEntry } from "@/components/home/CareerTimeline";
 import { ParticleHero } from "@/components/home/ParticleHero";
+import { StudyDeck, type Study } from "@/components/home/StudyDeck";
 import { ParticlePortrait } from "@/components/home/ParticlePortrait";
 import { SectionHeading } from "@/components/home/SectionHeading";
 const background: CareerEntry[] = [{
@@ -89,6 +89,28 @@ const background: CareerEntry[] = [{
   imageAlt: "夜色中的 TusPark 办公楼与台阶",
   detail: "在 Converge，我参与了 Covey 这款 AI 协作办公产品的搭建，也体验到了 AI Native 公司中设计工作方式的变化。设计不再只是需求的承接与执行，而是可以主动提出想法、参与产品决策，并通过Vibe Coding将设计落地，设计师的角色也因此有了更多可能。"
 }];
+const studies: Study[] = [{
+  index: "A-01",
+  title: "Recursive Field",
+  medium: "Motion study",
+  timecode: "00:14:08",
+  imageSrc: "https://cdn.enter.pro/resources/uid_100386518/koi-archive-orbit_f89c7082.png",
+  imageAlt: "Sculptural koi curving across a lacquer-red field"
+}, {
+  index: "A-02",
+  title: "Phase Shift",
+  medium: "Signal work",
+  timecode: "00:08:21",
+  imageSrc: "https://cdn.enter.pro/resources/uid_100386518/koi-archive-detail_a84a9fb3.png",
+  imageAlt: "Close study of flowing teal and ivory koi fins"
+}, {
+  index: "A-03",
+  title: "After Image",
+  medium: "Light study",
+  timecode: "00:11:03",
+  imageSrc: "https://cdn.enter.pro/resources/uid_100386518/koi-archive-ripple_e378eeb1.png",
+  imageAlt: "Koi silhouettes moving through dark rippling water"
+}];
 const Reveal = ({
   children,
   className
@@ -171,18 +193,7 @@ const Index = () => <main className="bg-background text-foreground">
         <Reveal>
           <SectionHeading eyebrow="作品" heading="我的项目" />
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-12 md:gap-6 pt-[80px]">
-          <Reveal className="md:col-span-7">
-            <ArchiveStudy index="A-01" title="Recursive Field" medium="Motion study" timecode="00:14:08" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-orbit_f89c7082.png" imageAlt="Sculptural koi curving across a lacquer-red field" />
-          </Reveal>
-          <Reveal className="md:col-span-5">
-            <ArchiveStudy index="A-02" title="Phase Shift" medium="Signal work" timecode="00:08:21" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-detail_a84a9fb3.png" imageAlt="Close study of flowing teal and ivory koi fins" mediaClassName="aspect-[4/5]" />
-          </Reveal>
-          <div className="hidden md:col-span-3 md:block" />
-          <Reveal className="md:col-span-9">
-            <ArchiveStudy index="A-03" title="After Image" medium="Light study" timecode="00:11:03" imageSrc="https://cdn.enter.pro/resources/uid_100386518/koi-archive-ripple_e378eeb1.png" imageAlt="Koi silhouettes moving through dark rippling water" mediaClassName="aspect-video" />
-          </Reveal>
-        </div>
+        <StudyDeck studies={studies} />
       </div>
     </section>
 
