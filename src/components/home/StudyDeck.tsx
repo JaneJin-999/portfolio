@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent, WheelEvent as ReactWheelEvent } from "react";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +19,29 @@ const DECK_SIZE = 6;
 export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const [active, setActive] = useState(0);
   const [deckDragging, setDeckDragging] = useState(false);
+  const [autoPaused, setAutoPaused] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(
+      records => setVisible(records.some(record => record.isIntersecting)),
+      { rootMargin: "200px" },
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (autoPaused || !visible) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      setActive(prev => (items.length ? (prev + 1) % items.length : 0));
+    }, 4000);
+    return () => window.clearInterval(id);
+  }, [autoPaused, visible, items.length]);
   const deckDragRef = useRef<{
     id: number;
     x: number;
@@ -96,7 +119,12 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   };
 
   return (
-    <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12">
+    <div
+      className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12"
+      onClick={() => setAutoPaused(false)}
+      onPointerEnter={() => setAutoPaused(true)}
+      ref={rootRef}
+    >
       <div className="flex flex-col lg:col-span-4">
         <p className="font-mono text-4xl font-medium leading-none tracking-[-0.02em]">
           {pad(active + 1)}
@@ -166,7 +194,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
           onWheel={handleDeckWheel}
           role="group"
         >
-          <div className="relative h-full w-full">
+          <div className="relative h-full w-full [perspective:1200px]">
           {items.map((study, index) => {
             const offset = (index - active + total) % total;
             const isFront = offset === 0;
@@ -174,14 +202,14 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
 
             return (
               <div
-                className="absolute inset-y-0 left-0 w-[55%] origin-top cursor-pointer overflow-hidden bg-foreground transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+                className="absolute inset-y-0 left-0 w-[55%] origin-top cursor-pointer overflow-hidden bg-foreground transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform transform-gpu"
                 data-deck-index={index}
                 key={study.index}
                 style={{
                   zIndex: total - offset,
                   transform: hidden
                     ? "translate(-20%) scale(0.94)"
-                    : `perspective(1200px) translate(${offset * 27.8}%, ${offset * 6}px) scale(${Math.pow(0.8, offset)}) rotateY(${offset === 0 ? 0 : 4}deg)`,
+                    : `translate3d(${offset * 27.8}%, ${offset * 6}px, 0) scale(${Math.pow(0.8, offset)}) rotateY(${offset === 0 ? 0 : 4}deg)`,
                   opacity: hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.95 - offset * 0.18),
                   pointerEvents: hidden ? "none" : "auto",
                 }}

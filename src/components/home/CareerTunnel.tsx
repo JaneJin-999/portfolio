@@ -94,6 +94,29 @@ const StarField = () => {
 export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
   const [active, setActive] = useState(0);
   const [narrow, setNarrow] = useState(false);
+  const [autoPaused, setAutoPaused] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const observer = new IntersectionObserver(
+      records => setVisible(records.some(record => record.isIntersecting)),
+      { rootMargin: "200px" },
+    );
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (autoPaused || !visible) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      setActive(prev => (entries.length ? (prev + 1) % entries.length : 0));
+    }, 4000);
+    return () => window.clearInterval(id);
+  }, [autoPaused, visible, entries.length]);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -127,8 +150,13 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
       aria-label="学习与工作经历 3D 时间隧道，点击切换"
       aria-roledescription="carousel"
       className="relative mt-12 h-[86vh] min-h-[640px] w-full cursor-pointer select-none overflow-hidden bg-background md:mt-16"
-      onClick={() => advance(1)}
+      onClick={() => {
+        setAutoPaused(false);
+        advance(1);
+      }}
       onKeyDown={handleKeyDown}
+      onPointerEnter={() => setAutoPaused(true)}
+      ref={stageRef}
       role="group"
       tabIndex={0}
     >
@@ -148,14 +176,9 @@ export const CareerTunnel = ({ entries }: { entries: CareerEntry[] }) => {
 
           return (
             <div
-              className="absolute left-1/2 top-1/2 h-[min(70vh,700px)] min-h-[520px] w-full transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+              className="absolute left-1/2 top-1/2 h-[min(70vh,700px)] min-h-[520px] w-full transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
               key={`${entry.period}-${entry.organization}`}
               style={{
-                filter: isPast
-                  ? "blur(10px)"
-                  : depth > 0
-                    ? `blur(${Math.min(depth * 0.6, 2.4)}px)`
-                    : "blur(0px)",
                 transform: isPast
                   ? "translate(-50%, -50%) rotateY(0deg) scale(1.4)"
                   : `translate(-50%, -50%) rotateY(${
