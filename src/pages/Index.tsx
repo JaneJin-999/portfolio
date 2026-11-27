@@ -59,7 +59,8 @@ const background: CareerEntry[] = [{
   range: "2025.03 – 2026.11",
   note: "QS31",
   image: "/career-05-monash.jpg",
-  imageAlt: "海边的礁石、灌木与远处小镇"
+  imageAlt: "海边的礁石、灌木与远处小镇",
+  detail: "在莫纳什，我学习了用户研究，交互设计和UI设计相关的知识，也选修了前端、3D建模、动画设计课程。并在最终的毕设评审中，获得了优秀毕业设计的证书。"
 }, {
   period: "2025.11",
   organization: "小红书",
