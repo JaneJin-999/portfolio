@@ -186,7 +186,7 @@ const Index = () => <main className="bg-background text-foreground">
   }}>
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
-          <SectionHeading eyebrow="背景" heading="我的学习与工作经历" />
+          <SectionHeading eyebrow="背景" heading="我的经历" />
         </Reveal>
         <CareerTunnel entries={background} />
       </div>
