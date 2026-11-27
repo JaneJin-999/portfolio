@@ -34,14 +34,6 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (autoPaused || !visible) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => {
-      setActive(prev => (items.length ? (prev + 1) % items.length : 0));
-    }, 4000);
-    return () => window.clearInterval(id);
-  }, [autoPaused, visible, items.length]);
   const deckDragRef = useRef<{
     id: number;
     x: number;
@@ -66,6 +58,15 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const items = [...studies, ...placeholders];
   const total = items.length;
   const current = items[Math.min(active, total - 1)] ?? items[0];
+
+  useEffect(() => {
+    if (autoPaused || !visible) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      setActive(prev => (items.length ? (prev + 1) % items.length : 0));
+    }, 4000);
+    return () => window.clearInterval(id);
+  }, [autoPaused, visible, items.length]);
 
   if (!current) return null;
 
