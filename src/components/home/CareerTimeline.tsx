@@ -433,7 +433,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
           <div className="flex w-full justify-center px-5 md:order-2 md:min-w-0 md:flex-1 md:px-0">
           <div
             aria-hidden="true"
-            className="relative h-12 w-full cursor-ew-resize touch-none select-none md:max-w-[44rem]"
+            className="relative h-12 w-full cursor-ew-resize touch-none select-none md:max-w-[35rem]"
             onPointerCancel={endScrub}
             onPointerDown={startScrub}
             onPointerMove={moveScrub}
