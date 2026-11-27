@@ -22,7 +22,8 @@ const background: CareerEntry[] = [{
   kind: "",
   range: "2022.08 – 2023.03",
   image: "/career-02-exam-retake.jpg",
-  imageAlt: "俯拍的林荫道路与树影"
+  imageAlt: "俯拍的林荫道路与树影",
+  detail: "本科毕业后，我在家中备考一年，但最终以一名之差再次落榜。虽然是一段失败的经历，但我也获得了很多。"
 }, {
   period: "2023.08",
   organization: "甘肃鑫佳信勘测设计\n有限公司",
