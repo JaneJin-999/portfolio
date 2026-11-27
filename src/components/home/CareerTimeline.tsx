@@ -428,7 +428,7 @@ export const CareerTimeline = ({ entries }: { entries: CareerEntry[] }) => {
         </div>
       </div>
 
-      <div className="mt-8 pt-5">
+      <div className="mt-32 pt-5">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
           <div className="flex w-full justify-center px-5 md:order-2 md:min-w-0 md:flex-1 md:px-0">
           <div
