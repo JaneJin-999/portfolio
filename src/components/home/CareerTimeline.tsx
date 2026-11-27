@@ -389,16 +389,17 @@ export const CareerTimeline = ({
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
           <div className="flex w-full justify-center px-5 md:order-2 md:min-w-0 md:flex-1 md:px-0">
           <div aria-hidden="true" className="relative h-12 w-full cursor-ew-resize touch-none select-none md:max-w-[35rem]" onPointerCancel={endScrub} onPointerDown={startScrub} onPointerMove={moveScrub} onPointerUp={endScrub} ref={scaleRef}>
-            {entries.map(entry => {
+            {[...entries].sort((a, b) => (a.kind === "教育" ? 0 : a.kind === "实习" ? 2 : 1) - (b.kind === "教育" ? 0 : b.kind === "实习" ? 2 : 1)).map(entry => {
               const start = monthOf(entry.period);
               const end = endMonthOf(entry.range) ?? start;
               if (start === null || end === null) return null;
               const from = clamp((start - axisStart) / axisSpan, 0, 1);
               const to = clamp((end + 1 - axisStart) / axisSpan, 0, 1);
-              return <span aria-hidden="true" className={cn("pointer-events-none absolute h-[5px] rounded-full", entry.kind === "教育" ? "bg-foreground/30" : entry.kind === "实习" ? "bg-accent/30" : "bg-foreground/10")} key={`duration-${entry.period}-${entry.organization}`} style={{
-                top: entry.kind === "教育" ? 6 : 0,
+              const bandColor = entry.kind === "教育" ? "color-mix(in srgb, hsl(var(--foreground)) 30%, hsl(var(--background)))" : entry.kind === "实习" ? "color-mix(in srgb, hsl(var(--accent)) 30%, hsl(var(--background)))" : "color-mix(in srgb, hsl(var(--foreground)) 10%, hsl(var(--background)))";
+              return <span aria-hidden="true" className={cn("pointer-events-none absolute top-0 h-[5px] rounded-full", entry.kind === "教育" ? "bg-foreground/30" : entry.kind === "实习" ? "bg-accent/30" : "bg-foreground/10")} key={`duration-${entry.period}-${entry.organization}`} style={{
                 left: `${from * 100}%`,
-                width: `${Math.max(0.4, (to - from) * 100)}%`
+                width: `${Math.max(0.4, (to - from) * 100)}%`,
+                backgroundColor: bandColor
               }} />;
             })}
             {axisTicks.map((tick, index) => <span aria-hidden="true" className={cn("pointer-events-none absolute top-0 w-px -translate-x-1/2 rounded-full", tick.major ? "bg-foreground/25" : "bg-foreground/10")} key={`axis-${index}`} style={{
