@@ -207,7 +207,7 @@ const Index = () => <main className="bg-background text-foreground">
             fontSize: "12px",
             color: "#3BC5BBFF"
           }}>
-              <span className="h-px w-8 bg-accent" aria-hidden="true" />
+              <span className="h-px w-8 bg-[#3BC5BB]" aria-hidden="true" />
               联系我
             </p>
             <p className="mt-4 font-display text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl pt-[16px]" style={{
