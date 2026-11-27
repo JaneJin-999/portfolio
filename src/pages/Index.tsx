@@ -192,7 +192,9 @@ const Index = () => <main className="bg-background text-foreground">
       </div>
     </section>
 
-    <section id="studies" className="scroll-mt-20 px-5 py-20 md:px-16 md:py-28">
+    <section id="studies" className="scroll-mt-20 px-5 py-20 md:px-16 md:py-28" style={{
+    paddingBottom: "200px"
+  }}>
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
           <SectionHeading eyebrow="作品" heading="我的项目" />
