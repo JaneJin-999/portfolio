@@ -68,7 +68,8 @@ const background: CareerEntry[] = [{
   kind: "实习",
   range: "2025.11 – 2026.02",
   image: "/career-06-xiaohongshu.jpg",
-  imageAlt: "与小红书吉祥物合影"
+  imageAlt: "与小红书吉祥物合影",
+  detail: "在小红书，我参与了社区体验设计，工作内容包括需求分析、交互设计、UI设计及设计走查，持续优化社区内的内容浏览与互动体验。具体的项目有「私信语音交互更新」「H5回流页面改版」「创作者中心笔记分析改版」「小米折叠屏适配设计」等。"
 }, {
   period: "2026.06",
   organization: "合肥美的电冰箱\n有限公司",
