@@ -21,6 +21,7 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
   const [deckDragging, setDeckDragging] = useState(false);
   const deckDragRef = useRef<{ id: number; x: number; dx: number } | null>(null);
   const wheelLockRef = useRef(0);
+  const suppressDeckClickRef = useRef(false);
 
   const placeholderCount = Math.max(0, DECK_SIZE - studies.length);
   const placeholders: Study[] = Array.from(
@@ -66,6 +67,10 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
     setDeckDragging(false);
+    suppressDeckClickRef.current = Math.abs(drag.dx) > 6;
+    window.setTimeout(() => {
+      suppressDeckClickRef.current = false;
+    }, 0);
     if (drag.dx <= -30) go(active + 1);
     else if (drag.dx >= 30) go(active - 1);
   };
@@ -159,15 +164,20 @@ export const StudyDeck = ({ studies }: { studies: Study[] }) => {
 
             return (
               <div
-                className="absolute inset-y-0 left-0 w-[55%] origin-top overflow-hidden bg-foreground transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+                className="absolute inset-y-0 left-0 w-[55%] origin-top cursor-pointer overflow-hidden bg-foreground transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
                 key={study.index}
+                onClick={() => {
+                  if (suppressDeckClickRef.current) return;
+                  if (offset === 0) go(active + 1);
+                  else setActive(index);
+                }}
                 style={{
                   zIndex: total - offset,
                   transform: hidden
                     ? "translate(-20%) scale(0.94)"
                     : `perspective(1200px) translate(${offset * 27.8}%, ${offset * 6}px) scale(${Math.pow(0.8, offset)}) rotateY(${offset === 0 ? 0 : 4}deg)`,
                   opacity: hidden ? 0 : isFront ? 1 : Math.max(0.2, 0.95 - offset * 0.18),
-                  pointerEvents: isFront ? "auto" : "none",
+                  pointerEvents: hidden ? "none" : "auto",
                 }}
               >
               </div>

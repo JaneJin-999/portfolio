@@ -367,7 +367,10 @@ export const CareerTimeline = ({
           scrollSnapType: "x mandatory"
         }}>
         <div className="relative flex w-max items-stretch gap-5 md:gap-8 [--card-w:20rem]" ref={trackRef}>
-          {entries.map((entry, index) => <div className="w-[var(--card-w)] shrink-0 snap-start will-change-transform" key={`${entry.period}-${entry.organization}`} ref={node => {
+          {entries.map((entry, index) => <div className="w-[var(--card-w)] shrink-0 snap-start will-change-transform" key={`${entry.period}-${entry.organization}`} onClick={() => {
+              if (suppressClickRef.current) return;
+              goTo(index);
+            }} ref={node => {
               itemRefs.current[index] = node;
             }}>
               <article className={cn("flex h-full min-h-[17rem] w-full flex-col p-6 transition-[border-width,border-color] duration-500 ease-out md:min-h-[19rem] md:p-7", active === index ? "border-y-8 border-foreground" : "border-y-2 border-border")}>
